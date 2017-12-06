@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://chongdee.github.io/about/index.html</loc>
+    
+    <lastmod>2017-12-06T17:55:08.636Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chongdee.github.io/2017/12/05/hello-world/</loc>
+    
+    <lastmod>2017-12-06T17:41:22.264Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://chongdee.github.io/categories/index.html</loc>
     
     <lastmod>2017-12-06T14:12:05.752Z</lastmod>
@@ -40,13 +54,6 @@
     <loc>https://chongdee.github.io/pageName/index.html</loc>
     
     <lastmod>2017-12-05T08:15:03.657Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://chongdee.github.io/2017/12/05/hello-world/</loc>
-    
-    <lastmod>2017-12-05T07:05:56.546Z</lastmod>
     
   </url>
   
