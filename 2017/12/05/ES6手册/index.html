@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="var 和 let/const 的比较 除了 var ，我们现在还可以使用两个新的标识符来定义一个变量 — let 和 const。和 var 不一样的是，let 和 const 不存在变量提升。  使用var的栗子：123456789var name = &amp;apos;global&amp;apos;;function getFood(food) &amp;#123;    if (food) &amp;#123;">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6手册">
+<meta property="og:url" content="https://chongdee.github.io/2017/12/05/ES6手册/index.html">
+<meta property="og:site_name" content="Wong ardee 的博客">
+<meta property="og:description" content="var 和 let/const 的比较 除了 var ，我们现在还可以使用两个新的标识符来定义一个变量 — let 和 const。和 var 不一样的是，let 和 const 不存在变量提升。  使用var的栗子：123456789var name = &amp;apos;global&amp;apos;;function getFood(food) &amp;#123;    if (food) &amp;#123;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-08T20:20:54.071Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6手册">
+<meta name="twitter:description" content="var 和 let/const 的比较 除了 var ，我们现在还可以使用两个新的标识符来定义一个变量 — let 和 const。和 var 不一样的是，let 和 const 不存在变量提升。  使用var的栗子：123456789var name = &amp;apos;global&amp;apos;;function getFood(food) &amp;#123;    if (food) &amp;#123;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chongdee.github.io/2017/12/05/ES6手册/"/>
+
+
+
+
+
+  <title>ES6手册 | Wong ardee 的博客</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?63d30ffc3ac0fa4a98c97c20372430af";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Wong ardee 的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一天进步一点</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2017/12/05/ES6手册/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Wong ardee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/cat_cute.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wong ardee 的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ES6手册</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-05T15:05:56+08:00">
+                2017-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script src="\assets\js\APlayer.min.js"> </script><h2 id="var-和-let-const-的比较"><a href="#var-和-let-const-的比较" class="headerlink" title="var 和 let/const 的比较"></a>var 和 let/const 的比较</h2><blockquote>
+<p>除了 var ，我们现在还可以使用两个新的标识符来定义一个变量 — let 和 const。<br>和 var 不一样的是，let 和 const 不存在变量提升。</p>
+</blockquote>
+<p>使用var的栗子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var name = &apos;global&apos;;</span><br><span class="line">function getFood(food) &#123;</span><br><span class="line">    if (food) &#123;</span><br><span class="line">        var name = &apos;local&apos;;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line">    return name;</span><br><span class="line">&#125;</span><br><span class="line">getFood(false); // undefined</span><br></pre></td></tr></table></figure></p>
+<p>当我们用 let 代替 var 的时候，观察会发生什么：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">let name = &apos;global&apos;;</span><br><span class="line">function getFood(food) &#123;</span><br><span class="line">    if (food) &#123;</span><br><span class="line">        let name = &apos;local&apos;;</span><br><span class="line">        return name;</span><br><span class="line">    &#125;</span><br><span class="line">    return name;</span><br><span class="line">&#125;</span><br><span class="line">getFood(false); // &apos;global&apos;</span><br></pre></td></tr></table></figure></p>
+<p>当我们重构使用 var 的老代码的时候应该注意上面的变化。盲目地使用 let 替换 var 可能会出现出乎意料的情况。</p>
+<blockquote>
+<p><strong>注意：</strong> let 和 const 是块级作用域，因此在变量未被定义之前使用它会产生一个 ReferenceError。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">console.log(x); // ReferenceError: x is not defined</span><br><span class="line">let x = &apos;hi&apos;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>最佳实践：</strong> 在早前代码中使用 var 声明意味着需要很小心地编写代码；而当在新的项目编写代码，使用 let 声明一个可以改变的变量，用 const(常量)声明一个不能被重新赋值的变量。</p>
+</blockquote>
+<h2 id="用块级作用域代替-IIFES"><a href="#用块级作用域代替-IIFES" class="headerlink" title="用块级作用域代替 IIFES"></a>用块级作用域代替 IIFES</h2><blockquote>
+<p><strong>函数立即执行表达式</strong>的常见用法是创造一个闭包作用域的函数，在 ES6 中，我们能够创造一个块级作用域<br>而不单单限于函数作用域。</p>
+</blockquote>
+<p>IIFES：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(function () &#123;</span><br><span class="line">    var name = &apos;ChaChaHui&apos;;</span><br><span class="line">&#125;());</span><br><span class="line">console.log(name); // Reference Error</span><br></pre></td></tr></table></figure></p>
+<p>使用 ES6 的块级作用域：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    let name = &apos;ChaChaHui&apos;;</span><br><span class="line">&#125;</span><br><span class="line">console.log(name); // Reference Error</span><br></pre></td></tr></table></figure></p>
+<h2 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h2><p>我们经常需要给嵌套函数维护一个作用域的上下文 <strong>this</strong>。<br>看看这个栗子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.prefixName = function (arr) &#123;</span><br><span class="line">    return arr.map(function (character) &#123;</span><br><span class="line">        return this.name + character; // Cannot read property &apos;name&apos; of undefined</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>一个常用的解决办法是把 <strong>this</strong> 存在一个变量中：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.prefixName = function (arr) &#123;</span><br><span class="line">    var that = this; // Store the context of this</span><br><span class="line">    return arr.map(function (character) &#123;</span><br><span class="line">        return that.name + character;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>我们也可以传递一个合适的 <strong>this</strong> 上下文：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.prefixName = function (arr) &#123;</span><br><span class="line">    return arr.map(function (character) &#123;</span><br><span class="line">        return this.name + character;</span><br><span class="line">    &#125;, this);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们还可以绑定上下文：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.prefixName = function (arr) &#123;</span><br><span class="line">    return arr.map(function (character) &#123;</span><br><span class="line">        return this.name + character;</span><br><span class="line">    &#125;.bind(this));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>使用 <strong>箭头函数</strong>，<strong>this</strong> 将不会受到影响，并且我们可以重写上面的函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Person(name) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.prefixName = function (arr) &#123;</span><br><span class="line">    return arr.map(character =&gt; this.name + character);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>最佳实践:</strong>当你需要维护一个 <strong>this</strong> 上下文的时候，如在回调函数中推荐使用箭头函数，这样就可以绑定上下文 <strong>this</strong></p>
+</blockquote>
+<p>在我们写一个函数的时候，箭头函数更加简洁并且可以很简单地返回一个值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var squares = arr.map(function (x) &#123; return x * x &#125;); // Function Expression</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const arr = [1, 2, 3, 4, 5];</span><br><span class="line">const squares = arr.map(x =&gt; x * x); // Arrow Function for terser implementation</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>最佳实践:</strong>尽可能的使用箭头函数代替原来的写法。</p>
+</blockquote>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>在 ES6 中，标准库升级了很多，在这些变化中有许多新的字符串方法，比如 .includes( ) 和 .repeat( )。<br><strong>.includes()</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var string = &apos;food&apos;;</span><br><span class="line">var substring = &apos;foo&apos;;</span><br><span class="line">console.log(string.indexOf(substring) &gt; -1);</span><br></pre></td></tr></table></figure></p>
+<p>之前我们使用 <strong>.indexOf( )</strong> 函数的返回值是否 &gt;-1 来判断字符串是否包含某些字符串，现在我们更简单地使用 <strong>.includes ( )</strong>来返回一个布尔值来判断：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const string = &apos;food&apos;;</span><br><span class="line">const substring = &apos;foo&apos;;</span><br><span class="line">console.log(string.includes(substring)); // true</span><br></pre></td></tr></table></figure></p>
+<p><strong>.repeat( )</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function repeat(string, count) &#123;</span><br><span class="line">    var strings = [];</span><br><span class="line">    while(strings.length &lt; count) &#123;</span><br><span class="line">        strings.push(string);</span><br><span class="line">    &#125;</span><br><span class="line">    return strings.join(&apos;&apos;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在 ES6 中，可以更简便地实现：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// String.repeat(numberOfRepetitions)</span><br><span class="line">&apos;meow&apos;.repeat(3); // &apos;meowmeowmeow&apos;</span><br></pre></td></tr></table></figure></p>
+<h3 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h3><p>使用<strong>模版字符串</strong>我们就可以不用对某些特殊字符进行转义处理了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var text = &quot;This string contains \&quot;double quotes\&quot; which are escaped.&quot;;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let text = `This string contains &quot;double quotes&quot; which don&apos;t need to be escaped anymore.`;</span><br></pre></td></tr></table></figure>
+<p><strong>模板字符串</strong>还支持插入，可以把变量值和字符串连接起来。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var name = &apos;Tiger&apos;;</span><br><span class="line">var age = 13;</span><br><span class="line">console.log(&apos;My cat is named &apos; + name + &apos; and is &apos; + age + &apos; years old.&apos;);</span><br></pre></td></tr></table></figure></p>
+<p>ES6语法更简单：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const name = &apos;Tiger&apos;;</span><br><span class="line">const age = 13;</span><br><span class="line">console.log(`My cat is named $&#123;name&#125; and is $&#123;age&#125; years old.`);</span><br></pre></td></tr></table></figure></p>
+<p>在 ES5 中，需要换行时，需要这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var text = (</span><br><span class="line">    &apos;cat\n&apos; +</span><br><span class="line">    &apos;dog\n&apos; +</span><br><span class="line">    &apos;nickelodeon&apos;</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p>或者这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var text = [</span><br><span class="line">    &apos;cat&apos;,</span><br><span class="line">    &apos;dog&apos;,</span><br><span class="line">    &apos;nickelodeon&apos;</span><br><span class="line">].join(&apos;\n&apos;);</span><br></pre></td></tr></table></figure></p>
+<p><strong>模板字符串</strong>可以支持换行并且不需要额外的处理：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let text = ( `cat</span><br><span class="line">dog</span><br><span class="line">nickelodeon`</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<p><strong>模板字符串</strong>还支持表达式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let today = new Date();</span><br><span class="line">let text = `The time and date is $&#123;today.toLocaleString()&#125;`;</span><br></pre></td></tr></table></figure></p>
+<h2 id="解构"><a href="#解构" class="headerlink" title="解构"></a>解构</h2><p>解构可以让我们用一个更简便的语法从一个数组或者对象（即使是深层的）中分离出来值，并存储他们。</p>
+<h3 id="解构数组"><a href="#解构数组" class="headerlink" title="解构数组"></a>解构数组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1, 2, 3, 4];</span><br><span class="line">var a = arr[0];</span><br><span class="line">var b = arr[1];</span><br><span class="line">var c = arr[2];</span><br><span class="line">var d = arr[3];</span><br></pre></td></tr></table></figure>
+<p>数组解构赋值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let [a, b, c, d] = [1, 2, 3, 4];</span><br><span class="line">console.log(a); // 1</span><br><span class="line">console.log(b); // 2</span><br></pre></td></tr></table></figure></p>
+<h3 id="解构对象"><a href="#解构对象" class="headerlink" title="解构对象"></a>解构对象</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var luke = &#123; occupation: &apos;jedi&apos;, father: &apos;anakin&apos; &#125;;</span><br><span class="line">var occupation = luke.occupation; // &apos;jedi&apos;</span><br><span class="line">var father = luke.father; // &apos;anakin&apos;</span><br></pre></td></tr></table></figure>
+<p>对象解构赋值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let luke = &#123; occupation: &apos;jedi&apos;, father: &apos;anakin&apos; &#125;;</span><br><span class="line">let &#123;occupation, father&#125; = luke;</span><br><span class="line">console.log(occupation); // &apos;jedi&apos;</span><br><span class="line">console.log(father); // &apos;anakin&apos;</span><br></pre></td></tr></table></figure></p>
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><p>在 ES6 之前，我们使用<strong>Browserify</strong>这样的库来创建客户端的模块化，在<strong>node.js</strong>中使用<strong>require</strong>。<br>在 ES6 中，我们可以直接使用所有类型的模块化（AMD 和 CommonJS）。</p>
+<h3 id="使用CommonJS的导出"><a href="#使用CommonJS的导出" class="headerlink" title="使用CommonJS的导出"></a>使用CommonJS的导出</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">module.exports = 1;</span><br><span class="line">module.exports = &#123; foo: &apos;bar&apos; &#125;;</span><br><span class="line">module.exports = [&apos;foo&apos;, &apos;bar&apos;];</span><br><span class="line">module.exports = function bar () &#123;&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="使用ES6的导出"><a href="#使用ES6的导出" class="headerlink" title="使用ES6的导出"></a>使用ES6的导出</h3><p>在ES6中我们可以暴露多个值，使用<strong>exports</strong>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export let name = &apos;David&apos;;</span><br><span class="line">export let age  = 25;​​</span><br></pre></td></tr></table></figure></p>
+<p>或者暴露一个对象列表：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function sumTwo(a, b) &#123;</span><br><span class="line">    return a + b;</span><br><span class="line">&#125;</span><br><span class="line">function sumThree(a, b, c) &#123;</span><br><span class="line">    return a + b + c;</span><br><span class="line">&#125;</span><br><span class="line">export &#123; sumTwo, sumThree &#125;;</span><br></pre></td></tr></table></figure></p>
+<p>我们还可以暴露函数、对象和其他的值，通过简单地使用 export 这个关键字：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">export function sumTwo(a, b) &#123;</span><br><span class="line">    return a + b;</span><br><span class="line">&#125;</span><br><span class="line">export function sumThree(a, b, c) &#123;</span><br><span class="line">    return a + b + c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后，我们还可以绑定一个默认的输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function sumTwo(a, b) &#123;</span><br><span class="line">    return a + b;</span><br><span class="line">&#125;</span><br><span class="line">function sumThree(a, b, c) &#123;</span><br><span class="line">    return a + b + c;</span><br><span class="line">&#125;</span><br><span class="line">let api = &#123;</span><br><span class="line">    sumTwo,</span><br><span class="line">    sumThree</span><br><span class="line">&#125;;</span><br><span class="line">export default api;</span><br><span class="line">/* Which is the same as</span><br><span class="line"> * export &#123; api as default &#125;;</span><br><span class="line"> */</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><strong>最佳实践</strong>：总是在模块的最后面使用 export default 方法，可以让暴露的东西更加清晰并且可以节省时间去找出暴露出来值的名字。尤其是在 CommonJS 中，常见做法就是暴露一个简单的值或者对象。通过这种模式，可以让我们的代码更加易读，并且允许我们在 ES6 和 CommonJS 模块之间插值。</p>
+</blockquote>
+<h3 id="ES6-中的导入"><a href="#ES6-中的导入" class="headerlink" title="ES6 中的导入"></a>ES6 中的导入</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>如对您有帮助，请打赏点饭钱</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Wong ardee 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Wong ardee 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/05/hexoTutorial/" rel="prev" title="Hexo + Github Pages搭建个人博客教程">
+                Hexo + Github Pages搭建个人博客教程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/cat_cute.jpg"
+                alt="Wong ardee" />
+            
+              <p class="site-author-name" itemprop="name">Wong ardee</p>
+              <p class="site-description motion-element" itemprop="description">记录生活点滴,前端渣渣辉</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/chongdee" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=440208476&auto=0&height=66">
+          </iframe>
+          
+
+        </div>
+        
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#var-和-let-const-的比较"><span class="nav-number">1.</span> <span class="nav-text"><a href="#var-&#x548C;-let-const-&#x7684;&#x6BD4;&#x8F83;" class="headerlink" title="var &#x548C; let/const &#x7684;&#x6BD4;&#x8F83;"></a>var &#x548C; let/const &#x7684;&#x6BD4;&#x8F83;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用块级作用域代替-IIFES"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x7528;&#x5757;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#x4EE3;&#x66FF;-IIFES" class="headerlink" title="&#x7528;&#x5757;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#x4EE3;&#x66FF; IIFES"></a>&#x7528;&#x5757;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#x4EE3;&#x66FF; IIFES</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#箭头函数"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x7BAD;&#x5934;&#x51FD;&#x6570;" class="headerlink" title="&#x7BAD;&#x5934;&#x51FD;&#x6570;"></a>&#x7BAD;&#x5934;&#x51FD;&#x6570;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x5B57;&#x7B26;&#x4E32;" class="headerlink" title="&#x5B57;&#x7B26;&#x4E32;"></a>&#x5B57;&#x7B26;&#x4E32;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模板字符串"><span class="nav-number">4.1.</span> <span class="nav-text"><a href="#&#x6A21;&#x677F;&#x5B57;&#x7B26;&#x4E32;" class="headerlink" title="&#x6A21;&#x677F;&#x5B57;&#x7B26;&#x4E32;"></a>&#x6A21;&#x677F;&#x5B57;&#x7B26;&#x4E32;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解构"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x89E3;&#x6784;" class="headerlink" title="&#x89E3;&#x6784;"></a>&#x89E3;&#x6784;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解构数组"><span class="nav-number">5.1.</span> <span class="nav-text"><a href="#&#x89E3;&#x6784;&#x6570;&#x7EC4;" class="headerlink" title="&#x89E3;&#x6784;&#x6570;&#x7EC4;"></a>&#x89E3;&#x6784;&#x6570;&#x7EC4;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解构对象"><span class="nav-number">5.2.</span> <span class="nav-text"><a href="#&#x89E3;&#x6784;&#x5BF9;&#x8C61;" class="headerlink" title="&#x89E3;&#x6784;&#x5BF9;&#x8C61;"></a>&#x89E3;&#x6784;&#x5BF9;&#x8C61;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块"><span class="nav-number">6.</span> <span class="nav-text"><a href="#&#x6A21;&#x5757;" class="headerlink" title="&#x6A21;&#x5757;"></a>&#x6A21;&#x5757;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用CommonJS的导出"><span class="nav-number">6.1.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;CommonJS&#x7684;&#x5BFC;&#x51FA;" class="headerlink" title="&#x4F7F;&#x7528;CommonJS&#x7684;&#x5BFC;&#x51FA;"></a>&#x4F7F;&#x7528;CommonJS&#x7684;&#x5BFC;&#x51FA;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用ES6的导出"><span class="nav-number">6.2.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;ES6&#x7684;&#x5BFC;&#x51FA;" class="headerlink" title="&#x4F7F;&#x7528;ES6&#x7684;&#x5BFC;&#x51FA;"></a>&#x4F7F;&#x7528;ES6&#x7684;&#x5BFC;&#x51FA;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6-中的导入"><span class="nav-number">6.3.</span> <span class="nav-text"><a href="#ES6-&#x4E2D;&#x7684;&#x5BFC;&#x5165;" class="headerlink" title="ES6 &#x4E2D;&#x7684;&#x5BFC;&#x5165;"></a>ES6 &#x4E2D;&#x7684;&#x5BFC;&#x5165;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; 2015 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span>Powered By -</span>
+  <span class="author" itemprop="copyrightHolder">Wong ardee</span>
+
+  
+</div>
+
+
+  <div>Theme by &copy;next</div>
+
+
+<div>Hosted by <strong><a href="https://github.com/">Github Pages</a></strong></div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
