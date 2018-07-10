@@ -84,7 +84,7 @@
 <meta property="og:description" content="Markdown快速入门一、认识Markdown Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（John Gruber）。它允许人们“使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档”。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。Markdown的语法全由一些符号所组成，这些符号经过精挑细选，其作用一目了然。  二、入门语法 标题  123">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://chongdee.github.io/img/command.png">
-<meta property="og:updated_time" content="2018-07-08T14:36:03.501Z">
+<meta property="og:updated_time" content="2018-07-10T14:53:42.279Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Markdown快速入门">
 <meta name="twitter:description" content="Markdown快速入门一、认识Markdown Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（John Gruber）。它允许人们“使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档”。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。Markdown的语法全由一些符号所组成，这些符号经过精挑细选，其作用一目了然。  二、入门语法 标题  123">
@@ -365,35 +365,35 @@
 </blockquote>
 <h2 id="二、入门语法"><a href="#二、入门语法" class="headerlink" title="二、入门语法"></a>二、入门语法</h2><ol>
 <li><p>标题</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题</span><br></pre></td></tr></table></figure>
+ <figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 一级标题</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>列表<br> 分为有序列表和无序列表。<br> <strong>有序列表</strong></p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1.  #1. 点后面留一个空格</span><br><span class="line">2.  #2. 点后面留一个空格</span><br><span class="line">3.  #3. 点后面留一个空格</span><br></pre></td></tr></table></figure>
+ <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>  #<span class="number">1.</span> 点后面留一个空格</span><br><span class="line"><span class="number">2.</span>  #<span class="number">2.</span> 点后面留一个空格</span><br><span class="line"><span class="number">3.</span>  #<span class="number">3.</span> 点后面留一个空格</span><br></pre></td></tr></table></figure>
 <p> <strong>无序列表</strong></p>
 <blockquote>
 <p>-或*  浏览器显示实心或空心圆</p>
 </blockquote>
 </li>
 <li><p>引用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; 这是引用</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash"> 这是引用</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>图片和链接<br>两者格式区别在于“ ! ”。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">![图片描述](图片链接)</span><br><span class="line">[链接描述](链接地址)</span><br></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">![<span class="string">图片描述</span>](<span class="link">图片链接</span>)</span><br><span class="line">[<span class="string">链接描述</span>](<span class="link">链接地址</span>)</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>粗体和斜体</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">**这是粗体**</span><br><span class="line">*这是斜体*</span><br></pre></td></tr></table></figure>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">*<span class="strong">*这是粗体*</span><span class="strong">*</span></span><br><span class="line"><span class="strong">*</span>这是斜体<span class="strong">*</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>表格</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">| Tables | Are | Cool |</span><br><span class="line">| ------------ |:------------:| -----:|</span><br><span class="line">| col 3 is | right-aligned| $1600 |</span><br><span class="line">| col 2 is | centered | $12 |</span><br><span class="line">| zebra stripes| are neat | &amp;1 |</span><br></pre></td></tr></table></figure>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="params">| Tables |</span> Are <span class="params">| Cool |</span></span><br><span class="line"><span class="params">| ------------ |</span><span class="symbol">:------------</span><span class="symbol">:|</span> -----<span class="symbol">:|</span></span><br><span class="line"><span class="params">| col 3 is |</span> right-aligned<span class="params">| $1600 |</span></span><br><span class="line"><span class="params">| col 2 is |</span> centered <span class="params">| $12 |</span></span><br><span class="line"><span class="params">| zebra stripes|</span> are neat <span class="params">| &amp;1 |</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>代码框</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用 上 ```，下```` 符号把代码包裹起来</span><br></pre></td></tr></table></figure>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用 上 ```，下```` 符号把代码包裹起来</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>分割线</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入 *** 即可。</span><br></pre></td></tr></table></figure>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入 <span class="emphasis">***</span> 即可。</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>下划线</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入 --- 即可</span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">输入</span> <span class="meta">---</span> <span class="string">即可</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <h2 id="Markdown命令图"><a href="#Markdown命令图" class="headerlink" title="Markdown命令图"></a>Markdown命令图</h2><p><img src="/img/command.png" alt="&quot;markdown命令图&quot;"></p>
@@ -443,7 +443,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Markdown教程/" rel="tag"># Markdown教程</a>
+            <a href="/tags/Markdown教程/" rel="tag"><i class="fa fa-tag"></i> Markdown教程</a>
           
         </div>
       
@@ -465,6 +465,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/10/vue/" rel="prev" title="vue">
+                vue <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -545,7 +549,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -556,7 +560,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -567,7 +571,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -692,8 +696,6 @@
   
 
 
-  
-
 
 
 
@@ -732,11 +734,6 @@
   
   
     <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-  
-
-  
-  
-    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
   
 
 
