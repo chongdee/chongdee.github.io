@@ -75,18 +75,18 @@
 
 
 
-<meta name="description" content="JS在浏览器运行情况： JS是单线程，是单线程，是单线程 场景描述：现在有2个进程p1，p2,由于是多进程的JS,所以他们对同一个dom,同时进行操作p1 删除了该dom,而p2 编辑了该dom,同时下达2个矛盾的命令,浏览器究竟该如何执行呢? 通过以上场景描述,知道JS为什么被设计成单线程应该就容易理解了吧。  JS异步骚操作 场景描述: 如果JS中不存在异步,只能自上而下执行,如果上一行解析">
+<meta name="description" content="JS在浏览器运行情况： JS是单线程，是单线程，是单线程场景描述：现在有2个进程p1，p2,由于是多进程的JS,所以他们对同一个dom,同时进行操作p1 删除了该dom,而p2 编辑了该dom,同时下达2个矛盾的命令,浏览器究竟该如何执行呢? 通过以上场景描述,知道JS为什么被设计成单线程应该就容易理解了吧。">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入理解JavaScript运行机制">
 <meta property="og:url" content="https://chongdee.github.io/2018/07/11/深入理解JavaScript运行机制/index.html">
 <meta property="og:site_name" content="ardee Wong&#39;s Blog">
-<meta property="og:description" content="JS在浏览器运行情况： JS是单线程，是单线程，是单线程 场景描述：现在有2个进程p1，p2,由于是多进程的JS,所以他们对同一个dom,同时进行操作p1 删除了该dom,而p2 编辑了该dom,同时下达2个矛盾的命令,浏览器究竟该如何执行呢? 通过以上场景描述,知道JS为什么被设计成单线程应该就容易理解了吧。  JS异步骚操作 场景描述: 如果JS中不存在异步,只能自上而下执行,如果上一行解析">
+<meta property="og:description" content="JS在浏览器运行情况： JS是单线程，是单线程，是单线程场景描述：现在有2个进程p1，p2,由于是多进程的JS,所以他们对同一个dom,同时进行操作p1 删除了该dom,而p2 编辑了该dom,同时下达2个矛盾的命令,浏览器究竟该如何执行呢? 通过以上场景描述,知道JS为什么被设计成单线程应该就容易理解了吧。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-11T15:08:47.581Z">
+<meta property="og:updated_time" content="2018-07-11T15:22:05.815Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入理解JavaScript运行机制">
-<meta name="twitter:description" content="JS在浏览器运行情况： JS是单线程，是单线程，是单线程 场景描述：现在有2个进程p1，p2,由于是多进程的JS,所以他们对同一个dom,同时进行操作p1 删除了该dom,而p2 编辑了该dom,同时下达2个矛盾的命令,浏览器究竟该如何执行呢? 通过以上场景描述,知道JS为什么被设计成单线程应该就容易理解了吧。  JS异步骚操作 场景描述: 如果JS中不存在异步,只能自上而下执行,如果上一行解析">
+<meta name="twitter:description" content="JS在浏览器运行情况： JS是单线程，是单线程，是单线程场景描述：现在有2个进程p1，p2,由于是多进程的JS,所以他们对同一个dom,同时进行操作p1 删除了该dom,而p2 编辑了该dom,同时下达2个矛盾的命令,浏览器究竟该如何执行呢? 通过以上场景描述,知道JS为什么被设计成单线程应该就容易理解了吧。">
 
 
 
@@ -359,12 +359,9 @@
 
       
         <script src="\assets\js\APlayer.min.js"> </script><h2 id="JS在浏览器运行情况："><a href="#JS在浏览器运行情况：" class="headerlink" title="JS在浏览器运行情况："></a>JS在浏览器运行情况：</h2><ol>
-<li><p>JS是单线程，是单线程，是单线程</p>
-<div class="note info"><p><strong>场景描述：</strong>现在有2个进程p1，p2,由于是多进程的JS,所以他们对同一个dom,同时进行操作<br>p1 删除了该dom,而p2 编辑了该dom,同时下达2个矛盾的命令,浏览器究竟该如何执行呢?</p></div>
-<p>通过以上场景描述,知道JS为什么被设计成单线程应该就容易理解了吧。</p>
-</li>
-<li><p>JS异步骚操作</p>
-<div class="note info"><p><strong>场景描述:</strong> 如果JS中不存在异步,只能自上而下执行,如果上一行解析时间很长,那么下面的代码就会被阻塞。<br>对于用户而言,阻塞就意味着”卡死”,这样就导致了很差的用户体验</p></div>
+<li>JS是单线程，是单线程，是单线程<div class="note info"><p><strong>场景描述：</strong>现在有2个进程p1，p2,由于是多进程的JS,所以他们对同一个dom,同时进行操作<br>p1 删除了该dom,而p2 编辑了该dom,同时下达2个矛盾的命令,浏览器究竟该如何执行呢?</p></div>
+通过以上场景描述,知道JS为什么被设计成单线程应该就容易理解了吧。<a id="more"></a></li>
+<li>JS异步骚操作<div class="note info"><p><strong>场景描述:</strong> 如果JS中不存在异步,只能自上而下执行,如果上一行解析时间很长,那么下面的代码就会被阻塞。<br>对于用户而言,阻塞就意味着”卡死”,这样就导致了很差的用户体验</p></div>
 <div class="note primary"><p><strong>既然JS是单线程的,只能在一条线程上执行,又是如何实现的异步呢?<br>是通过的事件循环(event loop)实现异步，理解了event loop机制,就理解了JS的执行机制</strong></p></div>
 </li>
 </ol>

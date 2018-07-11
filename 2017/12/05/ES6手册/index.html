@@ -75,18 +75,18 @@
 
 
 
-<meta name="description" content="var 和 let/const 的比较 除了 var ，我们现在还可以使用两个新的标识符来定义一个变量 — let 和 const。和 var 不一样的是，let 和 const 不存在变量提升。  使用var的栗子：123456789var name = &apos;global&apos;;function getFood(food) &amp;#123;    if (food) &amp;#123;        var">
+<meta name="description" content="var 和 let/const 的比较 除了 var ，我们现在还可以使用两个新的标识符来定义一个变量 — let 和 const。和 var 不一样的是，let 和 const 不存在变量提升。">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6手册">
 <meta property="og:url" content="https://chongdee.github.io/2017/12/05/ES6手册/index.html">
 <meta property="og:site_name" content="ardee Wong&#39;s Blog">
-<meta property="og:description" content="var 和 let/const 的比较 除了 var ，我们现在还可以使用两个新的标识符来定义一个变量 — let 和 const。和 var 不一样的是，let 和 const 不存在变量提升。  使用var的栗子：123456789var name = &apos;global&apos;;function getFood(food) &amp;#123;    if (food) &amp;#123;        var">
+<meta property="og:description" content="var 和 let/const 的比较 除了 var ，我们现在还可以使用两个新的标识符来定义一个变量 — let 和 const。和 var 不一样的是，let 和 const 不存在变量提升。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-10T23:59:55.285Z">
+<meta property="og:updated_time" content="2018-07-11T15:27:03.107Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6手册">
-<meta name="twitter:description" content="var 和 let/const 的比较 除了 var ，我们现在还可以使用两个新的标识符来定义一个变量 — let 和 const。和 var 不一样的是，let 和 const 不存在变量提升。  使用var的栗子：123456789var name = &apos;global&apos;;function getFood(food) &amp;#123;    if (food) &amp;#123;        var">
+<meta name="twitter:description" content="var 和 let/const 的比较 除了 var ，我们现在还可以使用两个新的标识符来定义一个变量 — let 和 const。和 var 不一样的是，let 和 const 不存在变量提升。">
 
 
 
@@ -359,6 +359,7 @@
 
       
         <script src="\assets\js\APlayer.min.js"> </script><h2 id="var-和-let-const-的比较"><a href="#var-和-let-const-的比较" class="headerlink" title="var 和 let/const 的比较"></a>var 和 let/const 的比较</h2><div class="note info"><p> 除了 var ，我们现在还可以使用两个新的标识符来定义一个变量 — let 和 const。<br>和 var 不一样的是，let 和 const 不存在变量提升。 </p></div>
+<a id="more"></a>
 <p>使用var的栗子：<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'global'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getFood</span><span class="params">(food)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (food) &#123;</span><br><span class="line">        <span class="keyword">var</span> name = <span class="string">'local'</span>;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br><span class="line">getFood(<span class="literal">false</span>); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure></p>
 <p>当我们用 let 代替 var 的时候，观察会发生什么：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name = <span class="string">'global'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getFood</span>(<span class="params">food</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (food) &#123;</span><br><span class="line">        <span class="keyword">let</span> name = <span class="string">'local'</span>;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br><span class="line">getFood(<span class="literal">false</span>); <span class="comment">// 'global'</span></span><br></pre></td></tr></table></figure></p>
 <p>当我们重构使用 var 的老代码的时候应该注意上面的变化。盲目地使用 let 替换 var 可能会出现出乎意料的情况。</p>
