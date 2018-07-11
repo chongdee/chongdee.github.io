@@ -80,10 +80,10 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6手册">
 <meta property="og:url" content="https://chongdee.github.io/2017/12/05/ES6手册/index.html">
-<meta property="og:site_name" content="Wong ardee 的博客">
+<meta property="og:site_name" content="ardee Wong&#39;s Blog">
 <meta property="og:description" content="var 和 let/const 的比较 除了 var ，我们现在还可以使用两个新的标识符来定义一个变量 — let 和 const。和 var 不一样的是，let 和 const 不存在变量提升。  使用var的栗子：123456789var name = &apos;global&apos;;function getFood(food) &amp;#123;    if (food) &amp;#123;        var">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-10T07:05:18.395Z">
+<meta property="og:updated_time" content="2018-07-10T23:59:55.285Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6手册">
 <meta name="twitter:description" content="var 和 let/const 的比较 除了 var ，我们现在还可以使用两个新的标识符来定义一个变量 — let 和 const。和 var 不一样的是，let 和 const 不存在变量提升。  使用var的栗子：123456789var name = &apos;global&apos;;function getFood(food) &amp;#123;    if (food) &amp;#123;        var">
@@ -122,7 +122,7 @@
 
 
 
-  <title>ES6手册 | Wong ardee 的博客</title>
+  <title>ES6手册 | ardee Wong's Blog</title>
   
 
 
@@ -162,12 +162,12 @@
     <div class="custom-logo-site-title">
       <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Wong ardee 的博客</span>
+        <span class="site-title">ardee Wong's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
       
-        <p class="site-subtitle">一天进步一点</p>
+        <p class="site-subtitle">stay foolish stay hungry</p>
       
   </div>
 
@@ -272,13 +272,13 @@
     <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2017/12/05/ES6手册/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Wong ardee">
+      <meta itemprop="name" content="ardee Wong">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/cat_cute.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Wong ardee 的博客">
+      <meta itemprop="name" content="ardee Wong's Blog">
     </span>
 
     
@@ -358,22 +358,15 @@
       
 
       
-        <script src="\assets\js\APlayer.min.js"> </script><h2 id="var-和-let-const-的比较"><a href="#var-和-let-const-的比较" class="headerlink" title="var 和 let/const 的比较"></a>var 和 let/const 的比较</h2><blockquote>
-<p>除了 var ，我们现在还可以使用两个新的标识符来定义一个变量 — let 和 const。<br>和 var 不一样的是，let 和 const 不存在变量提升。</p>
-</blockquote>
+        <script src="\assets\js\APlayer.min.js"> </script><h2 id="var-和-let-const-的比较"><a href="#var-和-let-const-的比较" class="headerlink" title="var 和 let/const 的比较"></a>var 和 let/const 的比较</h2><div class="note info"><p> 除了 var ，我们现在还可以使用两个新的标识符来定义一个变量 — let 和 const。<br>和 var 不一样的是，let 和 const 不存在变量提升。 </p></div>
 <p>使用var的栗子：<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'global'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getFood</span><span class="params">(food)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (food) &#123;</span><br><span class="line">        <span class="keyword">var</span> name = <span class="string">'local'</span>;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br><span class="line">getFood(<span class="literal">false</span>); <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure></p>
 <p>当我们用 let 代替 var 的时候，观察会发生什么：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> name = <span class="string">'global'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getFood</span>(<span class="params">food</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (food) &#123;</span><br><span class="line">        <span class="keyword">let</span> name = <span class="string">'local'</span>;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br><span class="line">getFood(<span class="literal">false</span>); <span class="comment">// 'global'</span></span><br></pre></td></tr></table></figure></p>
 <p>当我们重构使用 var 的老代码的时候应该注意上面的变化。盲目地使用 let 替换 var 可能会出现出乎意料的情况。</p>
-<blockquote>
-<p><strong>注意：</strong> let 和 const 是块级作用域，因此在变量未被定义之前使用它会产生一个 ReferenceError。</p>
-</blockquote>
 <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(x); <span class="regexp">//</span> ReferenceError: x <span class="keyword">is</span> <span class="keyword">not</span> defined</span><br><span class="line">let x = <span class="string">'hi'</span>;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>最佳实践：</strong> 在早前代码中使用 var 声明意味着需要很小心地编写代码；而当在新的项目编写代码，使用 let 声明一个可以改变的变量，用 const(常量)声明一个不能被重新赋值的变量。</p>
-</blockquote>
-<h2 id="用块级作用域代替-IIFES"><a href="#用块级作用域代替-IIFES" class="headerlink" title="用块级作用域代替 IIFES"></a>用块级作用域代替 IIFES</h2><blockquote>
-<p><strong>函数立即执行表达式</strong>的常见用法是创造一个闭包作用域的函数，在 ES6 中，我们能够创造一个块级作用域<br>而不单单限于函数作用域。</p>
-</blockquote>
+<div class="note warning"><p><strong>注意：</strong> let 和 const 是块级作用域，因此在变量未被定义之前使用它会产生一个 ReferenceError。 </p></div>
+
+<div class="note info"><p><strong>最佳实践：</strong> 在早前代码中使用 var 声明意味着需要很小心地编写代码；而当在新的项目编写代码，使用 let 声明一个可以改变的变量，用 const(常量)声明一个不能被重新赋值的变量。 </p></div>
+<h2 id="用块级作用域代替-IIFES"><a href="#用块级作用域代替-IIFES" class="headerlink" title="用块级作用域代替 IIFES"></a>用块级作用域代替 IIFES</h2><div class="note info"><p><strong>函数立即执行表达式</strong>的常见用法是创造一个闭包作用域的函数，在 ES6 中，我们能够创造一个块级作用域<br>而不单单限于函数作用域。 </p></div>
 <p>IIFES：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">'ChaChaHui'</span>;</span><br><span class="line">&#125;());</span><br><span class="line"><span class="built_in">console</span>.log(name); <span class="comment">// Reference Error</span></span><br></pre></td></tr></table></figure></p>
 <p>使用 ES6 的块级作用域：<br><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    let <span class="built_in">name</span> = <span class="string">'ChaChaHui'</span>;</span><br><span class="line">&#125;</span><br><span class="line">console.<span class="built_in">log</span>(<span class="built_in">name</span>); <span class="comment">// Reference Error</span></span><br></pre></td></tr></table></figure></p>
 <h2 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h2><p>我们经常需要给嵌套函数维护一个作用域的上下文 <strong>this</strong>。<br>看看这个栗子：<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span><span class="params">(name)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.name = name;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.prefixName = <span class="function"><span class="keyword">function</span> <span class="params">(arr)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> arr.map(<span class="function"><span class="keyword">function</span> <span class="params">(character)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name + character; <span class="comment">// Cannot read property 'name' of undefined</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
@@ -382,9 +375,7 @@
 <p>我们还可以绑定上下文：<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span></span> Person(<span class="keyword">name</span>) &#123;</span><br><span class="line">    this.<span class="keyword">name</span> = <span class="keyword">name</span>;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.prefixName = <span class="function"><span class="keyword">function</span></span> (arr) &#123;</span><br><span class="line">    <span class="keyword">return</span> arr.map(<span class="function"><span class="keyword">function</span></span> (<span class="keyword">character</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> this.<span class="keyword">name</span> + <span class="keyword">character</span>;</span><br><span class="line">    &#125;.<span class="keyword">bind</span>(this));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
 <p>使用 <strong>箭头函数</strong>，<strong>this</strong> 将不会受到影响，并且我们可以重写上面的函数：</p>
 <figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span></span> Person(<span class="keyword">name</span>) &#123;</span><br><span class="line">    this.<span class="keyword">name</span> = <span class="keyword">name</span>;</span><br><span class="line">&#125;</span><br><span class="line">Person.prototype.prefixName = <span class="function"><span class="keyword">function</span></span> (arr) &#123;</span><br><span class="line">    <span class="keyword">return</span> arr.map(<span class="keyword">character</span> =&gt; this.<span class="keyword">name</span> + <span class="keyword">character</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><strong>最佳实践:</strong>当你需要维护一个 <strong>this</strong> 上下文的时候，如在回调函数中推荐使用箭头函数，这样就可以绑定上下文 <strong>this</strong></p>
-</blockquote>
+<div class="note info"><p><strong>最佳实践:</strong>当你需要维护一个 <strong>this</strong> 上下文的时候，如在回调函数中推荐使用箭头函数，这样就可以绑定上下文 <strong>this</strong></p></div>
 <p>在我们写一个函数的时候，箭头函数更加简洁并且可以很简单地返回一个值：<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var squares = arr.map(<span class="keyword">function</span> <span class="title"></span>(x) &#123; <span class="keyword">return</span> <span class="type">x</span> * x &#125;); // <span class="keyword">Function</span> <span class="title">Expression</span></span><br></pre></td></tr></table></figure></p>
 <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">const squares = arr.map(x =&gt; x * x); <span class="comment">// Arrow Function for terser implementation</span></span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -532,14 +523,14 @@
 
     
       <div id="wechat" style="display: inline-block">
-        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Wong ardee 微信支付"/>
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="ardee Wong 微信支付"/>
         <p>微信支付</p>
       </div>
     
 
     
       <div id="alipay" style="display: inline-block">
-        <img id="alipay_qr" src="/images/alipay.jpg" alt="Wong ardee 支付宝"/>
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="ardee Wong 支付宝"/>
         <p>支付宝</p>
       </div>
     
@@ -647,10 +638,10 @@
             
               <img class="site-author-image" itemprop="image"
                 src="/images/cat_cute.jpg"
-                alt="Wong ardee" />
+                alt="ardee Wong" />
             
-              <p class="site-author-name" itemprop="name">Wong ardee</p>
-              <p class="site-description motion-element" itemprop="description">记录生活点滴,前端渣渣辉</p>
+              <p class="site-author-name" itemprop="name">ardee Wong</p>
+              <p class="site-description motion-element" itemprop="description">前端渣渣辉</p>
           </div>
 
           <nav class="site-state motion-element">
@@ -660,7 +651,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -671,7 +662,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -708,6 +699,40 @@
           
 
           
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.uisdc.com/" title="优设" target="_blank">优设</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangxinxu.com/" title="张鑫旭" target="_blank">张鑫旭</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.36zhen.com/t?id=3448" title="前端书籍资料" target="_blank">前端书籍资料</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://ife.baidu.com/" title="百度前端技术学院" target="_blank">百度前端技术学院</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com/" title="阮一峰ES6书籍" target="_blank">阮一峰ES6书籍</a>
+                  </li>
+                
+              </ul>
+            </div>
           
 
           
@@ -751,7 +776,7 @@
     <i class="fa fa-user"></i>
   </span>
   <span>Powered By -</span>
-  <span class="author" itemprop="copyrightHolder">Wong ardee</span>
+  <span class="author" itemprop="copyrightHolder">ardee Wong</span>
 
   
 </div>
