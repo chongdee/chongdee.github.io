@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="官方概念作用域(Scope):javaScript中没有块级作用域、取而代之的使用了函数作用域、即变量在声明它们的函数以及这个函数体嵌套的任意函数体内都是有定义的 –《javaScript权威指南》 作用域链(Scope Chain):当函数创建时会创建一个包含其父函数变量、父函数的父函数的变量对象、直至全局变量对象的一个作用域链，这个作用域被保存在函数内部的[[scope]]属性中，由于函数本身">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript之作用域（Scope）,作用域链（Scope Chain）">
+<meta property="og:url" content="https://chongdee.github.io/2018/07/12/JavaScript之作用域（Scope）作用域链（Scope chain）/index.html">
+<meta property="og:site_name" content="ardee Wong&#39;s Blog">
+<meta property="og:description" content="官方概念作用域(Scope):javaScript中没有块级作用域、取而代之的使用了函数作用域、即变量在声明它们的函数以及这个函数体嵌套的任意函数体内都是有定义的 –《javaScript权威指南》 作用域链(Scope Chain):当函数创建时会创建一个包含其父函数变量、父函数的父函数的变量对象、直至全局变量对象的一个作用域链，这个作用域被保存在函数内部的[[scope]]属性中，由于函数本身">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-12T16:57:01.549Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript之作用域（Scope）,作用域链（Scope Chain）">
+<meta name="twitter:description" content="官方概念作用域(Scope):javaScript中没有块级作用域、取而代之的使用了函数作用域、即变量在声明它们的函数以及这个函数体嵌套的任意函数体内都是有定义的 –《javaScript权威指南》 作用域链(Scope Chain):当函数创建时会创建一个包含其父函数变量、父函数的父函数的变量对象、直至全局变量对象的一个作用域链，这个作用域被保存在函数内部的[[scope]]属性中，由于函数本身">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chongdee.github.io/2018/07/12/JavaScript之作用域（Scope）作用域链（Scope chain）/"/>
+
+
+
+
+
+  <title>JavaScript之作用域（Scope）,作用域链（Scope Chain） | ardee Wong's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?63d30ffc3ac0fa4a98c97c20372430af";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ardee Wong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">stay foolish stay hungry</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/12/JavaScript之作用域（Scope）作用域链（Scope chain）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ardee Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/cat_cute.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ardee Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JavaScript之作用域（Scope）,作用域链（Scope Chain）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T18:17:35+08:00">
+                2018-07-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script src="\assets\js\APlayer.min.js"> </script><h2 id="官方概念"><a href="#官方概念" class="headerlink" title="官方概念"></a>官方概念</h2><h3 id="作用域-Scope"><a href="#作用域-Scope" class="headerlink" title="作用域(Scope):"></a>作用域(Scope):</h3><div class="note info"><p>javaScript中没有块级作用域、取而代之的使用了函数作用域、即变量在声明它们的函数以及这个函数体嵌套的任意函数体内都是有定义的 –《javaScript权威指南》</p></div>
+<h3 id="作用域链-Scope-Chain"><a href="#作用域链-Scope-Chain" class="headerlink" title="作用域链(Scope Chain):"></a>作用域链(Scope Chain):</h3><div class="note info"><p>当函数创建时会创建一个包含其父函数变量、父函数的父函数的变量对象、直至全局变量对象的一个作用域链，这个作用域被保存在函数内部的[[scope]]属性中，由于函数本身即是对象，可以理解[[scope]]是后台可以访问的一个属性，不可再JavaScript代码中访问，当函数调用时，会创建一个自己的活动对象、作为变量对象，被推入到执行环境作用域链的最前端，此时这个[[scope]]属性相当于一个变量对象的集合，并有访问的优先级。作用域链并不保存实际的变量对象，它是一个指针，指向内存中的变量对象列表。</p></div>
+<a id="more"></a>
+<h3 id="执行环境-执行上下文Execution-Contexts"><a href="#执行环境-执行上下文Execution-Contexts" class="headerlink" title="执行环境(执行上下文Execution Contexts):"></a>执行环境(执行上下文Execution Contexts):</h3><div class="note info"><p>执行环境定义了变量或函数有权访问的其他数据、决定了它们各自的行为。每个函数都有自己的执行环境，当执行流进入一个函数时，函数的环境就会被推入一个环境栈中，而函数执行之后，栈将其环境弹出，把控制权返回给之前的执行环境 –《javaScript高级教程》</p></div>
+<h2 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h2><h3 id="作用域："><a href="#作用域：" class="headerlink" title="作用域："></a>作用域：</h3><div class="note info"><p>所谓作用域，就是变量或者是函数能作用的范围。</p></div>
+<p>分为全局作用域和局部作用域：</p>
+<h4 id="1、全局作用域"><a href="#1、全局作用域" class="headerlink" title="1、全局作用域"></a>1、全局作用域</h4><div class="note info"><p>除了函数中定义的变量之外，都是全局作用域。</p></div>
+<p>举个栗子：<br><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span><span class="params">()</span><span class="comment">&#123;</span></span></span><br><span class="line"><span class="function"><span class="comment">    console.log(a);</span></span></span><br><span class="line"><span class="function"><span class="comment">&#125;</span></span></span><br><span class="line"><span class="function"><span class="title">bar</span><span class="params">()</span>;</span><span class="comment">//10</span></span><br></pre></td></tr></table></figure></p>
+<p>以上的a就是全局变量，到处可以访问a。<br>但是要理解<strong>变量声明提升</strong>慨念，以下代码涉及<strong>变量声明提升</strong>问题（博客也有自己写的一篇关于<a href="https://chongdee.github.io/2018/07/11/JavaScript%E4%B9%8B%E5%A3%B0%E6%98%8E%E6%8F%90%E5%8D%87%EF%BC%88Hoisting%EF%BC%89/">声明提升</a>的文章）：</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span><span class="params">()</span><span class="comment">&#123;</span></span></span><br><span class="line"><span class="function"><span class="comment">    console.log(a);</span></span></span><br><span class="line"><span class="function"><span class="comment">    var a = 20;</span></span></span><br><span class="line"><span class="function"><span class="comment">&#125;</span></span></span><br><span class="line"><span class="function"><span class="title">bar</span><span class="params">()</span>;</span><span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
+<p>是的，你没看错。函数内的变量a由于被预解析（变量提升），变量a提升到bar函数内的顶部形成一个局部作用域，赋值位置不变，所以结果就是undefined。<br>上面代码实质执行是：<br><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span><span class="params">()</span><span class="comment">&#123;</span></span></span><br><span class="line"><span class="function"><span class="comment">    var a</span></span></span><br><span class="line"><span class="function"><span class="comment">    console.log(a);  // undefined</span></span></span><br><span class="line"><span class="function"><span class="comment">    a = 20;</span></span></span><br><span class="line"><span class="function"><span class="comment">&#125;</span></span></span><br><span class="line"><span class="function"><span class="title">bar</span><span class="params">()</span>;</span> <span class="comment">// undefined</span></span><br></pre></td></tr></table></figure></p>
+<h4 id="2、局部作用域"><a href="#2、局部作用域" class="headerlink" title="2、局部作用域"></a>2、局部作用域</h4><div class="note info"><p>函数里用var声明的变量。</p></div>
+<p>举个栗子：<br><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bar</span><span class="params">()</span><span class="comment">&#123;</span></span></span><br><span class="line"><span class="function"><span class="comment">    var a  = 20;</span></span></span><br><span class="line"><span class="function"><span class="comment">    console.log(a);</span></span></span><br><span class="line"><span class="function"><span class="comment">&#125;</span></span></span><br><span class="line"><span class="function"><span class="title">bar</span><span class="params">()</span>;</span><span class="comment">//20</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h3><div class="note info"><p>一个变量随着父级函数一级一级往上搜索的查找,找到这个变量最近定义var的地方，直到找到为止，找不到就报错，这个程就是作用域链起的作用。</p></div>
+<p>代码分析：<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span><span class="params">()</span> </span>&#123; <span class="comment">//外部函数</span></span><br><span class="line">  <span class="keyword">var</span> b = <span class="number">20</span>; </span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">bar</span><span class="params">()</span> </span>&#123; <span class="comment">//内部函数</span></span><br><span class="line">    alert(a + b);  <span class="comment">//变量 a,b 一层一层往上找 这个过程就是作用域链的过程</span></span><br><span class="line">  &#125; </span><br><span class="line">  <span class="keyword">return</span> bar; </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">foo()(); <span class="comment">// 30</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="没有块级作用域（至ES5），ES6中有块级作用域"><a href="#没有块级作用域（至ES5），ES6中有块级作用域" class="headerlink" title="没有块级作用域（至ES5），ES6中有块级作用域"></a>没有块级作用域（至ES5），ES6中有块级作用域</h2><div class="note info"><p>ES6之前，除了函数之外的代码块都不具备块级作用域。</p></div>
+<p>常见的经典例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">6</span>;i++)&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(i);</span><br><span class="line">    &#125;,<span class="number">200</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//6 6 6 6 6 6</span></span><br></pre></td></tr></table></figure></p>
+<p>解决办法：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//通过立即执行函数（IIFE）解决</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="number">6</span>;i++)&#123;</span><br><span class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params">j</span>)</span>&#123;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(j);</span><br><span class="line">    &#125;,<span class="number">200</span>);</span><br><span class="line">    &#125;)(i)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//0 1 2 3 4 5</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//通过ES6 let块作用域把var 换成 let 声明变量</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">6</span>;i++)&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(i);</span><br><span class="line">    &#125;,<span class="number">200</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//0 1 2 3 4 5</span></span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>您的支持就是我更新的动力！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="ardee Wong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="ardee Wong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/12/JavaScript之this/" rel="next" title="JavaScript之this">
+                <i class="fa fa-chevron-left"></i> JavaScript之this
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/cat_cute.jpg"
+                alt="ardee Wong" />
+            
+              <p class="site-author-name" itemprop="name">ardee Wong</p>
+              <p class="site-description motion-element" itemprop="description">前端渣渣辉</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/chongdee" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.uisdc.com/" title="优设" target="_blank">优设</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangxinxu.com/" title="张鑫旭" target="_blank">张鑫旭</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.36zhen.com/t?id=3448" title="前端书籍资料" target="_blank">前端书籍资料</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://ife.baidu.com/" title="百度前端技术学院" target="_blank">百度前端技术学院</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com/" title="阮一峰ES6书籍" target="_blank">阮一峰ES6书籍</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div> 
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#官方概念"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x5B98;&#x65B9;&#x6982;&#x5FF5;" class="headerlink" title="&#x5B98;&#x65B9;&#x6982;&#x5FF5;"></a>&#x5B98;&#x65B9;&#x6982;&#x5FF5;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域-Scope"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x4F5C;&#x7528;&#x57DF;-Scope" class="headerlink" title="&#x4F5C;&#x7528;&#x57DF;(Scope):"></a>&#x4F5C;&#x7528;&#x57DF;(Scope):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域链-Scope-Chain"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x4F5C;&#x7528;&#x57DF;&#x94FE;-Scope-Chain" class="headerlink" title="&#x4F5C;&#x7528;&#x57DF;&#x94FE;(Scope Chain):"></a>&#x4F5C;&#x7528;&#x57DF;&#x94FE;(Scope Chain):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#执行环境-执行上下文Execution-Contexts"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#&#x6267;&#x884C;&#x73AF;&#x5883;-&#x6267;&#x884C;&#x4E0A;&#x4E0B;&#x6587;Execution-Contexts" class="headerlink" title="&#x6267;&#x884C;&#x73AF;&#x5883;(&#x6267;&#x884C;&#x4E0A;&#x4E0B;&#x6587;Execution Contexts):"></a>&#x6267;&#x884C;&#x73AF;&#x5883;(&#x6267;&#x884C;&#x4E0A;&#x4E0B;&#x6587;Execution Contexts):</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#个人理解"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x4E2A;&#x4EBA;&#x7406;&#x89E3;" class="headerlink" title="&#x4E2A;&#x4EBA;&#x7406;&#x89E3;"></a>&#x4E2A;&#x4EBA;&#x7406;&#x89E3;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域："><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#&#x4F5C;&#x7528;&#x57DF;&#xFF1A;" class="headerlink" title="&#x4F5C;&#x7528;&#x57DF;&#xFF1A;"></a>&#x4F5C;&#x7528;&#x57DF;&#xFF1A;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、全局作用域"><span class="nav-number">2.1.1.</span> <span class="nav-text"><a href="#1&#x3001;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;" class="headerlink" title="1&#x3001;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;"></a>1&#x3001;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、局部作用域"><span class="nav-number">2.1.2.</span> <span class="nav-text"><a href="#2&#x3001;&#x5C40;&#x90E8;&#x4F5C;&#x7528;&#x57DF;" class="headerlink" title="2&#x3001;&#x5C40;&#x90E8;&#x4F5C;&#x7528;&#x57DF;"></a>2&#x3001;&#x5C40;&#x90E8;&#x4F5C;&#x7528;&#x57DF;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用域链"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#&#x4F5C;&#x7528;&#x57DF;&#x94FE;" class="headerlink" title="&#x4F5C;&#x7528;&#x57DF;&#x94FE;"></a>&#x4F5C;&#x7528;&#x57DF;&#x94FE;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#没有块级作用域（至ES5），ES6中有块级作用域"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x6CA1;&#x6709;&#x5757;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#xFF08;&#x81F3;ES5&#xFF09;&#xFF0C;ES6&#x4E2D;&#x6709;&#x5757;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;" class="headerlink" title="&#x6CA1;&#x6709;&#x5757;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#xFF08;&#x81F3;ES5&#xFF09;&#xFF0C;ES6&#x4E2D;&#x6709;&#x5757;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;"></a>&#x6CA1;&#x6709;&#x5757;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;&#xFF08;&#x81F3;ES5&#xFF09;&#xFF0C;ES6&#x4E2D;&#x6709;&#x5757;&#x7EA7;&#x4F5C;&#x7528;&#x57DF;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; 2015 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span>Powered By -</span>
+  <span class="author" itemprop="copyrightHolder">ardee Wong</span>
+
+  
+</div>
+
+
+  <div>Theme by &copy;next</div>
+
+
+<div>Hosted by <strong><a href="https://github.com/">Github Pages</a></strong></div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

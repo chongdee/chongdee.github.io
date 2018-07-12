@@ -269,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/12/JavaScript之作用域（Scoping）作用域链（chain）/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/12/JavaScript之作用域（Scope）作用域链（Scope chain）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ardee Wong">
@@ -288,7 +288,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/12/JavaScript之作用域（Scoping）作用域链（chain）/" itemprop="url">JavaScript之作用域（Scoping）,作用域链（Chain）</a></h1>
+                <a class="post-title-link" href="/2018/07/12/JavaScript之作用域（Scope）作用域链（Scope chain）/" itemprop="url">JavaScript之作用域（Scope）,作用域链（Scope Chain）</a></h1>
         
 
         <div class="post-meta">
@@ -361,12 +361,11 @@
 
       
         
-          
-           
-          
+          <h2 id="官方概念"><a href="#官方概念" class="headerlink" title="官方概念"></a>官方概念</h2><h3 id="作用域-Scope"><a href="#作用域-Scope" class="headerlink" title="作用域(Scope):"></a>作用域(Scope):</h3><div class="note info"><p>javaScript中没有块级作用域、取而代之的使用了函数作用域、即变量在声明它们的函数以及这个函数体嵌套的任意函数体内都是有定义的 –《javaScript权威指南》</p></div>
+<h3 id="作用域链-Scope-Chain"><a href="#作用域链-Scope-Chain" class="headerlink" title="作用域链(Scope Chain):"></a>作用域链(Scope Chain):</h3><div class="note info"><p>当函数创建时会创建一个包含其父函数变量、父函数的父函数的变量对象、直至全局变量对象的一个作用域链，这个作用域被保存在函数内部的[[scope]]属性中，由于函数本身即是对象，可以理解[[scope]]是后台可以访问的一个属性，不可再JavaScript代码中访问，当函数调用时，会创建一个自己的活动对象、作为变量对象，被推入到执行环境作用域链的最前端，此时这个[[scope]]属性相当于一个变量对象的集合，并有访问的优先级。作用域链并不保存实际的变量对象，它是一个指针，指向内存中的变量对象列表。</p></div>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/12/JavaScript之作用域（Scoping）作用域链（chain）/#more" rel="contents">
+            <a class="btn" href="/2018/07/12/JavaScript之作用域（Scope）作用域链（Scope chain）/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -417,7 +416,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/12/tes/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/12/JavaScript之this/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ardee Wong">
@@ -436,7 +435,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/12/tes/" itemprop="url">tes</a></h1>
+                <a class="post-title-link" href="/2018/07/12/JavaScript之this/" itemprop="url">JavaScript之this</a></h1>
         
 
         <div class="post-meta">
@@ -458,6 +457,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -487,12 +508,11 @@
 
       
         
-          
-           
-          
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><div class="note info"><p>与我们常见的很多语言不同，JavaScript 函数中的 this 指向并不是在函数定义的时候确定的，而是在调用的时候确定的。换句话说，函数的调用方式决定了 this 指向。</p>
+<p>JavaScript 中，普通的函数调用方式有三种：直接调用、方法调用和 new 调用。除此之外，还有一些特殊的调用方式，比如通过 bind() 将函数绑定到对象之后再进行调用、通过 call()、apply() 进行调用等。而 es6 引入了箭头函数之后，箭头函数调用时，其 this 指向又有所不同。下面就来分析这些情况下的 this 指向。</p></div>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/12/tes/#more" rel="contents">
+            <a class="btn" href="/2018/07/12/JavaScript之this/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
