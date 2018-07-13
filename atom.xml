@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://chongdee.github.io/"/>
-  <updated>2018-07-12T16:57:01.549Z</updated>
+  <updated>2018-07-13T14:49:40.376Z</updated>
   <id>https://chongdee.github.io/</id>
   
   <author>
@@ -15,6 +15,54 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JavaScript之原型与原型链</title>
+    <link href="https://chongdee.github.io/2018/07/13/JavaScript%E4%B9%8B%E5%8E%9F%E5%9E%8B%E4%B8%8E%E5%8E%9F%E5%9E%8B%E9%93%BE/"/>
+    <id>https://chongdee.github.io/2018/07/13/JavaScript之原型与原型链/</id>
+    <published>2018-07-13T00:26:09.000Z</published>
+    <updated>2018-07-13T14:49:40.376Z</updated>
+    
+    <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>对于很多前端开发者而言，JavaScript的原型实在是很让人头疼。<br>说起原型，那就不得不说prototype、__proto__、constructor三者的关系，其中比较麻烦的就是容易将prototype和__proto__混淆，这也是因为它们之间的指向确实有些复杂。</p><h2 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h2><div class="note info"><p>每个函数都有一个原型prototype属性，每一个实例对象都会从原型”继承”属性。</p></div><a id="more"></a><p>代码：<br><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Person构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    name = <span class="string">'Person'</span>;</span><br><span class="line">    <span class="keyword">this</span>.height = <span class="string">'160cm'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//在其原型对象中添加age属性</span></span><br><span class="line">Person.prototype.age = <span class="string">'18'</span>;</span><br><span class="line"><span class="comment">//Person的实例p1</span></span><br><span class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> Person();</span><br><span class="line">p1.age;<span class="comment">//18</span></span><br><span class="line">p1.name;<span class="comment">//undefined</span></span><br><span class="line">p1.height;<span class="comment">//160cm</span></span><br></pre></td></tr></table></figure></p><p>代码中原型与构造函数与实例的关系如下：<br><img src="/img/prototype/proto_1.jpg" alt="&quot;麻蛋，图片不见啦&quot;"></p><ul><li>Person为构造函数</li><li>Person.prototype为原型</li><li>p1虽然是通过newPerson获得的，但是p1的原型__proto__却直接指向Person.Prototype，并且只得到了Person中的this的属性。</li></ul><blockquote><p><strong>var p1 = new Person()都发生了什么？</strong><br>1.var p1 = new Object(); //此时p1.__proto__ === Object.Prototype<br>2.p1.__proto__ === Person.prototype;<br>3.Person.call(p1);//使用新对象p1调用函数Person，将this指向p1</p></blockquote><h2 id="proto"><a href="#proto" class="headerlink" title="__proto__"></a>__proto__</h2><blockquote><p>实例中的属性，指向new这个实例的构造函数的原型对象<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> Person();</span><br><span class="line"><span class="built_in">console</span>.log(p1.__proto__ === Person.prototype); <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p></blockquote><p>由于__proto__是任何对象都有的属性，而JS中万物皆对象，所以会形成一条__proto__连起来的链条，递归访问__proto__必须最终到头，并且值是null。</p><p>当JS引擎查找对象的属性时，先查找对象本身是否存在该属性，如果不存在，会在原型链中查找，但不会查找自身的prototype</p><p>代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Person构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    name = <span class="string">'Person'</span>;</span><br><span class="line">    <span class="keyword">this</span>.height = <span class="string">'160cm'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//原型为一个Object实例，并有age属性</span></span><br><span class="line">Person.prototype = &#123;</span><br><span class="line">    age: <span class="string">'18'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//Person的实例p1</span></span><br><span class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> Person();</span><br><span class="line">p1.age;<span class="comment">//18</span></span><br><span class="line">p1.name;<span class="comment">//undefined</span></span><br><span class="line">p1.height;<span class="comment">//160cm</span></span><br><span class="line"><span class="built_in">console</span>.log(p1 === Person.prototype.constructor); <span class="comment">// false</span></span><br></pre></td></tr></table></figure></p><p>代码中原型与构造函数与实例的关系如下：</p><p><img src="/img/prototype/proto_2.jpg" alt="&quot;麻蛋，图片不见啦&quot;"></p><ul><li>代码第7行Person.Prototype赋值定义一个新对象Object，并且其中不再有constructor属性<br>//console.log(p1 === Person.prototype.constructor); // false<blockquote><p>构造函数原型属性定义给新对象要想constructor重新指向该构造函数，可以这样<br>Person.prototype.constructor === Person，这样构造函数Person的this指向始终指向Person的实例</p></blockquote></li><li>Person.Prototype重新定义Object的一个实例，也就是说Person.Prototype中有一个__proto__属性，指向Object.Prototype</li><li>在实例p1中想要调用一个方法或者属性的时候会沿原型链__proto__向上查找。<br>直到Object.prototype.<strong>proto</strong> === null，停止查找</li></ul><h2 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h2><p>既然实例对象(<strong>p1.__proto__</strong>)和构造函数(<strong>Person.Prototype</strong>)都可以指向原型，那么原型是否有属性指向构造函数或者实例呢？<br>指向实例倒是没有，因为一个构造函数可以生成多个实例，但是原型指向构造函数(<strong>Person.Prototype.constructor</strong>)倒是有的，这就要讲到第三个属性：<strong>constructor</strong>，每个原型都有一个 <strong>constructor</strong> 属性指向关联的构造函数。</p><p>代码：<br><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span><span class="params">()</span> <span class="comment">&#123;</span></span></span><br><span class="line"><span class="function"><span class="comment"></span></span></span><br><span class="line"><span class="function"><span class="comment">&#125;</span></span></span><br><span class="line"><span class="function"><span class="title">console</span>.<span class="title">log</span><span class="params">(Person === Person.prototype.<span class="keyword">constructor</span>)</span>;</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure></p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>综上我们已经得出：</p><ul><li>prototype：构造函数中的属性，指向该构造函数的原型对象。</li><li>constructor：原型对象中的属性，指向该原型对象的构造函数</li><li>__proto__：实例中的属性，指向new这个实例的构造函数的原型对象<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> Person();</span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype == Person.prototype) <span class="comment">// true  构造函数中的属性，指向该构造函数的原型对象。</span></span><br><span class="line"><span class="built_in">console</span>.log(p1.__proto__ == Person.prototype) <span class="comment">// true  实例中的属性，指向new这个实例的构造函数的原型对象</span></span><br><span class="line"><span class="built_in">console</span>.log(Person.prototype.constructor == Person) <span class="comment">// true  原型对象中的属性，指向该原型对象的构造函数</span></span><br><span class="line"><span class="comment">// 顺便学习一个ES5的方法,可以获得对象的原型</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(person) === Person.prototype) <span class="comment">// true</span></span><br></pre></td></tr></table></figure></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;前言&quot;&gt;&lt;a href=&quot;#前言&quot; class=&quot;headerlink&quot; title=&quot;前言&quot;&gt;&lt;/a&gt;前言&lt;/h2&gt;&lt;p&gt;对于很多前端开发者而言，JavaScript的原型实在是很让人头疼。&lt;br&gt;说起原型，那就不得不说prototype、__proto__、constructor三者的关系，其中比较麻烦的就是容易将prototype和__proto__混淆，这也是因为它们之间的指向确实有些复杂。&lt;/p&gt;
+&lt;h2 id=&quot;prototype&quot;&gt;&lt;a href=&quot;#prototype&quot; class=&quot;headerlink&quot; title=&quot;prototype&quot;&gt;&lt;/a&gt;prototype&lt;/h2&gt;&lt;div class=&quot;note info&quot;&gt;&lt;p&gt;每个函数都有一个原型prototype属性，每一个实例对象都会从原型”继承”属性。&lt;/p&gt;&lt;/div&gt;
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="https://chongdee.github.io/categories/JavaScript/"/>
+    
+    
+      <category term="JavaScript" scheme="https://chongdee.github.io/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript之面向对象（OOP）</title>
+    <link href="https://chongdee.github.io/2018/07/13/JavaScript%E4%B9%8B%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88OOP%EF%BC%89/"/>
+    <id>https://chongdee.github.io/2018/07/13/JavaScript之面向对象（OOP）/</id>
+    <published>2018-07-13T00:12:50.000Z</published>
+    <updated>2018-07-13T00:13:08.997Z</updated>
+    
+    <content type="html"><![CDATA[<script src="\assets\js\APlayer.min.js"> </script>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;script src=&quot;\assets\js\APlayer.min.js&quot;&gt; &lt;/script&gt;
+      
+    
+    </summary>
+    
+      <category term="JavaScript" scheme="https://chongdee.github.io/categories/JavaScript/"/>
+    
+    
+      <category term="JavaScript" scheme="https://chongdee.github.io/tags/JavaScript/"/>
+    
+  </entry>
   
   <entry>
     <title>JavaScript之作用域（Scope）,作用域链（Scope Chain）</title>
