@@ -269,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/15/webpack入门配置/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/15/webpack入门了解一下/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ardee Wong">
@@ -288,7 +288,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/15/webpack入门配置/" itemprop="url">webpack入门配置</a></h1>
+                <a class="post-title-link" href="/2018/07/15/webpack入门了解一下/" itemprop="url">webpack入门了解一下</a></h1>
         
 
         <div class="post-meta">
@@ -361,12 +361,10 @@
 
       
         
-          
-           
-          
+          <h2 id="webpack-是什么"><a href="#webpack-是什么" class="headerlink" title="webpack 是什么"></a>webpack 是什么</h2><p>web开发中常用到的静态资源主要有JavaScript、CSS、图片、pug等文件，webpack中将静态资源文件称之为模块。webpack是一个模块打包工具，其可以兼容多种js书写规范，且可以处理模块间的依赖关系，具有更强大的js模块化的功能。 <a href="https://webpack.docschina.org/" target="_blank" rel="noopener">官方网站</a>中用下图清晰的描述了webpack采用不同的loader加载不同的资源文件，打包生成多个js文件，也可以根据设置生成独立的图片、css文件等。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/15/webpack入门配置/#espandi" rel="contents">
+            <a class="btn" href="/2018/07/15/webpack入门了解一下/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -513,7 +511,7 @@
 <h2 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h2><div class="note info"><p>每个函数都有一个原型prototype属性，每一个实例对象都会从原型”继承”属性。</p></div>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/13/JavaScript之原型与原型链/#espandi" rel="contents">
+            <a class="btn" href="/2018/07/13/JavaScript之原型与原型链/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -659,7 +657,7 @@
           <h2 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.names = [<span class="string">'foo'</span>, <span class="string">'bar'</span>];</span><br><span class="line">    <span class="keyword">this</span>.age = <span class="number">60</span>;</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.greeting = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"hello!"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Child.prototype = <span class="keyword">new</span> Parent();  <span class="comment">//将父类实例作为子类原型</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> child1 = <span class="keyword">new</span> Child();</span><br><span class="line"></span><br><span class="line">child1.names.push(<span class="string">'baz'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(child1.names); <span class="comment">// ["foo", "bar", "baz"]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> child2 = <span class="keyword">new</span> Child();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(child2.names); <span class="comment">// ["foo", "bar", "baz"] </span></span><br><span class="line"></span><br><span class="line">child1.greeting()  <span class="comment">//  hello!</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> age1 = child1.age = <span class="number">5</span></span><br><span class="line"><span class="built_in">console</span>.log(age1)   <span class="comment">//5</span></span><br><span class="line"><span class="built_in">console</span>.log(child2.age)   <span class="comment">//60  依旧继承父类基本类属性</span></span><br><span class="line"><span class="comment">//修改其中一个实例子类基本类型属性不会影响其他子类基本类型属性</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/13/JavaScript之继承（包含ES6）/#espandi" rel="contents">
+            <a class="btn" href="/2018/07/13/JavaScript之继承（包含ES6）/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -806,7 +804,7 @@
 <h3 id="作用域链-Scope-Chain"><a href="#作用域链-Scope-Chain" class="headerlink" title="作用域链(Scope Chain):"></a>作用域链(Scope Chain):</h3><div class="note info"><p>当函数创建时会创建一个包含其父函数变量、父函数的父函数的变量对象、直至全局变量对象的一个作用域链，这个作用域被保存在函数内部的[[scope]]属性中，由于函数本身即是对象，可以理解[[scope]]是后台可以访问的一个属性，不可再JavaScript代码中访问，当函数调用时，会创建一个自己的活动对象、作为变量对象，被推入到执行环境作用域链的最前端，此时这个[[scope]]属性相当于一个变量对象的集合，并有访问的优先级。作用域链并不保存实际的变量对象，它是一个指针，指向内存中的变量对象列表。</p></div>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/12/JavaScript之作用域（Scope）作用域链（Scope chain）/#espandi" rel="contents">
+            <a class="btn" href="/2018/07/12/JavaScript之作用域（Scope）作用域链（Scope chain）/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -953,7 +951,7 @@
 <p>JavaScript 中，普通的函数调用方式有三种：直接调用、方法调用和 new 调用。除此之外，还有一些特殊的调用方式，比如通过 bind() 将函数绑定到对象之后再进行调用、通过 call()、apply() 进行调用等。而 es6 引入了箭头函数之后，箭头函数调用时，其 this 指向又有所不同。下面就来分析这些情况下的 this 指向。</p></div>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/12/JavaScript之this/#espandi" rel="contents">
+            <a class="btn" href="/2018/07/12/JavaScript之this/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1099,7 +1097,7 @@
           <h2 id="浏览器解析JS脚本执行顺序问题"><a href="#浏览器解析JS脚本执行顺序问题" class="headerlink" title="浏览器解析JS脚本执行顺序问题"></a>浏览器解析JS脚本执行顺序问题</h2><p>有些朋友可能会觉得JavaScript的代码是从上到下，一行一行的解释执行的。如果按照这样的思路，在有些情况下阅读代码会得到错误的结果，考虑以下代码：<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">a</span> = <span class="number">2</span><span class="comment">;</span></span><br><span class="line">var a<span class="comment">;</span></span><br><span class="line">console.log(a)<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/11/JavaScript之声明提升（Hoisting）/#espandi" rel="contents">
+            <a class="btn" href="/2018/07/11/JavaScript之声明提升（Hoisting）/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
