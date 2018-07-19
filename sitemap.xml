@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://chongdee.github.io/2018/07/20/vue-cli%E4%B8%AD%E7%9A%84webpack/</loc>
+    
+    <lastmod>2018-07-19T22:07:47.701Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://chongdee.github.io/2018/07/15/webpack%E5%85%A5%E9%97%A8%E4%BA%86%E8%A7%A3%E4%B8%80%E4%B8%8B/</loc>
     
-    <lastmod>2018-07-19T21:34:26.943Z</lastmod>
+    <lastmod>2018-07-19T22:07:09.553Z</lastmod>
     
   </url>
   

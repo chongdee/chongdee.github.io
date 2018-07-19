@@ -269,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/11/深入理解JavaScript运行机制/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/11/JavaScript之声明提升（Hoisting）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="ardee Wong">
@@ -288,7 +288,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/11/深入理解JavaScript运行机制/" itemprop="url">深入理解JavaScript运行机制</a></h1>
+                <a class="post-title-link" href="/2018/07/11/JavaScript之声明提升（Hoisting）/" itemprop="url">JavaScript之声明提升（Hoisting）</a></h1>
         
 
         <div class="post-meta">
@@ -300,7 +300,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-11T06:56:49+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-11T06:58:07+08:00">
                 2018-07-11
               </time>
             
@@ -361,12 +361,10 @@
 
       
         
-          <h2 id="JS在浏览器运行情况："><a href="#JS在浏览器运行情况：" class="headerlink" title="JS在浏览器运行情况："></a>JS在浏览器运行情况：</h2><ol>
-<li>JS是单线程，是单线程，是单线程<div class="note info"><p><strong>场景描述：</strong>现在有2个进程p1，p2,由于是多进程的JS,所以他们对同一个dom,同时进行操作<br>p1 删除了该dom,而p2 编辑了该dom,同时下达2个矛盾的命令,浏览器究竟该如何执行呢?</p></div>
-通过以上场景描述,知道JS为什么被设计成单线程应该就容易理解了吧。
+          <h2 id="浏览器解析JS脚本执行顺序问题"><a href="#浏览器解析JS脚本执行顺序问题" class="headerlink" title="浏览器解析JS脚本执行顺序问题"></a>浏览器解析JS脚本执行顺序问题</h2><p>有些朋友可能会觉得JavaScript的代码是从上到下，一行一行的解释执行的。如果按照这样的思路，在有些情况下阅读代码会得到错误的结果，考虑以下代码：<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">a</span> = <span class="number">2</span><span class="comment">;</span></span><br><span class="line">var a<span class="comment">;</span></span><br><span class="line">console.log(a)<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/11/深入理解JavaScript运行机制/#more" rel="contents">
+            <a class="btn" href="/2018/07/11/JavaScript之声明提升（Hoisting）/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -525,6 +523,154 @@ window对象
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/07/11/JavaScript知识思维导图/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/11/深入理解JavaScript运行机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="ardee Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/cat_cute.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ardee Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/11/深入理解JavaScript运行机制/" itemprop="url">深入理解JavaScript运行机制</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-11T06:56:49+08:00">
+                2018-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="JS在浏览器运行情况："><a href="#JS在浏览器运行情况：" class="headerlink" title="JS在浏览器运行情况："></a>JS在浏览器运行情况：</h2><ol>
+<li>JS是单线程，是单线程，是单线程<div class="note info"><p><strong>场景描述：</strong>现在有2个进程p1，p2,由于是多进程的JS,所以他们对同一个dom,同时进行操作<br>p1 删除了该dom,而p2 编辑了该dom,同时下达2个矛盾的命令,浏览器究竟该如何执行呢?</p></div>
+通过以上场景描述,知道JS为什么被设计成单线程应该就容易理解了吧。
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/11/深入理解JavaScript运行机制/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1004,152 +1150,6 @@ window对象
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2017/12/05/hexoTutorial/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="ardee Wong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/cat_cute.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ardee Wong's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/05/hexoTutorial/" itemprop="url">Hexo + Github Pages搭建个人博客教程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-05T17:31:55+08:00">
-                2017-12-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tutorial/" itemprop="url" rel="index">
-                    <span itemprop="name">tutorial</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这是一篇有关如何使用Github Pages和Hexo搭建自己独立博客的详尽教程，里面介绍了如何使用和配置Hexo框架，如何将Hexo部署到自己的Github项目中，域名注册，以及域名的绑定，还有我在搭建自己博客过程中所遇到的各种困难。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/12/05/hexoTutorial/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1204,7 +1204,7 @@ window对象
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
