@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://chongdee.github.io/2018/07/20/vue-cli%E4%B8%AD%E7%9A%84webpack/</loc>
+    <loc>https://chongdee.github.io/2018/07/20/vue2.0-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
     
-    <lastmod>2018-07-22T23:05:17.878Z</lastmod>
+    <lastmod>2018-07-22T23:26:40.176Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://chongdee.github.io/2018/07/20/vue2.0-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
+    <loc>https://chongdee.github.io/2018/07/23/vuex/</loc>
     
-    <lastmod>2018-07-21T14:17:24.438Z</lastmod>
+    <lastmod>2018-07-22T23:13:54.317Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chongdee.github.io/2018/07/20/vue-cli%E4%B8%AD%E7%9A%84webpack/</loc>
+    
+    <lastmod>2018-07-22T23:05:17.878Z</lastmod>
     
   </url>
   
