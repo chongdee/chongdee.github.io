@@ -269,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/11/深入理解JavaScript运行机制/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/js设计模式-发布订阅模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -288,7 +288,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/11/深入理解JavaScript运行机制/" itemprop="url">深入理解JavaScript运行机制</a></h1>
+                <a class="post-title-link" href="/2018/10/31/js设计模式-发布订阅模式/" itemprop="url">js设计模式-发布订阅模式</a></h1>
         
 
         <div class="post-meta">
@@ -300,8 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-11T06:56:49+08:00">
-                2018-07-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T21:33:54+08:00">
+                2018-10-31
               </time>
             
 
@@ -361,12 +361,11 @@
 
       
         
-          <h2 id="JS在浏览器运行情况："><a href="#JS在浏览器运行情况：" class="headerlink" title="JS在浏览器运行情况："></a>JS在浏览器运行情况：</h2><ol>
-<li>JS是单线程，是单线程，是单线程<div class="note info"><p><strong>场景描述：</strong>现在有2个进程p1，p2,由于是多进程的JS,所以他们对同一个dom,同时进行操作<br>p1 删除了该dom,而p2 编辑了该dom,同时下达2个矛盾的命令,浏览器究竟该如何执行呢?</p></div>
-通过以上场景描述,知道JS为什么被设计成单线程应该就容易理解了吧。
+          <h2 id="发布-订阅模式（观察者模式）"><a href="#发布-订阅模式（观察者模式）" class="headerlink" title="发布-订阅模式（观察者模式）"></a>发布-订阅模式（观察者模式）</h2><p>定义：对象间的一种一对多的关系，让多个观察者对象同时监听某一个主题对象，当一个对象发生改变时，所有依赖于它的对象都将得到通知。</p>
+<h2 id="现实生活中的发布-订阅模式"><a href="#现实生活中的发布-订阅模式" class="headerlink" title="现实生活中的发布-订阅模式"></a>现实生活中的发布-订阅模式</h2><p>比如小红最近在淘宝网上看上一双鞋子，但是呢 联系到卖家后，才发现这双鞋卖光了，但是小红对这双鞋又非常喜欢，所以呢联系卖家，问卖家什么时候有货，卖家告诉她，要等一个星期后才有货，卖家告诉小红，要是你喜欢的话，你可以收藏我们的店铺，等有货的时候再通知你，所以小红收藏了此店铺，但与此同时，小明，小花等也喜欢这双鞋，也收藏了该店铺；等来货的时候就依次会通知他们。在上面的故事中，可以看出是一个典型的发布订阅模式，卖家是属于发布者，小红，小明等属于订阅者，订阅该店铺，卖家作为发布者，当鞋子到了的时候，会依次通知小明，小红等，依次使用旺旺等工具给他们发布消息。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/11/深入理解JavaScript运行机制/#more" rel="contents">
+            <a class="btn" href="/2018/10/31/js设计模式-发布订阅模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -417,7 +416,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/11/JavaScript知识思维导图/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/js设计模式-策略模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -436,7 +435,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/11/JavaScript知识思维导图/" itemprop="url">JavaScript知识思维导图</a></h1>
+                <a class="post-title-link" href="/2018/10/31/js设计模式-策略模式/" itemprop="url">js设计模式-策略模式</a></h1>
         
 
         <div class="post-meta">
@@ -448,8 +447,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-11T06:56:49+08:00">
-                2018-07-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T21:20:03+08:00">
+                2018-10-31
               </time>
             
 
@@ -509,22 +508,11 @@
 
       
         
-          
-           数据类型
-变量
-运算符
-流程语句
-数组
-函数基础
-字符串函数
-正则表达式
-DOM基础操作
-window对象
-
-          
+          <h2 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h2><p>定义：定义一系列的算法，把它们一个个封装起来，并且使它们可以相互替换。<br>举例：计算年终奖（工资、效绩）,表单效验（是否为空、长度、手机号、邮箱等等）</p>
+<p>比如公司的年终奖是根据员工的工资和绩效来考核的，绩效为A的人，年终奖为工资的4倍，<br>绩效为B的人，年终奖为工资的3倍，绩效为C的人，年终奖为工资的2倍；</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/11/JavaScript知识思维导图/#more" rel="contents">
+            <a class="btn" href="/2018/10/31/js设计模式-策略模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -575,7 +563,7 @@ window对象
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/10/hexo next主题个性化配置/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/js设计模式-单例模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -594,7 +582,7 @@ window对象
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/10/hexo next主题个性化配置/" itemprop="url">hexo的next主题个性化配置教程</a></h1>
+                <a class="post-title-link" href="/2018/10/31/js设计模式-单例模式/" itemprop="url">js设计模式-单例模式</a></h1>
         
 
         <div class="post-meta">
@@ -606,8 +594,8 @@ window对象
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-10T21:22:15+08:00">
-                2018-07-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T17:26:40+08:00">
+                2018-10-31
               </time>
             
 
@@ -629,8 +617,8 @@ window对象
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hexo/" itemprop="url" rel="index">
-                    <span itemprop="name">hexo</span>
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -667,10 +655,18 @@ window对象
 
       
         
-          <h2 id="在右上角或者左上角实现fork-me-on-github"><a href="#在右上角或者左上角实现fork-me-on-github" class="headerlink" title="在右上角或者左上角实现fork me on github"></a>在右上角或者左上角实现fork me on github</h2><p>具体实现方法<br>点击<a href="https://blog.github.com/2008-12-19-github-ribbons/" target="_blank" rel="noopener">这里</a>挑选自己喜欢的样式，并复制代码:<br><img src="/img/next_theme_set/fork_on_github.png" alt="&quot;fork me on github图标&quot;"><br>
+          <h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p>单例模式，从名字拆分来看，单指的是一个，例是实例，意思是说多次通过某个类创造出来实例始终只返回同一个实例，它限制一个类只能有一个实例。单例模式主要是为了解决对象的创建问题。单例模式的特点：</p>
+<blockquote>
+<ol>
+<li>一个类只有一个实例</li>
+<li>对外提供唯一的访问接口</li>
+</ol>
+</blockquote>
+<p>在一些以类为核心的语言中，例如java，每创建一个对象就必须先定义一个类，对象是从类创建而来。js是一门无类（class-free）的语言，在js中创建对象的方法非常简单，不需要先定义类即可创建对象。</p>
+<p>在js中，单例模式是一种常见的模式，例如浏览器中提供的window对象，处理数字的Math对象。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/10/hexo next主题个性化配置/#more" rel="contents">
+            <a class="btn" href="/2018/10/31/js设计模式-单例模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -721,7 +717,7 @@ window对象
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/10/vue源码分析/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/js设计模式-工厂模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -740,7 +736,7 @@ window对象
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/10/vue源码分析/" itemprop="url">vue源码分析</a></h1>
+                <a class="post-title-link" href="/2018/10/31/js设计模式-工厂模式/" itemprop="url">js设计模式-工厂模式</a></h1>
         
 
         <div class="post-meta">
@@ -752,8 +748,8 @@ window对象
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-10T15:40:55+08:00">
-                2018-07-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T16:48:18+08:00">
+                2018-10-31
               </time>
             
 
@@ -775,8 +771,8 @@ window对象
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -813,13 +809,15 @@ window对象
 
       
         
-          
-           Content (md partial supported) 
-
-          
+          <h2 id="什么时候使用工厂模式"><a href="#什么时候使用工厂模式" class="headerlink" title="什么时候使用工厂模式"></a>什么时候使用工厂模式</h2><ol>
+<li>对象的构建十分复杂</li>
+<li>需要依赖具体环境创建不同实例</li>
+<li>处理大量具有相同属性的小对象</li>
+</ol>
+<p>定义：简单工厂模式是由一个方法来决定到底要创建哪个类的实例, 而这些类通常都拥有相同的接口（属性和方法）。<br>这里就以RPG中职业（战士、法师、射手）来做说明：<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/10/vue源码分析/#more" rel="contents">
+            <a class="btn" href="/2018/10/31/js设计模式-工厂模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -870,7 +868,7 @@ window对象
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2017/12/05/Markdown/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/30/javaScript常用设计模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -889,7 +887,7 @@ window对象
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/05/Markdown/" itemprop="url">Markdown快速入门</a></h1>
+                <a class="post-title-link" href="/2018/10/30/javaScript常用设计模式/" itemprop="url">javaScript常用设计模式</a></h1>
         
 
         <div class="post-meta">
@@ -901,8 +899,8 @@ window对象
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-05T17:46:36+08:00">
-                2017-12-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-30T22:42:11+08:00">
+                2018-10-30
               </time>
             
 
@@ -924,8 +922,8 @@ window对象
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tutorial/" itemprop="url" rel="index">
-                    <span itemprop="name">tutorial</span>
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -962,11 +960,12 @@ window对象
 
       
         
-          <h1 id="Markdown快速入门"><a href="#Markdown快速入门" class="headerlink" title="Markdown快速入门"></a>Markdown快速入门</h1><h2 id="一、认识Markdown"><a href="#一、认识Markdown" class="headerlink" title="一、认识Markdown"></a>一、认识Markdown</h2><blockquote>
-<p>Markdown是一种轻量级标记语言，创始人为约翰·格鲁伯（John Gruber）。它允许人们“使用易读易写的纯文本格式编写文档，然后转换成有效的XHTML（或者HTML）文档”。这种语言吸收了很多在电子邮件中已有的纯文本标记的特性。<br>Markdown的语法全由一些符号所组成，这些符号经过精挑细选，其作用一目了然。<br>
+          <h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h2><p>设计模式，是一套经过前人总结、业务验证并适合于特定业务开发的代码组织方式，可能会有一些同学会认为设计模式没有用，我这里需要指出设计模式并不是万能的只适合于特定业务场景的开发（对我们的业务开发起到一定的指导作用，所有设计模式的目的都是让开发者编写可维护、易扩展的代码），其实你日常开发中或多或少都使用过设计模式，只是你不知道名字而已（如，绑定事件和触发事件这就是一个简单的发布-订阅模式）。</p>
+<h2 id="工厂模式（Factory）"><a href="#工厂模式（Factory）" class="headerlink" title="工厂模式（Factory）"></a>工厂模式（Factory）</h2><p>定义：简单工厂模式是由一个方法来决定到底要创建哪个类的实例, 而这些实例通常都拥有相同的接口（属性和方法）。<br>举例：计算器（加、减、乘、除）、自行车售卖（山地、公路）、饮料机（咖啡、牛奶、水）、RPG中职业（战士、法师、射手）</p>
+<h2 id="单例模式（Singleton）"><a href="#单例模式（Singleton）" class="headerlink" title="单例模式（Singleton）"></a>单例模式（Singleton）</h2><p>定义：单例就是保证一个类只有一个实例，实现的方法一般是先判断实例存在与否，如果存在直接返回，如果不存在就创建了再返回，这就确保了一个类只有一个实例对象。在JavaScript里，单例作为一个命名空间提供者，从全局命名空间里提供一个唯一的访问点来访问该对象。<br>举例：：模态框、登录控件、注销控件<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/05/Markdown/#more" rel="contents">
+            <a class="btn" href="/2018/10/30/javaScript常用设计模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1017,7 +1016,7 @@ window对象
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2017/12/05/hexoTutorial/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/18/观察者模式VS发布-订阅模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -1036,7 +1035,7 @@ window对象
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/05/hexoTutorial/" itemprop="url">Hexo + Github Pages搭建个人博客教程</a></h1>
+                <a class="post-title-link" href="/2018/10/18/观察者模式VS发布-订阅模式/" itemprop="url">观察者模式VS发布/订阅模式</a></h1>
         
 
         <div class="post-meta">
@@ -1048,8 +1047,8 @@ window对象
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-05T17:31:55+08:00">
-                2017-12-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-18T12:45:26+08:00">
+                2018-10-18
               </time>
             
 
@@ -1071,8 +1070,8 @@ window对象
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/tutorial/" itemprop="url" rel="index">
-                    <span itemprop="name">tutorial</span>
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -1109,10 +1108,15 @@ window对象
 
       
         
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这是一篇有关如何使用Github Pages和Hexo搭建自己独立博客的详尽教程，里面介绍了如何使用和配置Hexo框架，如何将Hexo部署到自己的Github项目中，域名注册，以及域名的绑定，还有我在搭建自己博客过程中所遇到的各种困难。<br>
+          <h2 id="观察者设计模式"><a href="#观察者设计模式" class="headerlink" title="观察者设计模式"></a>观察者设计模式</h2><p>一个目标对象维持着一系列依赖于它的对象，将有关状态的任何变更自动通知观察者们。在观察者模式中，观察者需要直接订阅目标对象，观察者与目标对象之间有一定的依赖关系。<br>有4个重要的概念</p>
+<ol>
+<li>目标对象（被观察者）：维护一组观察患者，提供管理观察者的方法。</li>
+<li>观察者： 提供一个更新接口，用于收到通知时，进行更新</li>
+<li>具体目标对象：代表具体的目标对象</li>
+<li>具体观察者：代表具体的观察者
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/05/hexoTutorial/#more" rel="contents">
+            <a class="btn" href="/2018/10/18/观察者模式VS发布-订阅模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1154,7 +1158,7 @@ window对象
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1204,7 +1208,7 @@ window对象
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1226,7 +1230,7 @@ window对象
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -269,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/15/webpack入门了解一下/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/js设计模式-桥接模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -288,7 +288,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/15/webpack入门了解一下/" itemprop="url">webpack入门了解一下</a></h1>
+                <a class="post-title-link" href="/2018/10/31/js设计模式-桥接模式/" itemprop="url">js设计模式-桥接模式</a></h1>
         
 
         <div class="post-meta">
@@ -300,154 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-15T10:13:28+08:00">
-                2018-07-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/webpack/" itemprop="url" rel="index">
-                    <span itemprop="name">webpack</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="webpack-是什么"><a href="#webpack-是什么" class="headerlink" title="webpack 是什么"></a>webpack 是什么</h2><p>web开发中常用到的静态资源主要有JavaScript、CSS、图片、pug等文件，webpack中将静态资源文件称之为模块。webpack是一个模块打包工具，其可以兼容多种js书写规范，且可以处理模块间的依赖关系，具有更强大的js模块化的功能。 <a href="https://webpack.docschina.org/" target="_blank" rel="noopener">官方网站</a>中用下图清晰的描述了webpack采用不同的loader加载不同的资源文件，打包生成多个js文件，也可以根据设置生成独立的图片、css文件等。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/07/15/webpack入门了解一下/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/13/JavaScript之原型与原型链/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="andy Wong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/cat_cute.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="andy Wong's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/13/JavaScript之原型与原型链/" itemprop="url">JavaScript之原型与原型链</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-13T08:26:09+08:00">
-                2018-07-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T21:43:28+08:00">
+                2018-10-31
               </time>
             
 
@@ -507,11 +361,11 @@
 
       
         
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>对于很多前端开发者而言，JavaScript的原型实在是很让人头疼。<br>说起原型，那就不得不说prototype、__proto__、constructor三者的关系，其中比较麻烦的就是容易将prototype和__proto__混淆，这也是因为它们之间的指向确实有些复杂。</p>
-<h2 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h2><div class="note info"><p>每个函数都有一个原型prototype属性，每一个实例对象都会从原型”继承”属性。</p></div>
+          <p>桥接模式定义<br>定义：桥接模式（Bridge）将抽象部分与它的实现部分分离，使它们都可以独立地变化。<br>桥接设计模式是许多其他设计模式的基础,比如装饰模式, 代理模式都或多或少看到他的影子, 在面向对象设计中最重要的一个特点就是继承, 然而作为拓展类的功能的方式有两种 – 继承和桥接, 桥接用我简单的理解就是放弃使用继承的方式拓展类, 而是采用包含另一个具有一定功能的对象来拓展类。</p>
+<p>使用场景：事件回调函数、请求接口之间进行桥接、用于连接公开的API代码和私用实现的代码<br>根据javascript语言的特点，我们将其简化成2个角色：<br>（1）扩充抽象类<br>（2）具体实现类<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/13/JavaScript之原型与原型链/#more" rel="contents">
+            <a class="btn" href="/2018/10/31/js设计模式-桥接模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -562,7 +416,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/13/JavaScript之继承（包含ES6）/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/js设计模式-迭代器模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -581,7 +435,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/13/JavaScript之继承（包含ES6）/" itemprop="url">JavaScript之继承（包含ES6）</a></h1>
+                <a class="post-title-link" href="/2018/10/31/js设计模式-迭代器模式/" itemprop="url">js设计模式-迭代器模式</a></h1>
         
 
         <div class="post-meta">
@@ -593,8 +447,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-13T08:12:50+08:00">
-                2018-07-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T21:42:36+08:00">
+                2018-10-31
               </time>
             
 
@@ -654,10 +508,10 @@
 
       
         
-          <h2 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.names = [<span class="string">'foo'</span>, <span class="string">'bar'</span>];</span><br><span class="line">    <span class="keyword">this</span>.age = <span class="number">60</span>;</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.greeting = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"hello!"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Child.prototype = <span class="keyword">new</span> Parent();  <span class="comment">//将父类实例作为子类原型</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> child1 = <span class="keyword">new</span> Child();</span><br><span class="line"></span><br><span class="line">child1.names.push(<span class="string">'baz'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(child1.names); <span class="comment">// ["foo", "bar", "baz"]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> child2 = <span class="keyword">new</span> Child();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(child2.names); <span class="comment">// ["foo", "bar", "baz"] </span></span><br><span class="line"></span><br><span class="line">child1.greeting()  <span class="comment">//  hello!</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> age1 = child1.age = <span class="number">5</span></span><br><span class="line"><span class="built_in">console</span>.log(age1)   <span class="comment">//5</span></span><br><span class="line"><span class="built_in">console</span>.log(child2.age)   <span class="comment">//60  依旧继承父类基本类属性</span></span><br><span class="line"><span class="comment">//修改其中一个实例子类基本类型属性不会影响其他子类基本类型属性</span></span><br></pre></td></tr></table></figure>
+          <h2 id="迭代器模式介绍"><a href="#迭代器模式介绍" class="headerlink" title="迭代器模式介绍"></a>迭代器模式介绍</h2><p>定义：迭代器模式是指提供一种方法顺序访问一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。<br>使用的好处：迭代器模式可以把迭代的过程从业务逻辑中分离出来，在使用迭代器模式之后，即使不关心对象的内部构造，也可以按顺序访问其中的每个元素。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/13/JavaScript之继承（包含ES6）/#more" rel="contents">
+            <a class="btn" href="/2018/10/31/js设计模式-迭代器模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -708,7 +562,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/12/JavaScript之作用域（Scope）作用域链（Scope chain）/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/js设计模式-适配器模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -727,7 +581,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/12/JavaScript之作用域（Scope）作用域链（Scope chain）/" itemprop="url">JavaScript之作用域（Scope）,作用域链（Scope Chain）</a></h1>
+                <a class="post-title-link" href="/2018/10/31/js设计模式-适配器模式/" itemprop="url">js设计模式-适配器模式</a></h1>
         
 
         <div class="post-meta">
@@ -739,8 +593,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T18:17:35+08:00">
-                2018-07-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T21:42:14+08:00">
+                2018-10-31
               </time>
             
 
@@ -800,11 +654,14 @@
 
       
         
-          <h2 id="官方概念"><a href="#官方概念" class="headerlink" title="官方概念"></a>官方概念</h2><h3 id="作用域-Scope"><a href="#作用域-Scope" class="headerlink" title="作用域(Scope):"></a>作用域(Scope):</h3><div class="note info"><p>javaScript中没有块级作用域、取而代之的使用了函数作用域、即变量在声明它们的函数以及这个函数体嵌套的任意函数体内都是有定义的 –《javaScript权威指南》</p></div>
-<h3 id="作用域链-Scope-Chain"><a href="#作用域链-Scope-Chain" class="headerlink" title="作用域链(Scope Chain):"></a>作用域链(Scope Chain):</h3><div class="note info"><p>当函数创建时会创建一个包含其父函数变量、父函数的父函数的变量对象、直至全局变量对象的一个作用域链，这个作用域被保存在函数内部的[[scope]]属性中，由于函数本身即是对象，可以理解[[scope]]是后台可以访问的一个属性，不可再JavaScript代码中访问，当函数调用时，会创建一个自己的活动对象、作为变量对象，被推入到执行环境作用域链的最前端，此时这个[[scope]]属性相当于一个变量对象的集合，并有访问的优先级。作用域链并不保存实际的变量对象，它是一个指针，指向内存中的变量对象列表。</p></div>
+          
+           适配器模式介绍定义：适配器模式（Adapter）是将一个类（对象）的接口（方法或属性）转化成客户希望的另外一个接口（方法或属性），适配器模式使得原本由于接口不兼容而不能一起工作的那些类（对象）可以一些工作。速成包装器（wrapper）。使用场景：适配器模式往往用于适配两个接口不兼容的问题，在js中应用更为广泛，比如适配两个代码库、适配前后端数据。
+因此应对这种场景，我们可以很快地想到可以用适配器模式来解决这个问题。
+参数适配1234567891011121314151617181920212223242526272829303132333435363738394041424344454647
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/12/JavaScript之作用域（Scope）作用域链（Scope chain）/#more" rel="contents">
+            <a class="btn" href="/2018/10/31/js设计模式-适配器模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -855,7 +712,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/12/JavaScript之this/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/js设计模式-装饰者模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -874,7 +731,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/12/JavaScript之this/" itemprop="url">JavaScript之this</a></h1>
+                <a class="post-title-link" href="/2018/10/31/js设计模式-装饰者模式/" itemprop="url">js设计-装饰者模式</a></h1>
         
 
         <div class="post-meta">
@@ -886,8 +743,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T01:26:37+08:00">
-                2018-07-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T21:39:32+08:00">
+                2018-10-31
               </time>
             
 
@@ -947,11 +804,11 @@
 
       
         
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><div class="note info"><p>与我们常见的很多语言不同，JavaScript 函数中的 this 指向并不是在函数定义的时候确定的，而是在调用的时候确定的。换句话说，函数的调用方式决定了 this 指向。</p>
-<p>JavaScript 中，普通的函数调用方式有三种：直接调用、方法调用和 new 调用。除此之外，还有一些特殊的调用方式，比如通过 bind() 将函数绑定到对象之后再进行调用、通过 call()、apply() 进行调用等。而 es6 引入了箭头函数之后，箭头函数调用时，其 this 指向又有所不同。下面就来分析这些情况下的 this 指向。</p></div>
+          <h2 id="装饰者模式"><a href="#装饰者模式" class="headerlink" title="装饰者模式"></a>装饰者模式</h2><p>定义：装饰者(decorator)模式能够在不改变对象自身的基础上，在程序运行期间给对象动态的添加职责。<br>装饰者用于通过重载方法的形式添加新功能，该模式可以在被装饰者前面或者后面加上自己的行为以达到特定的目的。<br>与继承相比，装饰者是一种更轻便灵活的做法。</p>
+<p>普通对象被装饰者包裹起来，就形成了装饰者模式。<br>举例：<br>雷霆战机（吃道具的例子）<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/12/JavaScript之this/#more" rel="contents">
+            <a class="btn" href="/2018/10/31/js设计模式-装饰者模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1002,7 +859,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/11/JavaScript之声明提升（Hoisting）/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/js设计模式-中介模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -1021,7 +878,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/11/JavaScript之声明提升（Hoisting）/" itemprop="url">JavaScript之声明提升（Hoisting）</a></h1>
+                <a class="post-title-link" href="/2018/10/31/js设计模式-中介模式/" itemprop="url">js设计模式-中介模式</a></h1>
         
 
         <div class="post-meta">
@@ -1033,8 +890,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-11T06:58:07+08:00">
-                2018-07-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T21:38:36+08:00">
+                2018-10-31
               </time>
             
 
@@ -1094,10 +951,156 @@
 
       
         
-          <h2 id="浏览器解析JS脚本执行顺序问题"><a href="#浏览器解析JS脚本执行顺序问题" class="headerlink" title="浏览器解析JS脚本执行顺序问题"></a>浏览器解析JS脚本执行顺序问题</h2><p>有些朋友可能会觉得JavaScript的代码是从上到下，一行一行的解释执行的。如果按照这样的思路，在有些情况下阅读代码会得到错误的结果，考虑以下代码：<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">a</span> = <span class="number">2</span><span class="comment">;</span></span><br><span class="line">var a<span class="comment">;</span></span><br><span class="line">console.log(a)<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+          <h2 id="中介者模式"><a href="#中介者模式" class="headerlink" title="中介者模式"></a>中介者模式</h2><p>定义：中介者模式的作用就是解除对象与对象之间的紧耦合关系。增加一个中介者对象后，<br>所有的相关对象都通过中介者对象来通信，而不是互相引用，所以当一个对象发生改变时，<br>只需要通知中介者对象即可。中介者使各对象之间耦合松散，而且可以独立地改变它们之间的交互。<br>中介者模式使网状的多对多关系变成了相对简单的一对多关系。<br>举例：<br>手机购买页面（颜色、数量、内存、价格）<br>MVC模式（控制层便是位于表现层与模型层之间的中介者。）<br>我们应该很熟悉 MVC 三层模型实体模型（Model）、视图表现层（View）还有控制层（Control/Mediator）。<br><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="markdown">/<span class="emphasis">** 模擬 Model, View, Controller *</span>/</span></span></span><br><span class="line"><span class="keyword">var</span> M = &#123;&#125;, V = &#123;&#125;, C = &#123;&#125;;</span><br><span class="line"><span class="comment"><span class="markdown">/<span class="emphasis">** Model 负责存放资料*</span>/</span></span></span><br><span class="line">M.data = <span class="string">"hello world"</span>;</span><br><span class="line"><span class="comment"><span class="markdown">/<span class="emphasis">** View  负责将资料输出到页面*</span>/</span></span></span><br><span class="line">V.render = (M) =&gt; &#123; alert(M.data); &#125;</span><br><span class="line"><span class="comment"><span class="markdown">/<span class="emphasis">** Controller  作为一个M和V的桥梁*</span>/</span></span></span><br><span class="line">C.handleOnload = () =&gt; &#123; V.render(M); &#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.onload = C.handleOnload;</span><br></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/11/JavaScript之声明提升（Hoisting）/#more" rel="contents">
+            <a class="btn" href="/2018/10/31/js设计模式-中介模式/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/js设计模式-代理模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/cat_cute.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/10/31/js设计模式-代理模式/" itemprop="url">js设计模式-代理模式</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T21:38:04+08:00">
+                2018-10-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="代理模式"><a href="#代理模式" class="headerlink" title="代理模式"></a>代理模式</h2><p>定义：为一个对象提供一个代用品或占位符，以便控制对它的访问。<br>代理对象和本体对象实现了同样的接口，并且会把任何方法调用传递给本体对象；<br>举例：<br>图片预加载、图片懒加载、<br>合并HTTP请求（代理收集一定时间内的所有HTTP请求，然后一次性发给服务器）、<br>惰性加载（通过代理处理和收集一些基本操作，然后仅在真正需要本体的时候才加载本体）、<br>缓存代理（缓存请求结果、计算结果）<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/31/js设计模式-代理模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1139,7 +1142,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1189,7 +1192,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1211,7 +1214,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
