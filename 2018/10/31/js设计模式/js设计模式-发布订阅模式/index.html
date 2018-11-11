@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,JS设计模式," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="发布-订阅模式（观察者模式）定义：对象间的一种一对多的关系，让多个观察者对象同时监听某一个主题对象，当一个对象发生改变时，所有依赖于它的对象都将得到通知。 现实生活中的发布-订阅模式比如小红最近在淘宝网上看上一双鞋子，但是呢 联系到卖家后，才发现这双鞋卖光了，但是小红对这双鞋又非常喜欢，所以呢联系卖家，问卖家什么时候有货，卖家告诉她，要等一个星期后才有货，卖家告诉小红，要是你喜欢的话，你可以收藏我">
+<meta name="keywords" content="JavaScript,JS设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js设计模式-发布订阅模式">
+<meta property="og:url" content="https://chongdee.github.io/2018/10/31/js设计模式/js设计模式-发布订阅模式/index.html">
+<meta property="og:site_name" content="andy Wong&#39;s Blog">
+<meta property="og:description" content="发布-订阅模式（观察者模式）定义：对象间的一种一对多的关系，让多个观察者对象同时监听某一个主题对象，当一个对象发生改变时，所有依赖于它的对象都将得到通知。 现实生活中的发布-订阅模式比如小红最近在淘宝网上看上一双鞋子，但是呢 联系到卖家后，才发现这双鞋卖光了，但是小红对这双鞋又非常喜欢，所以呢联系卖家，问卖家什么时候有货，卖家告诉她，要等一个星期后才有货，卖家告诉小红，要是你喜欢的话，你可以收藏我">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-11T20:42:32.259Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js设计模式-发布订阅模式">
+<meta name="twitter:description" content="发布-订阅模式（观察者模式）定义：对象间的一种一对多的关系，让多个观察者对象同时监听某一个主题对象，当一个对象发生改变时，所有依赖于它的对象都将得到通知。 现实生活中的发布-订阅模式比如小红最近在淘宝网上看上一双鞋子，但是呢 联系到卖家后，才发现这双鞋卖光了，但是小红对这双鞋又非常喜欢，所以呢联系卖家，问卖家什么时候有货，卖家告诉她，要等一个星期后才有货，卖家告诉小红，要是你喜欢的话，你可以收藏我">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chongdee.github.io/2018/10/31/js设计模式/js设计模式-发布订阅模式/"/>
+
+
+
+
+
+  <title>js设计模式-发布订阅模式 | andy Wong's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?63d30ffc3ac0fa4a98c97c20372430af";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">andy Wong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A little bit progress every day</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/js设计模式/js设计模式-发布订阅模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/cat_cute.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js设计模式-发布订阅模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T21:33:54+08:00">
+                2018-10-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script src="\assets\js\APlayer.min.js"> </script><h2 id="发布-订阅模式（观察者模式）"><a href="#发布-订阅模式（观察者模式）" class="headerlink" title="发布-订阅模式（观察者模式）"></a>发布-订阅模式（观察者模式）</h2><p>定义：对象间的一种一对多的关系，让多个观察者对象同时监听某一个主题对象，当一个对象发生改变时，所有依赖于它的对象都将得到通知。</p>
+<h2 id="现实生活中的发布-订阅模式"><a href="#现实生活中的发布-订阅模式" class="headerlink" title="现实生活中的发布-订阅模式"></a>现实生活中的发布-订阅模式</h2><p>比如小红最近在淘宝网上看上一双鞋子，但是呢 联系到卖家后，才发现这双鞋卖光了，但是小红对这双鞋又非常喜欢，所以呢联系卖家，问卖家什么时候有货，卖家告诉她，要等一个星期后才有货，卖家告诉小红，要是你喜欢的话，你可以收藏我们的店铺，等有货的时候再通知你，所以小红收藏了此店铺，但与此同时，小明，小花等也喜欢这双鞋，也收藏了该店铺；等来货的时候就依次会通知他们。在上面的故事中，可以看出是一个典型的发布订阅模式，卖家是属于发布者，小红，小明等属于订阅者，订阅该店铺，卖家作为发布者，当鞋子到了的时候，会依次通知小明，小红等，依次使用旺旺等工具给他们发布消息。<br><a id="more"></a></p>
+<h2 id="实现发布-订阅模式的步骤"><a href="#实现发布-订阅模式的步骤" class="headerlink" title="实现发布-订阅模式的步骤"></a>实现发布-订阅模式的步骤</h2><ol>
+<li>首先要想好谁是发布者(比如上面的卖家)。</li>
+<li>然后给发布者添加一个缓存列表，用于存放回调函数来通知订阅者(比如上面的买家收藏了卖家的店铺，卖家通过收藏了该店铺的一个列表名单)。</li>
+<li>最后就是发布消息，发布者遍历这个缓存列表，依次触发里面存放的订阅者回调函数。</li>
+</ol>
+<figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> shoeObj = &#123;&#125;; <span class="comment">// 定义发布者</span></span><br><span class="line">shoeObj.list = []; <span class="comment">// 缓存列表 存放订阅者回调函数</span></span><br><span class="line">        </span><br><span class="line"><span class="comment">// 增加订阅者</span></span><br><span class="line">shoeObj.listen = <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>) </span>&#123;</span><br><span class="line">    shoeObj.list.push(fn);  <span class="comment">// 订阅消息添加到缓存列表</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发布消息</span></span><br><span class="line">shoeObj.trigger = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,fn; fn = <span class="keyword">this</span>.list[i++];) &#123;</span><br><span class="line">        fn.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>); </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 小红订阅如下消息</span></span><br><span class="line">shoeObj.listen(<span class="function"><span class="keyword">function</span>(<span class="params">color,size</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"颜色是："</span>+<span class="built_in">color</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"尺码是："</span>+<span class="built_in">size</span>);  </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 小花订阅如下消息</span></span><br><span class="line">shoeObj.listen(<span class="function"><span class="keyword">function</span>(<span class="params">color,size</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"再次打印颜色是："</span>+<span class="built_in">color</span>);</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"再次打印尺码是："</span>+<span class="built_in">size</span>); </span><br><span class="line">&#125;);</span><br><span class="line">shoeObj.trigger(<span class="string">"红色"</span>,<span class="number">40</span>);</span><br><span class="line">shoeObj.trigger(<span class="string">"黑色"</span>,<span class="number">42</span>);</span><br></pre></td></tr></table></figure>
+<p>我们看到订阅者接收到发布者的每个消息，但是呢，对于小红来说，她只想接收颜色为红色的消息，不想接收颜色为黑色的消息，为此我们需要对代码进行如下改造下，我们可以先增加一个key，使订阅者只订阅自己感兴趣的消息。</p>
+<figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> shoeObj = &#123;&#125;; <span class="comment">// 定义发布者</span></span><br><span class="line">shoeObj.list = []; <span class="comment">// 缓存列表 存放订阅者回调函数</span></span><br><span class="line">        </span><br><span class="line"><span class="comment">// 增加订阅者</span></span><br><span class="line">shoeObj.listen = <span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="keyword">this</span>.list[key]) &#123;</span><br><span class="line">        <span class="comment">// 如果还没有订阅过此类消息，给该类消息创建一个缓存列表</span></span><br><span class="line">        <span class="keyword">this</span>.list[key] = []; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">this</span>.list[key].push(fn);  <span class="comment">// 订阅消息添加到缓存列表</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发布消息</span></span><br><span class="line">shoeObj.trigger = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> key = <span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>); <span class="comment">// 取出消息类型名称</span></span><br><span class="line">    <span class="keyword">var</span> fns = <span class="keyword">this</span>.list[key];  <span class="comment">// 取出该消息对应的回调函数的集合</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果没有订阅过该消息的话，则返回</span></span><br><span class="line">    <span class="keyword">if</span>(!fns || fns.length === <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,fn; fn = fns[i++]; ) &#123;</span><br><span class="line">        fn.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>); <span class="comment">// arguments 是发布消息时附送的参数</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 小红订阅如下消息</span></span><br><span class="line">shoeObj.listen(<span class="string">'red'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">size</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"尺码是："</span>+<span class="built_in">size</span>);  </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 小花订阅如下消息</span></span><br><span class="line">shoeObj.listen(<span class="string">'block'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">size</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"再次打印尺码是："</span>+<span class="built_in">size</span>); </span><br><span class="line">&#125;);</span><br><span class="line">shoeObj.trigger(<span class="string">"red"</span>,<span class="number">40</span>);</span><br><span class="line">shoeObj.trigger(<span class="string">"block"</span>,<span class="number">42</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="发布—订阅模式的代码封装"><a href="#发布—订阅模式的代码封装" class="headerlink" title="发布—订阅模式的代码封装"></a>发布—订阅模式的代码封装</h2><p>我们知道，对于上面的代码，小红去买鞋这么一个对象shoeObj 进行订阅，但是如果以后我们需要对买房子或者其他的对象进行订阅呢，我们需要复制上面的代码，再重新改下里面的对象代码；为此我们需要进行代码封装；</p>
+<p>如下代码封装：<br><figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> event = &#123;</span><br><span class="line">    <span class="attribute">list</span>: [],</span><br><span class="line">    <span class="attribute">listen</span>: <span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="keyword">this</span>.list[key]) &#123;</span><br><span class="line">            <span class="keyword">this</span>.list[key] = [];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 订阅的消息添加到缓存列表中</span></span><br><span class="line">        <span class="keyword">this</span>.list[key].push(fn);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attribute">trigger</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> key = <span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>);</span><br><span class="line">        <span class="keyword">var</span> fns = <span class="keyword">this</span>.list[key];</span><br><span class="line">        <span class="comment">// 如果没有订阅过该消息的话，则返回</span></span><br><span class="line">        <span class="keyword">if</span>(!fns || fns.length === <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>,fn; fn = fns[i++];) &#123;</span><br><span class="line">            fn.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//我们再定义一个initEvent函数，这个函数使所有的普通对象都具有发布订阅功能，如下代码：</span></span><br><span class="line"><span class="keyword">var</span> initEvent = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> event) &#123;</span><br><span class="line">        obj[i] = event[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 我们再来测试下，我们还是给shoeObj这个对象添加发布-订阅功能；</span></span><br><span class="line"><span class="keyword">var</span> shoeObj = &#123;&#125;;</span><br><span class="line">initEvent(shoeObj);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 小红订阅如下消息</span></span><br><span class="line">shoeObj.listen(<span class="string">'red'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">size</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"尺码是："</span>+<span class="built_in">size</span>);  </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 小花订阅如下消息</span></span><br><span class="line">shoeObj.listen(<span class="string">'block'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">size</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"再次打印尺码是："</span>+<span class="built_in">size</span>); </span><br><span class="line">&#125;);</span><br><span class="line">shoeObj.trigger(<span class="string">"red"</span>,<span class="number">40</span>);</span><br><span class="line">shoeObj.trigger(<span class="string">"block"</span>,<span class="number">42</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//取消订阅事件</span></span><br><span class="line">event.remove = <span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> fns = <span class="keyword">this</span>.list[key];</span><br><span class="line">    <span class="comment">// 如果key对应的消息没有订阅过的话，则返回</span></span><br><span class="line">    <span class="keyword">if</span>(!fns) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 如果没有传入具体的回调函数，表示需要取消key对应消息的所有订阅</span></span><br><span class="line">    <span class="keyword">if</span>(!fn) &#123;</span><br><span class="line">        fn &amp;&amp; (fns.length = <span class="number">0</span>);</span><br><span class="line">    &#125;<span class="title">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i = fns.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">var</span> _fn = fns[i];</span><br><span class="line">            <span class="keyword">if</span>(_fn === fn) &#123;</span><br><span class="line">                fns.splice(i,<span class="number">1</span>); <span class="comment">// 删除订阅者的回调函数</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p><strong>发布订阅代码封装完整版</strong><br><figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Event = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> <span class="built_in">list</span> = &#123;&#125;, <span class="comment">// 缓存列表</span></span><br><span class="line">		  listen, <span class="comment">// 监听函数</span></span><br><span class="line">		  trigger, <span class="comment">// 触发监听</span></span><br><span class="line">		  remove; <span class="comment">// 移除监听函数</span></span><br><span class="line">		  listen = <span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>)</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(!<span class="built_in">list</span>[key]) &#123;</span><br><span class="line">				<span class="built_in">list</span>[key] = [];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="built_in">list</span>[key].push(fn);</span><br><span class="line">		&#125;;</span><br><span class="line">		trigger = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			<span class="keyword">var</span> key = <span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>),</span><br><span class="line">				 fns = <span class="built_in">list</span>[key];</span><br><span class="line">			<span class="keyword">if</span>(!fns || fns.length === <span class="number">0</span>) &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>, fn; fn = fns[i++];) &#123;</span><br><span class="line">				fn.apply(<span class="keyword">this</span>,<span class="built_in">arguments</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">		remove = <span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>)</span>&#123;</span><br><span class="line">			<span class="keyword">var</span> fns = <span class="built_in">list</span>[key];</span><br><span class="line">			<span class="keyword">if</span>(!fns) &#123;</span><br><span class="line">				<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span>(!fn) &#123;</span><br><span class="line">				fns &amp;&amp; (fns.length = <span class="number">0</span>);</span><br><span class="line">			&#125;<span class="title">else</span> &#123;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">var</span> i = fns.length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">					<span class="keyword">var</span> _fn = fns[i];</span><br><span class="line">					<span class="keyword">if</span>(_fn === fn) &#123;</span><br><span class="line">						fns.splice(i,<span class="number">1</span>);</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;;</span><br><span class="line">		<span class="keyword">return</span> &#123;</span><br><span class="line">			<span class="attribute">listen</span>: listen,</span><br><span class="line">			<span class="attribute">trigger</span>: trigger,</span><br><span class="line">			<span class="attribute">remove</span>: remove</span><br><span class="line">		&#125;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>好累,好困~~~Have a cup of coffee,please. ?</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="andy Wong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="andy Wong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+            <a href="/tags/JS设计模式/" rel="tag"><i class="fa fa-tag"></i> JS设计模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/31/js设计模式/js设计模式-策略模式/" rel="next" title="js设计模式-策略模式">
+                <i class="fa fa-chevron-left"></i> js设计模式-策略模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/31/js设计模式/js设计模式-代理模式/" rel="prev" title="js设计模式-代理模式">
+                js设计模式-代理模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/cat_cute.jpg"
+                alt="andy Wong" />
+            
+              <p class="site-author-name" itemprop="name">andy Wong</p>
+              <p class="site-description motion-element" itemprop="description">前端渣渣辉</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/chongdee" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.uisdc.com/" title="优设" target="_blank">优设</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.zhangxinxu.com/" title="张鑫旭" target="_blank">张鑫旭</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.36zhen.com/t?id=3448" title="前端书籍资料" target="_blank">前端书籍资料</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://ife.baidu.com/" title="百度前端技术学院" target="_blank">百度前端技术学院</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com/" title="阮一峰ES6书籍" target="_blank">阮一峰ES6书籍</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div> 
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#发布-订阅模式（观察者模式）"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x53D1;&#x5E03;-&#x8BA2;&#x9605;&#x6A21;&#x5F0F;&#xFF08;&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;&#xFF09;" class="headerlink" title="&#x53D1;&#x5E03;-&#x8BA2;&#x9605;&#x6A21;&#x5F0F;&#xFF08;&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;&#xFF09;"></a>&#x53D1;&#x5E03;-&#x8BA2;&#x9605;&#x6A21;&#x5F0F;&#xFF08;&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;&#xFF09;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现实生活中的发布-订阅模式"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x73B0;&#x5B9E;&#x751F;&#x6D3B;&#x4E2D;&#x7684;&#x53D1;&#x5E03;-&#x8BA2;&#x9605;&#x6A21;&#x5F0F;" class="headerlink" title="&#x73B0;&#x5B9E;&#x751F;&#x6D3B;&#x4E2D;&#x7684;&#x53D1;&#x5E03;-&#x8BA2;&#x9605;&#x6A21;&#x5F0F;"></a>&#x73B0;&#x5B9E;&#x751F;&#x6D3B;&#x4E2D;&#x7684;&#x53D1;&#x5E03;-&#x8BA2;&#x9605;&#x6A21;&#x5F0F;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现发布-订阅模式的步骤"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x5B9E;&#x73B0;&#x53D1;&#x5E03;-&#x8BA2;&#x9605;&#x6A21;&#x5F0F;&#x7684;&#x6B65;&#x9AA4;" class="headerlink" title="&#x5B9E;&#x73B0;&#x53D1;&#x5E03;-&#x8BA2;&#x9605;&#x6A21;&#x5F0F;&#x7684;&#x6B65;&#x9AA4;"></a>&#x5B9E;&#x73B0;&#x53D1;&#x5E03;-&#x8BA2;&#x9605;&#x6A21;&#x5F0F;&#x7684;&#x6B65;&#x9AA4;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发布—订阅模式的代码封装"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x53D1;&#x5E03;&#x2014;&#x8BA2;&#x9605;&#x6A21;&#x5F0F;&#x7684;&#x4EE3;&#x7801;&#x5C01;&#x88C5;" class="headerlink" title="&#x53D1;&#x5E03;&#x2014;&#x8BA2;&#x9605;&#x6A21;&#x5F0F;&#x7684;&#x4EE3;&#x7801;&#x5C01;&#x88C5;"></a>&#x53D1;&#x5E03;&#x2014;&#x8BA2;&#x9605;&#x6A21;&#x5F0F;&#x7684;&#x4EE3;&#x7801;&#x5C01;&#x88C5;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; 2015 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span>Powered By -</span>
+  <span class="author" itemprop="copyrightHolder">andy Wong</span>
+
+  
+</div>
+
+
+  <div>Theme by &copy;next</div>
+
+
+<div>Hosted by <strong><a href="https://github.com/">Github Pages</a></strong></div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
