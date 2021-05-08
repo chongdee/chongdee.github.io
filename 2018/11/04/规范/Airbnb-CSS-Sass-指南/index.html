@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="css,代码规范," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="规则声明我们把一个（或一组）选择器和一组属性称之为 “规则声明”。举个例子：1234.listing &amp;#123;  font-size: 18px;  line-height: 1.2;&amp;#125;">
+<meta name="keywords" content="css,代码规范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Airbnb CSS &#x2F; Sass 指南">
+<meta property="og:url" content="https://chongdee.github.io/2018/11/04/规范/Airbnb-CSS-Sass-指南/index.html">
+<meta property="og:site_name" content="andy Wong&#39;s Blog">
+<meta property="og:description" content="规则声明我们把一个（或一组）选择器和一组属性称之为 “规则声明”。举个例子：1234.listing &amp;#123;  font-size: 18px;  line-height: 1.2;&amp;#125;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-05-08T16:59:05.846Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Airbnb CSS &#x2F; Sass 指南">
+<meta name="twitter:description" content="规则声明我们把一个（或一组）选择器和一组属性称之为 “规则声明”。举个例子：1234.listing &amp;#123;  font-size: 18px;  line-height: 1.2;&amp;#125;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chongdee.github.io/2018/11/04/规范/Airbnb-CSS-Sass-指南/"/>
+
+
+
+
+
+  <title>Airbnb CSS / Sass 指南 | andy Wong's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?63d30ffc3ac0fa4a98c97c20372430af";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">andy Wong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">知道的越多，不知道的越多</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/11/04/规范/Airbnb-CSS-Sass-指南/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/doggy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Airbnb CSS / Sass 指南</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-04T14:44:45+08:00">
+                2018-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script src="\assets\js\APlayer.min.js"> </script><h2 id="规则声明"><a href="#规则声明" class="headerlink" title="规则声明"></a>规则声明</h2><p>我们把一个（或一组）选择器和一组属性称之为 “规则声明”。举个例子：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.listing</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">18px</span>;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">1.2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<h2 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h2><p>在规则声明中，“选择器” 负责选取 DOM 树中的元素，这些元素将被定义的属性所修饰。选择器可以匹配 HTML 元素，也可以匹配一个元素的类名、ID, 或者元素拥有的属性。以下是选择器的例子：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.my-element-class</span> &#123;</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-attr">[aria-hidden]</span> &#123;</span><br><span class="line">  <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p>最后，属性决定了规则声明里被选择的元素将得到何种样式。属性以键值对形式存在，一个规则声明可以包含一或多个属性定义。以下是属性定义的例子：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* some selector */</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="number">#f1f1f1</span>;</span><br><span class="line">  <span class="attribute">color</span>: <span class="number">#333</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><h3 id="格式"><a href="#格式" class="headerlink" title="格式"></a>格式</h3><ul>
+<li>使用 2 个空格作为缩进。</li>
+<li>类名建议使用破折号代替驼峰法。如果你使用 BEM，也可以使用下划线（参见下面的 OOCSS 和 BEM）。</li>
+<li>不要使用 ID 选择器。</li>
+<li>在一个规则声明中应用了多个选择器时，每个选择器独占一行。</li>
+<li>在规则声明的左大括号 { 前加上一个空格。</li>
+<li>在属性的冒号 : 后面加上一个空格，前面不加空格。</li>
+<li>规则声明的右大括号 } 独占一行。</li>
+<li>规则声明之间用空行分隔开。<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Bad</span></span><br><span class="line">.avatar&#123;</span><br><span class="line">    <span class="attribute">border-radius</span>:<span class="number">50%</span>;</span><br><span class="line">    <span class="attribute">border</span>:<span class="number">2px</span> solid white; &#125;</span><br><span class="line"><span class="selector-class">.no</span>, <span class="selector-class">.nope</span>, <span class="selector-class">.not_good</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-id">#lol-no</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Good</span></span><br><span class="line"></span><br><span class="line"><span class="selector-class">.avatar</span> &#123;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">2px</span> solid white;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.one</span>,</span><br><span class="line"><span class="selector-class">.selector</span>,</span><br><span class="line"><span class="selector-class">.per-line</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><ol>
+<li>建议使用行注释 (在 Sass 中是 //) 代替块注释。</li>
+<li>建议注释独占一行。避免行末注释。</li>
+<li>给没有自注释的代码写上详细说明，比如：<ul>
+<li>为什么用到了 z-index</li>
+<li>兼容性处理或者针对特定浏览器的 hack</li>
+</ul>
+</li>
+</ol>
+<h2 id="OOCSS-和-BEM"><a href="#OOCSS-和-BEM" class="headerlink" title="OOCSS 和 BEM"></a>OOCSS 和 BEM</h2><p>出于以下原因，我们鼓励使用 OOCSS 和 BEM 的某种组合：</p>
+<ul>
+<li>可以帮助我们理清 CSS 和 HTML 之间清晰且严谨的关系。</li>
+<li>可以帮助我们创建出可重用、易装配的组件。</li>
+<li>可以减少嵌套，降低特定性。</li>
+<li>可以帮助我们创建出可扩展的样式表。</li>
+</ul>
+<p><strong>OOCSS</strong>，也就是 “Object Oriented CSS（面向对象的CSS）”，是一种写 CSS 的方法，其思想就是鼓励你把样式表看作“对象”的集合：创建可重用性、可重复性的代码段让你可以在整个网站中多次使用。</p>
+<p>参考资料：</p>
+<ul>
+<li>Nicole Sullivan 的 <a href="https://github.com/stubbornella/oocss/wiki" target="_blank" rel="noopener">OOCSS wiki</a></li>
+<li>Smashing Magazine 的 <a href="https://www.smashingmagazine.com/2011/12/an-introduction-to-object-oriented-css-oocss/#top" target="_blank" rel="noopener">Introduction to OOCSS</a></li>
+</ul>
+<p><strong>BEM</strong>，也就是 “Block-Element-Modifier”，是一种用于 HTML 和 CSS 类名的<em>命名约定</em>。BEM 最初是由 Yandex 提出的，要知道他们拥有巨大的代码库和可伸缩性，BEM 就是为此而生的，并且可以作为一套遵循 OOCSS 的参考指导规范。</p>
+<p>CSS Trick 的 <a href="https://css-tricks.com/bem-101/" target="_blank" rel="noopener">BEM 101</a><br>Harry Roberts 的 <a href="https://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/" target="_blank" rel="noopener">introduction to BEM</a></p>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="selector-tag">article</span> class=<span class="string">"listing-card listing-card--featured"</span>&gt;</span><br><span class="line"></span><br><span class="line">  &lt;<span class="selector-tag">h1</span> class=<span class="string">"listing-card__title"</span>&gt;Adorable <span class="number">2</span>BR <span class="keyword">in</span> the sunny Mission&lt;/h1&gt;</span><br><span class="line"></span><br><span class="line">  &lt;<span class="selector-tag">div</span> class=<span class="string">"listing-card__content"</span>&gt;</span><br><span class="line">    &lt;p&gt;Vestibulum id ligula porta felis euismod semper.&lt;/p&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;/article&gt;</span><br><span class="line"><span class="selector-class">.listing-card</span> &#123; &#125;</span><br><span class="line"><span class="selector-class">.listing-card--featured</span> &#123; &#125;</span><br><span class="line"><span class="selector-class">.listing-card__title</span> &#123; &#125;</span><br><span class="line"><span class="selector-class">.listing-card__content</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>.listing-card 是一个块（block），表示高层次的组件。</li>
+<li>.listing-card__title 是一个元素（element），它属于 .listing-card 的一部分，因此块是由元素组成的。</li>
+<li>.listing-card–featured 是一个修饰符（modifier），表示这个块与 .listing-card 有着不同的状态或者变化。</li>
+</ul>
+<h3 id="BEM"><a href="#BEM" class="headerlink" title="BEM"></a><a href="http://getbem.com/" target="_blank" rel="noopener">BEM</a></h3><p><strong>Naming</strong><br>由拉丁字母, 数字, -组成css的单个名称.<br><strong>Block</strong><br>使用简洁的前缀名字来命名一个独立且有意义的抽象块或组件。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.block</span><br><span class="line"></span><br><span class="line">.header</span><br><span class="line"></span><br><span class="line">.site-search</span><br></pre></td></tr></table></figure></p>
+<p><strong>Element</strong><br>使用__连接符来连接Block 和 Element。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.block__element</span><br><span class="line"></span><br><span class="line">.header__title</span><br><span class="line"></span><br><span class="line">.site-search__field</span><br></pre></td></tr></table></figure></p>
+<p><strong>Modifier</strong><br>使用–连接符来连接Block 或 Element 和 Modifier。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.block--modifier</span><br><span class="line"></span><br><span class="line">.block__element--modifier</span><br><span class="line"></span><br><span class="line">.header--hide</span><br><span class="line"></span><br><span class="line">.header__title--<span class="attribute">color</span>-red</span><br><span class="line"></span><br><span class="line">.site-search__field--disabled</span><br></pre></td></tr></table></figure></p>
+<p><strong>示例</strong><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//html</span></span><br><span class="line">&lt;<span class="selector-tag">form</span> class=<span class="string">"form form--theme-xmas form--simple"</span>&gt;</span><br><span class="line">  &lt;<span class="selector-tag">input</span> class=<span class="string">"form__input"</span> type=<span class="string">"text"</span> /&gt;</span><br><span class="line">  &lt;<span class="selector-tag">input</span> class=<span class="string">"form__submit form__submit--disabled"</span> type=<span class="string">"submit"</span> /&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">//CSS</span></span><br><span class="line"><span class="selector-class">.form</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.form--theme-xmas</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.form--simple</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.form__input</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.form__submit</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.form__submit--disabled</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="ID-选择器"><a href="#ID-选择器" class="headerlink" title="ID 选择器"></a>ID 选择器</h2><p>在 CSS 中，虽然可以通过 ID 选择元素，但大家通常都会把这种方式列为反面教材。ID 选择器给你的规则声明带来了不必要的高优先级，而且 ID 选择器是不可重用的。</p>
+<p>想要了解关于这个主题的更多内容，参见 <a href="https://csswizardry.com/2014/07/hacks-for-dealing-with-specificity/" target="_blank" rel="noopener">CSS Wizardry</a> 的文章，文章中有关于如何处理优先级的内容。</p>
+<h2 id="JavaScript-钩子"><a href="#JavaScript-钩子" class="headerlink" title="JavaScript 钩子"></a>JavaScript 钩子</h2><p>避免在 CSS 和 JavaScript 中绑定相同的类。否则开发者在重构时通常会出现以下情况：轻则浪费时间在对照查找每个要改变的类，重则因为害怕破坏功能而不敢作出更改。</p>
+<p>我们推荐在创建用于特定 JavaScript 的类名时，添加 .js- 前缀：<br><figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;button <span class="keyword">class</span>=<span class="string">"btn btn-primary js-request-to-book"</span>&gt;<span class="built_in">Request</span> <span class="keyword">to</span> Book&lt;/button&gt;</span><br></pre></td></tr></table></figure></p>
+<h2 id="边框"><a href="#边框" class="headerlink" title="边框"></a>边框</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Bad</span></span><br><span class="line"></span><br><span class="line"><span class="selector-class">.foo</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Good</span></span><br><span class="line"></span><br><span class="line"><span class="selector-class">.foo</span> &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Sass"><a href="#Sass" class="headerlink" title="Sass"></a>Sass</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><ul>
+<li>使用 .scss 的语法，不使用 .sass 原本的语法。</li>
+<li>CSS 和 @include 声明按照以下逻辑排序（参见下文）</li>
+</ul>
+<h3 id="属性声明的排序"><a href="#属性声明的排序" class="headerlink" title="属性声明的排序"></a>属性声明的排序</h3><p>1.属性声明<br>首先列出除去 @include 和嵌套选择器之外的所有属性声明。<br><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.btn-green</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: green;</span><br><span class="line">  <span class="attribute">font-weight</span>: bold;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2.@include 声明<br>紧随后面的是 @include，这样可以使得整个选择器的可读性更高。<br><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.btn-green</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: green;</span><br><span class="line">  <span class="attribute">font-weight</span>: bold;</span><br><span class="line">  @<span class="keyword">include</span> transition(background 0.5s ease);</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>3.嵌套选择器<br>如果有必要用到嵌套选择器，把它们放到最后，在规则声明和嵌套选择器之间要加上空白，相邻嵌套选择器之间也要加上空白。嵌套选择器中的内容也要遵循上述指引。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.btn</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: green;</span><br><span class="line">  <span class="attribute">font-weight</span>: bold;</span><br><span class="line">  @include <span class="attribute">transition</span>(background <span class="number">0.5s</span> ease);</span><br><span class="line"></span><br><span class="line">  <span class="selector-class">.icon</span> &#123;</span><br><span class="line">    <span class="attribute">margin-right</span>: <span class="number">10px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><p>变量名应使用破折号（例如 $my-variable）代替 camelCased 和 snake_cased 风格。对于仅用在当前文件的变量，可以在变量名之前添加下划线前缀（例如 $_my-variable）。</p>
+<h3 id="Mixins"><a href="#Mixins" class="headerlink" title="Mixins"></a>Mixins</h3><p>为了让代码遵循 DRY 原则（Don’t Repeat Yourself）、增强清晰性或抽象化复杂性，应该使用 mixin，这与那些命名良好的函数的作用是异曲同工的。虽然 mixin 可以不接收参数，但要注意，假如你不压缩负载（比如通过 gzip），这样会导致最终的样式包含不必要的代码重复。</p>
+<h3 id="扩展指令"><a href="#扩展指令" class="headerlink" title="扩展指令"></a>扩展指令</h3><p>应避免使用 @extend 指令，因为它并不直观，而且具有潜在风险，特别是用在嵌套选择器的时候。即便是在顶层占位符选择器使用扩展，如果选择器的顺序最终会改变，也可能会导致问题。（比如，如果它们存在于其他文件，而加载顺序发生了变化）。其实，使用 @extend 所获得的大部分优化效果，gzip 压缩已经帮助你做到了，因此你只需要通过 mixin 让样式表更符合 DRY 原则就足够了。</p>
+<h3 id="嵌套选择器"><a href="#嵌套选择器" class="headerlink" title="嵌套选择器"></a>嵌套选择器</h3><p><strong>请不要让嵌套选择器的深度超过 3 层！</strong><br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.page-container</span> &#123;</span><br><span class="line">  <span class="selector-class">.content</span> &#123;</span><br><span class="line">    <span class="selector-class">.profile</span> &#123;</span><br><span class="line">      <span class="comment">// STOP!</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当遇到以上情况的时候，你也许是这样写 CSS 的：</p>
+<ul>
+<li>与 HTML 强耦合的（也是脆弱的）</li>
+<li>过于具体（强大）</li>
+<li>没有重用</li>
+</ul>
+<p>再说一遍: <strong>永远不要嵌套 ID 选择器！</strong></p>
+<p>如果你始终坚持要使用 ID 选择器（劝你三思），那也不应该嵌套它们。如果你正打算这么做，你需要先重新检查你的标签，或者指明原因。如果你想要写出风格良好的 HTML 和 CSS，你是不应该这样做的。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a cup of coffee,thanks!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="andy Wong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="andy Wong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/css/" rel="tag"><i class="fa fa-tag"></i> css</a>
+          
+            <a href="/tags/代码规范/" rel="tag"><i class="fa fa-tag"></i> 代码规范</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/03/规范/Airbnb-JavaScript-编码风格指南/" rel="next" title="Airbnb JavaScript 编码风格指南">
+                <i class="fa fa-chevron-left"></i> Airbnb JavaScript 编码风格指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/04/Less/Less-编码规范/" rel="prev" title="Less 编码规范">
+                Less 编码规范 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/doggy.jpg"
+                alt="andy Wong" />
+            
+              <p class="site-author-name" itemprop="name">andy Wong</p>
+              <p class="site-description motion-element" itemprop="description">前端渣渣辉</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/chongdee" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.cn/" title="掘金" target="_blank">掘金</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://segmentfault.com/" title="segmentfault" target="_blank">segmentfault</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://docschina.org/" title="印记中文" target="_blank">印记中文</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com/" title="阮一峰ES6书籍" target="_blank">阮一峰ES6书籍</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div> 
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#规则声明"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x89C4;&#x5219;&#x58F0;&#x660E;" class="headerlink" title="&#x89C4;&#x5219;&#x58F0;&#x660E;"></a>&#x89C4;&#x5219;&#x58F0;&#x660E;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择器"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x9009;&#x62E9;&#x5668;" class="headerlink" title="&#x9009;&#x62E9;&#x5668;"></a>&#x9009;&#x62E9;&#x5668;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x5C5E;&#x6027;" class="headerlink" title="&#x5C5E;&#x6027;"></a>&#x5C5E;&#x6027;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS"><span class="nav-number">4.</span> <span class="nav-text"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#格式"><span class="nav-number">4.1.</span> <span class="nav-text"><a href="#&#x683C;&#x5F0F;" class="headerlink" title="&#x683C;&#x5F0F;"></a>&#x683C;&#x5F0F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注释"><span class="nav-number">4.2.</span> <span class="nav-text"><a href="#&#x6CE8;&#x91CA;" class="headerlink" title="&#x6CE8;&#x91CA;"></a>&#x6CE8;&#x91CA;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OOCSS-和-BEM"><span class="nav-number">5.</span> <span class="nav-text"><a href="#OOCSS-&#x548C;-BEM" class="headerlink" title="OOCSS &#x548C; BEM"></a>OOCSS &#x548C; BEM</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#示例"><span class="nav-number">5.1.</span> <span class="nav-text"><a href="#&#x793A;&#x4F8B;" class="headerlink" title="&#x793A;&#x4F8B;"></a>&#x793A;&#x4F8B;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BEM"><span class="nav-number">5.2.</span> <span class="nav-text"><a href="#BEM" class="headerlink" title="BEM"></a><a href="http://getbem.com/" target="_blank" rel="noopener">BEM</a></span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ID-选择器"><span class="nav-number">6.</span> <span class="nav-text"><a href="#ID-&#x9009;&#x62E9;&#x5668;" class="headerlink" title="ID &#x9009;&#x62E9;&#x5668;"></a>ID &#x9009;&#x62E9;&#x5668;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JavaScript-钩子"><span class="nav-number">7.</span> <span class="nav-text"><a href="#JavaScript-&#x94A9;&#x5B50;" class="headerlink" title="JavaScript &#x94A9;&#x5B50;"></a>JavaScript &#x94A9;&#x5B50;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#边框"><span class="nav-number">8.</span> <span class="nav-text"><a href="#&#x8FB9;&#x6846;" class="headerlink" title="&#x8FB9;&#x6846;"></a>&#x8FB9;&#x6846;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sass"><span class="nav-number">9.</span> <span class="nav-text"><a href="#Sass" class="headerlink" title="Sass"></a>Sass</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法"><span class="nav-number">9.1.</span> <span class="nav-text"><a href="#&#x8BED;&#x6CD5;" class="headerlink" title="&#x8BED;&#x6CD5;"></a>&#x8BED;&#x6CD5;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性声明的排序"><span class="nav-number">9.2.</span> <span class="nav-text"><a href="#&#x5C5E;&#x6027;&#x58F0;&#x660E;&#x7684;&#x6392;&#x5E8F;" class="headerlink" title="&#x5C5E;&#x6027;&#x58F0;&#x660E;&#x7684;&#x6392;&#x5E8F;"></a>&#x5C5E;&#x6027;&#x58F0;&#x660E;&#x7684;&#x6392;&#x5E8F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量"><span class="nav-number">9.3.</span> <span class="nav-text"><a href="#&#x53D8;&#x91CF;" class="headerlink" title="&#x53D8;&#x91CF;"></a>&#x53D8;&#x91CF;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mixins"><span class="nav-number">9.4.</span> <span class="nav-text"><a href="#Mixins" class="headerlink" title="Mixins"></a>Mixins</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展指令"><span class="nav-number">9.5.</span> <span class="nav-text"><a href="#&#x6269;&#x5C55;&#x6307;&#x4EE4;" class="headerlink" title="&#x6269;&#x5C55;&#x6307;&#x4EE4;"></a>&#x6269;&#x5C55;&#x6307;&#x4EE4;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌套选择器"><span class="nav-number">9.6.</span> <span class="nav-text"><a href="#&#x5D4C;&#x5957;&#x9009;&#x62E9;&#x5668;" class="headerlink" title="&#x5D4C;&#x5957;&#x9009;&#x62E9;&#x5668;"></a>&#x5D4C;&#x5957;&#x9009;&#x62E9;&#x5668;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; 2015 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span>Powered By -</span>
+  <span class="author" itemprop="copyrightHolder">andy Wong</span>
+
+  
+</div>
+
+
+  <div>Theme by &copy;next</div>
+
+
+<div>Hosted by <strong><a href="https://github.com/">Github Pages</a></strong></div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":true,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"left","width":145,"height":315},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script>
+</body>
+</html>

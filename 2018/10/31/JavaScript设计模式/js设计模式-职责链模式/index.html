@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,JS设计模式," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="职责链模式的基础定义：职责链模式（Chain of responsibility）是使多个对象都有机会处理请求，从而避免请求的发送者和接受者之间的耦合关系。将这个对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理他为止。职责链模式的名字非常形象，一系列可能会处理请求的对象被该连接成一条链，请求在这些对象之间依次传递，直到遇到一个可以处理它的对象，我们把这些对象成为链中的节点。优点：请求发送">
+<meta name="keywords" content="JavaScript,JS设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js设计模式-职责链模式">
+<meta property="og:url" content="https://chongdee.github.io/2018/10/31/JavaScript设计模式/js设计模式-职责链模式/index.html">
+<meta property="og:site_name" content="andy Wong&#39;s Blog">
+<meta property="og:description" content="职责链模式的基础定义：职责链模式（Chain of responsibility）是使多个对象都有机会处理请求，从而避免请求的发送者和接受者之间的耦合关系。将这个对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理他为止。职责链模式的名字非常形象，一系列可能会处理请求的对象被该连接成一条链，请求在这些对象之间依次传递，直到遇到一个可以处理它的对象，我们把这些对象成为链中的节点。优点：请求发送">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-11T20:44:30.480Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js设计模式-职责链模式">
+<meta name="twitter:description" content="职责链模式的基础定义：职责链模式（Chain of responsibility）是使多个对象都有机会处理请求，从而避免请求的发送者和接受者之间的耦合关系。将这个对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理他为止。职责链模式的名字非常形象，一系列可能会处理请求的对象被该连接成一条链，请求在这些对象之间依次传递，直到遇到一个可以处理它的对象，我们把这些对象成为链中的节点。优点：请求发送">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chongdee.github.io/2018/10/31/JavaScript设计模式/js设计模式-职责链模式/"/>
+
+
+
+
+
+  <title>js设计模式-职责链模式 | andy Wong's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?63d30ffc3ac0fa4a98c97c20372430af";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">andy Wong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">知道的越多，不知道的越多</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/JavaScript设计模式/js设计模式-职责链模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/doggy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js设计模式-职责链模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T21:45:16+08:00">
+                2018-10-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script src="\assets\js\APlayer.min.js"> </script><h2 id="职责链模式的基础"><a href="#职责链模式的基础" class="headerlink" title="职责链模式的基础"></a>职责链模式的基础</h2><p>定义：职责链模式（Chain of responsibility）是使多个对象都有机会处理请求，从而避免请求的发送者和接受者之间的耦合关系。将这个对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理他为止。职责链模式的名字非常形象，一系列可能会处理请求的对象被该连接成一条链，请求在这些对象之间依次传递，直到遇到一个可以处理它的对象，我们把这些对象成为链中的节点。<br>优点：请求发送者只需要知道链中的第一个节点，从而弱化了发送者和一组接收者之间的强联系。</p>
+<p>使用场景：挤公交车递钱（只有售票员可以收钱）、交押金预定手机<br><a id="more"></a></p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>假设一个电视购物网站对于某部新上市的手机经过了2轮缴纳500元定金与200元定金的预定，现在已经到了正式购买的阶段。<br>支付了500元定金的用户在购买阶段可以使用100元优惠券，200元定金可以使用50元优惠券，普通用户没有优惠且当库存不足不一定能买到。</p>
+<p>orderType: 表示订单类型(定金或者普通用户),code的值为1时候是500元定金用户，为2是200元定金用户，为3则是普通用户。</p>
+<p>pay : 表示用户是否支付定金，用户虽然下过500元定金的订单但是如果他一直没有支付定金，那么只能降级为普通用户。</p>
+<p>stock : 仅用户普通用户的库存数量，定金用户不受限制。</p>
+<p>简洁版：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 500 order</span></span><br><span class="line"><span class="keyword">var</span> order500 = <span class="function"><span class="keyword">function</span> (<span class="params">orderType,pay,stock</span>) </span>&#123;</span><br><span class="line"><span class="keyword">if</span>(orderType === <span class="number">1</span> &amp;&amp; pay === <span class="literal">true</span>)&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">'500 rmb deposit, get 100 coupon '</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">     order100(orderType,pay,stock)  <span class="comment">// req pass to 200 order</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> order200 = <span class="function"><span class="keyword">function</span> (<span class="params">orderType,pay,stock</span>) </span>&#123;</span><br><span class="line"><span class="keyword">if</span>(orderType === <span class="number">2</span> &amp;&amp; pay === <span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'200 rmb deposit , get 50 coupon'</span>)</span><br><span class="line">&#125; <span class="keyword">else</span>&#123;</span><br><span class="line">    orderNormal(orderType,pay,stock) </span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> orderNormal = <span class="function"><span class="keyword">function</span> (<span class="params">orderType,pay,stock</span>) </span>&#123;</span><br><span class="line"><span class="keyword">if</span>(stock &gt; <span class="number">0</span>)&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">'normal buy no coupon'</span>)</span><br><span class="line">&#125; <span class="keyword">else</span>&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">'the stock lack'</span>)</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//test result:</span></span><br><span class="line">order500(<span class="number">1</span>,<span class="literal">true</span>,<span class="number">500</span>);</span><br><span class="line">order500(<span class="number">2</span>,<span class="literal">true</span>,<span class="number">500</span>);</span><br><span class="line">order500(<span class="number">3</span>,<span class="literal">true</span>,<span class="number">500</span>);</span><br><span class="line">order500(<span class="number">1</span>,<span class="literal">false</span>,<span class="number">500</span>);</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>现在已经基本符合了职责链模式定义，下面实现灵活可拆分的职责链模式，我的意思就是不要像上述那样面向过程的从500传递到200然后再到普通，万一我们想传递到100呢？ 岂不是还得要大修一番？</p>
+</blockquote>
+<p><strong>职责链模式重构</strong><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 500 order</span></span><br><span class="line"><span class="keyword">var</span> order500 = <span class="function"><span class="keyword">function</span> (<span class="params">orderType,pay,stock</span>) </span>&#123;</span><br><span class="line"><span class="keyword">if</span>(orderType === <span class="number">1</span> &amp;&amp; pay === <span class="literal">true</span>)&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">'500 rmb deposit, get 100 coupon '</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'nextSuccessor'</span>  <span class="comment">// unknow the next node but always pass to next.</span></span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> order200 = <span class="function"><span class="keyword">function</span> (<span class="params">orderType,pay,stock</span>) </span>&#123;</span><br><span class="line"><span class="keyword">if</span>(orderType === <span class="number">2</span> &amp;&amp; pay === <span class="literal">true</span>)&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'200 rmb deposit , get 50 coupon'</span>)</span><br><span class="line">&#125; <span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'nextSuccessor'</span>; </span><br><span class="line">&#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> orderNormal = <span class="function"><span class="keyword">function</span> (<span class="params">orderType,pay,stock</span>) </span>&#123;</span><br><span class="line"><span class="keyword">if</span>(stock &gt; <span class="number">0</span>)&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">'normal buy no coupon'</span>)</span><br><span class="line">&#125; <span class="keyword">else</span>&#123;</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="string">'the stock lack'</span>)</span><br><span class="line">&#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Chain = <span class="function"><span class="keyword">function</span> (<span class="params">fn</span>) </span>&#123;</span><br><span class="line"><span class="keyword">this</span>.fn = fn;</span><br><span class="line"><span class="keyword">this</span>.successor = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br><span class="line">Chain.prototype.setNextSuccessor = <span class="function"><span class="keyword">function</span> (<span class="params">successor</span>) </span>&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">this</span>.successor = successor;</span><br><span class="line">&#125;</span><br><span class="line">Chain.prototype.passRequest = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="keyword">var</span> ret = <span class="keyword">this</span>.fn.apply(<span class="keyword">this</span>.arguments);</span><br><span class="line"><span class="keyword">if</span>(ret === <span class="string">'nextSuccessor'</span>)&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.successor &amp;&amp; <span class="keyword">this</span>.successor.passRequest.apply(<span class="keyword">this</span>.successor,<span class="built_in">arguments</span>)</span><br><span class="line">&#125;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//现在我们把3个订单函数分别包装成职责链的节点</span></span><br><span class="line"><span class="keyword">var</span> chainOrder500 = <span class="keyword">new</span> Chain(order500);</span><br><span class="line"><span class="keyword">var</span> chainOrder200 = <span class="keyword">new</span> Chain(order200);</span><br><span class="line"><span class="keyword">var</span> chainOrderNormal = <span class="keyword">new</span> Chain(orderNormal);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//最后把请求传递给第一个节点</span></span><br><span class="line">    chainOrder500.setNextSuccessor(chainOrder200)</span><br><span class="line">    chainOrder200.setNextSuccessor(chainOrderNormal)</span><br><span class="line"></span><br><span class="line"><span class="comment">//最后把请求传递给第一个节点</span></span><br><span class="line"><span class="comment">//test</span></span><br><span class="line">chainOrder500.passRequest(<span class="number">1</span>,<span class="literal">true</span>,<span class="number">500</span>);</span><br><span class="line">chainOrder500.passRequest(<span class="number">2</span>,<span class="literal">true</span>,<span class="number">500</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//通过改进，我们可以自由灵活的增加移除和链中的节点顺序，假如我们        又想支持</span></span><br><span class="line"><span class="comment">//300元定金购买，那我们就在改链中增加一个节点即可：</span></span><br><span class="line"><span class="keyword">var</span> order300 = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="comment">// todo</span></span><br><span class="line">&#125;;</span><br><span class="line">chainOrder300 = <span class="keyword">new</span> Chain(chainOrder300)</span><br><span class="line">chainOrder500.setNextSuccessor(chainOrder300)</span><br><span class="line">chainOrder300.setNextSuccessor(chainOrder200)</span><br></pre></td></tr></table></figure></p>
+<p>我们可以自由灵活的增加移除和链中的节点顺序，这样就很简单能满足瞬息万变的需求了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a cup of coffee,thanks!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="andy Wong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="andy Wong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+            <a href="/tags/JS设计模式/" rel="tag"><i class="fa fa-tag"></i> JS设计模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/31/JavaScript设计模式/js设计模式-备忘录模式/" rel="next" title="js设计模式-备忘录模式">
+                <i class="fa fa-chevron-left"></i> js设计模式-备忘录模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/31/JavaScript设计模式/js设计模式-状态模式/" rel="prev" title="js设计模式-状态模式">
+                js设计模式-状态模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/doggy.jpg"
+                alt="andy Wong" />
+            
+              <p class="site-author-name" itemprop="name">andy Wong</p>
+              <p class="site-description motion-element" itemprop="description">前端渣渣辉</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/chongdee" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.cn/" title="掘金" target="_blank">掘金</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://segmentfault.com/" title="segmentfault" target="_blank">segmentfault</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://docschina.org/" title="印记中文" target="_blank">印记中文</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com/" title="阮一峰ES6书籍" target="_blank">阮一峰ES6书籍</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div> 
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#职责链模式的基础"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x7684;&#x57FA;&#x7840;" class="headerlink" title="&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x7684;&#x57FA;&#x7840;"></a>&#x804C;&#x8D23;&#x94FE;&#x6A21;&#x5F0F;&#x7684;&#x57FA;&#x7840;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#例子"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x4F8B;&#x5B50;" class="headerlink" title="&#x4F8B;&#x5B50;"></a>&#x4F8B;&#x5B50;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; 2015 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span>Powered By -</span>
+  <span class="author" itemprop="copyrightHolder">andy Wong</span>
+
+  
+</div>
+
+
+  <div>Theme by &copy;next</div>
+
+
+<div>Hosted by <strong><a href="https://github.com/">Github Pages</a></strong></div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":true,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"left","width":145,"height":315},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script>
+</body>
+</html>

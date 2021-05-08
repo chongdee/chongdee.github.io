@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="vue,webpack," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="简介这是基于 vue-cli4 实现的移动端框架，其中包含项目常用的配置，组件封装及webpack优化方法，可供快速开发使用。 技术栈：vue-cli4 + webpack4 + vant + axios + less + postcss-px2rem 源码 https://github.com/Michael-lzg/vue-cli4-vant 12345678// 安装依赖npm instal">
+<meta name="keywords" content="vue,webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue-cli4+webpack4移动端框架">
+<meta property="og:url" content="https://chongdee.github.io/2021/05/09/webpack/vue-cli4+webpack4移动端框架/index.html">
+<meta property="og:site_name" content="andy Wong&#39;s Blog">
+<meta property="og:description" content="简介这是基于 vue-cli4 实现的移动端框架，其中包含项目常用的配置，组件封装及webpack优化方法，可供快速开发使用。 技术栈：vue-cli4 + webpack4 + vant + axios + less + postcss-px2rem 源码 https://github.com/Michael-lzg/vue-cli4-vant 12345678// 安装依赖npm instal">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/5/10/171fc7862c4a065f?w=1032&h=523&f=png&s=70452">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/5/10/171fc78ad5a37759?w=1909&h=931&f=png&s=235323">
+<meta property="og:updated_time" content="2021-05-08T17:18:59.015Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue-cli4+webpack4移动端框架">
+<meta name="twitter:description" content="简介这是基于 vue-cli4 实现的移动端框架，其中包含项目常用的配置，组件封装及webpack优化方法，可供快速开发使用。 技术栈：vue-cli4 + webpack4 + vant + axios + less + postcss-px2rem 源码 https://github.com/Michael-lzg/vue-cli4-vant 12345678// 安装依赖npm instal">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2020/5/10/171fc7862c4a065f?w=1032&h=523&f=png&s=70452">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chongdee.github.io/2021/05/09/webpack/vue-cli4+webpack4移动端框架/"/>
+
+
+
+
+
+  <title>vue-cli4+webpack4移动端框架 | andy Wong's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?63d30ffc3ac0fa4a98c97c20372430af";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">andy Wong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">知道的越多，不知道的越多</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/webpack/vue-cli4+webpack4移动端框架/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/doggy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vue-cli4+webpack4移动端框架</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T01:16:10+08:00">
+                2021-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webpack/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script src="\assets\js\APlayer.min.js"> </script><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>这是基于 vue-cli4 实现的移动端框架，其中包含项目常用的配置，组件封装及webpack优化方法，可供快速开发使用。</p>
+<p>技术栈：vue-cli4 + webpack4 + vant + axios + less + postcss-px2rem</p>
+<p>源码 <a href="https://github.com/Michael-lzg/vue-cli4-vant" target="_blank" rel="noopener">https://github.com/Michael-lzg/vue-cli4-vant</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment">// 本地启动</span></span><br><span class="line">npm run dev</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生产打包</span></span><br><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>在一两年前，vue-cli3已经声驾到3.0+版本，但是由于旧项目一致习惯于vue-cli2的脚手架的使用，之前也写过一篇 <a href="https://juejin.im/post/5db806b1f265da4d5133485a" target="_blank" rel="noopener">搭建一个vue-cli的移动端H5开发模板</a> 简单总结了一点移动端的开发技巧。  </p>
+<p>近日升级vue-cli脚手架才发现，这已经升级到4.0+版本了，觉得很多必要在新的项目中使用vue-cli4进行开发，加上近来对webpack有了进一步理解，所以结合了vue-cli4和webpack搭建了一个移动端框架，以便开箱即用。 主要包括如下技术点：</p>
+<ul>
+<li>vue-cli4脚手架</li>
+<li>vant按需引入</li>
+<li>移动端rem适配</li>
+<li>axios拦截封装</li>
+<li>util工具类函数封装</li>
+<li>vue-router配置</li>
+<li>登录权限校验</li>
+<li>多环境变量配置</li>
+<li>vue.config.js配置</li>
+<li>toast组件封装</li>
+<li>dialog组件封装</li>
+<li>跨域代理设置</li>
+<li>webpack打包可视化分析</li>
+<li>CDN资源优化</li>
+<li>gzip打包优化</li>
+<li>首页添加骨架屏</li>
+</ul>
+<p>关于更多的webpack优化方法，可参考 <a href="https://github.com/Michael-lzg/webpack-vue-cli" target="_blank" rel="noopener">https://github.com/Michael-lzg/webpack-vue-cli</a></p>
+<h2 id="配置-vant"><a href="#配置-vant" class="headerlink" title="配置 vant"></a>配置 vant</h2><p>vant 是一套轻量、可靠的移动端 Vue 组件库，非常适合基于 vue 技术栈的移动端开发。在过去很长的一段时间内，本人用的移动端 UI 框架都是 vux。后来由于 vux 不支持 vue-cli3，就转用了 vant，不得不说，无论是在交互体验上，还是代码逻辑上，vant 都比 vux 好很多，而且 vant 的坑比较少。</p>
+<p>对于第三方 UI 组件，如果是全部引入的话，比如会造成打包体积过大，加载首页白屏时间过长的问题，所以按需加载非常必要。vant 也提供了按需加载的方法。<code>babel-plugin-import</code> 是一款 babel 插件，它会在编译过程中将 import 的写法自动转换为按需引入的方式。</p>
+<p>1、安装依赖</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">npm</span> i babel-plugin-<span class="keyword">import</span> -D</span><br></pre></td></tr></table></figure>
+<p>2、配置 .babelrc 或者 babel.config.js 文件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在.babelrc 中添加配置</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"plugins"</span>: [</span><br><span class="line">    [<span class="string">"import"</span>, &#123;</span><br><span class="line">      <span class="string">"libraryName"</span>: <span class="string">"vant"</span>,</span><br><span class="line">      <span class="string">"libraryDirectory"</span>: <span class="string">"es"</span>,</span><br><span class="line">      <span class="string">"style"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;]</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对于使用 babel7 的用户，可以在 babel.config.js 中配置</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  plugins: [</span><br><span class="line">    [<span class="string">'import'</span>, &#123;</span><br><span class="line">      libraryName: <span class="string">'vant'</span>,</span><br><span class="line">      libraryDirectory: <span class="string">'es'</span>,</span><br><span class="line">      style: <span class="literal">true</span></span><br><span class="line">    &#125;, <span class="string">'vant'</span>]</span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>3、按需引入</p>
+<p>你可以在代码中直接引入 Vant 组件，插件会自动将代码转化为方式二中的按需引入形式</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> &#123; Button &#125; <span class="keyword">from</span> <span class="string">'vant'</span></span><br><span class="line"></span><br><span class="line">Vue.use(Button)</span><br></pre></td></tr></table></figure>
+<h2 id="rem-适配"><a href="#rem-适配" class="headerlink" title="rem 适配"></a>rem 适配</h2><p>移动端适配是开发过程中不得不面对的事情。在此，我们使用 postcss 中的 px2rem-loader，将我们项目中的 px 按一定比例转化 rem，这样我们就可以对着蓝湖上的标注写 px 了。</p>
+<p>我们将 html 字跟字体设置为 100px，很多人选择设置为 375px，但是我觉得这样换算出来的 rem 不够精确，而且我们在控制台上调试代码的时候无法很快地口算得出它本来的 px 值。如果设置 1rem=100px，这样我们看到的 0.16rem，0.3rem 就很快得算出原来是 16px，30px 了。</p>
+<p>具体步骤如下；</p>
+<p>1、安装依赖</p>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install px2rem-loader --<span class="built_in">save</span>-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure>
+<p>2、在 vue.config.js 进行如下配置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">css: &#123;</span><br><span class="line">  <span class="comment">// css预设器配置项</span></span><br><span class="line">  loaderOptions: &#123;</span><br><span class="line">    postcss: &#123;</span><br><span class="line">      plugins: [</span><br><span class="line">        <span class="built_in">require</span>(<span class="string">'postcss-px2rem'</span>)(&#123;</span><br><span class="line">          remUnit: <span class="number">100</span></span><br><span class="line">        &#125;)</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<p>3、在 main.js 设置 html 跟字体大小</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initRem</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> cale = <span class="built_in">window</span>.screen.availWidth &gt; <span class="number">750</span> ? <span class="number">2</span> : <span class="built_in">window</span>.screen.availWidth / <span class="number">375</span></span><br><span class="line">  <span class="built_in">window</span>.document.documentElement.style.fontSize = <span class="string">`<span class="subst">$&#123;<span class="number">100</span> * cale&#125;</span>px`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'resize'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  initRem()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="axios-请求封装"><a href="#axios-请求封装" class="headerlink" title="axios 请求封装"></a>axios 请求封装</h2><p>1、设置请求拦截和响应拦截</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PRODUCT_URL = <span class="string">'https://xxxx.com'</span></span><br><span class="line"><span class="keyword">const</span> MOCK_URL = <span class="string">'http://xxxx.com'</span></span><br><span class="line"><span class="keyword">let</span> http = axios.create(&#123;</span><br><span class="line">  baseURL: process.env.NODE_ENV === <span class="string">'production'</span> ? PRODUCT_URL : MOCK_URL,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 请求拦截器</span></span><br><span class="line">http.interceptors.request.use(</span><br><span class="line">  (config) =&gt; &#123;</span><br><span class="line">    <span class="comment">// 设置token，Content-Type</span></span><br><span class="line">    <span class="keyword">var</span> token = sessionStorage.getItem(<span class="string">'token'</span>)</span><br><span class="line">    config.headers[<span class="string">'token'</span>] = token</span><br><span class="line">    config.headers[<span class="string">'Content-Type'</span>] = <span class="string">'application/json;charset=UTF-8'</span></span><br><span class="line">    <span class="comment">// 请求显示loading效果</span></span><br><span class="line">    <span class="keyword">if</span> (config.loading === <span class="literal">true</span>) &#123;</span><br><span class="line">      vm.$loading.show()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> config</span><br><span class="line">  &#125;,</span><br><span class="line">  (error) =&gt; &#123;</span><br><span class="line">    vm.$loading.hide()</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"><span class="comment">// 响应拦截器</span></span><br><span class="line">http.interceptors.response.use(</span><br><span class="line">  (res) =&gt; &#123;</span><br><span class="line">    vm.$loading.hide()</span><br><span class="line">    <span class="comment">// token失效，重新登录</span></span><br><span class="line">    <span class="keyword">if</span> (res.data.code === <span class="number">401</span>) &#123;</span><br><span class="line">      <span class="comment">//  重新登录</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">  &#125;,</span><br><span class="line">  (error) =&gt; &#123;</span><br><span class="line">    vm.$loading.hide()</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>2、封装 get 和 post 请求方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params">url, data, lodaing</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    http</span><br><span class="line">      .get(url)</span><br><span class="line">      .then(</span><br><span class="line">        (response) =&gt; &#123;</span><br><span class="line">          resolve(response)</span><br><span class="line">        &#125;,</span><br><span class="line">        (err) =&gt; &#123;</span><br><span class="line">          reject(err)</span><br><span class="line">        &#125;</span><br><span class="line">      )</span><br><span class="line">      .catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">        reject(error)</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">post</span>(<span class="params">url, data, loading</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    http</span><br><span class="line">      .post(url, data, &#123; <span class="attr">loading</span>: loading &#125;)</span><br><span class="line">      .then(</span><br><span class="line">        (response) =&gt; &#123;</span><br><span class="line">          resolve(response)</span><br><span class="line">        &#125;,</span><br><span class="line">        (err) =&gt; &#123;</span><br><span class="line">          reject(err)</span><br><span class="line">        &#125;</span><br><span class="line">      )</span><br><span class="line">      .catch(<span class="function">(<span class="params">error</span>) =&gt;</span> &#123;</span><br><span class="line">        reject(error)</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> &#123; get, post &#125;</span><br></pre></td></tr></table></figure>
+<p>3、把 get，post 方法挂载到 vue 实例上。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; get, post &#125; <span class="keyword">from</span> <span class="string">'./js/ajax'</span></span><br><span class="line">Vue.prototype.$http = &#123; get, post &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="工具类函数封装"><a href="#工具类函数封装" class="headerlink" title="工具类函数封装"></a>工具类函数封装</h2><p>1、添加方法到 vue 实例的原型链上</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  install (Vue, options) &#123;</span><br><span class="line">    Vue.prototype.util = &#123;</span><br><span class="line">      method1(val) &#123;</span><br><span class="line">        ...</span><br><span class="line">      &#125;,</span><br><span class="line">      method2 (val) &#123;</span><br><span class="line">       ...</span><br><span class="line">      &#125;,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2、在 main.js 通过 vue.use()注册</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> utils <span class="keyword">from</span> <span class="string">'./js/utils'</span></span><br><span class="line">Vue.use(utils)</span><br></pre></td></tr></table></figure>
+<h2 id="vue-router-配置"><a href="#vue-router-配置" class="headerlink" title="vue-router 配置"></a>vue-router 配置</h2><p>平时很多人对 vue-router 的配置可配置了 path 和 component，实现了路由跳转即可。其实 vue-router 可做的事情还有很多，比如</p>
+<ul>
+<li>路由懒加载配置</li>
+<li>改变单页面应用的 title</li>
+<li>登录权限校验</li>
+<li>页面缓存配置</li>
+</ul>
+<h4 id="路由懒加载配置"><a href="#路由懒加载配置" class="headerlink" title="路由懒加载配置"></a>路由懒加载配置</h4><p>Vue 项目中实现路由按需加载（路由懒加载）的 3 种方式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1、Vue异步组件技术：</span></span><br><span class="line">&#123;</span><br><span class="line">  path: <span class="string">'/home'</span>,</span><br><span class="line">  name: <span class="string">'Home'</span>,</span><br><span class="line">  component: <span class="function"><span class="params">resolve</span> =&gt;</span> reqire([<span class="string">'../views/Home.vue'</span>], resolve)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2、es6提案的import()</span></span><br><span class="line">&#123;</span><br><span class="line">  path: <span class="string">'/'</span>,</span><br><span class="line">  name: <span class="string">'home'</span>,</span><br><span class="line">  component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'../views/Home.vue'</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3、webpack提供的require.ensure()</span></span><br><span class="line">&#123;</span><br><span class="line">  path: <span class="string">'/home'</span>,</span><br><span class="line">  name: <span class="string">'Home'</span>,</span><br><span class="line">  component: <span class="function"><span class="params">r</span> =&gt;</span> <span class="built_in">require</span>.ensure([],() =&gt;  r(<span class="built_in">require</span>(<span class="string">'../views/Home.vue'</span>)), <span class="string">'home'</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>本项目采用的是第二种方式，为了后续 webpack 打包优化。</p>
+<h4 id="改变单页面应用的-title"><a href="#改变单页面应用的-title" class="headerlink" title="改变单页面应用的 title"></a>改变单页面应用的 title</h4><p>由于单页面应用只有一个 html，所有页面的 title 默认是不会改变的，但是我们可以才路由配置中加入相关属性，再在路由守卫中通过 js 改变页面的 title</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">document</span>.title = to.meta.title</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="登录权限校验"><a href="#登录权限校验" class="headerlink" title="登录权限校验"></a>登录权限校验</h4><p>在应用中，通常会有以下的场景，比如商城：有些页面是不需要登录即可访问的，如首页，商品详情页等，都是用户在任何情况都能看到的；但是也有是需要登录后才能访问的，如个人中心，购物车等。此时就需要对页面访问进行控制了。</p>
+<p>此外，像一些需要记录用户信息和登录状态的项目，也是需要做登录权限校验的，以防别有用心的人通过直接访问页面的 url 打开页面。</p>
+<p>此时。路由守卫可以帮助我们做登录校验。具体如下：</p>
+<p>1、配置路由的 meta 对象的 auth 属性</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">'/'</span>,</span><br><span class="line">    name: <span class="string">'home'</span>,</span><br><span class="line">    component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'../views/Home.vue'</span>),</span><br><span class="line">    meta: &#123; <span class="attr">title</span>: <span class="string">'首页'</span>, <span class="attr">keepAlive</span>: <span class="literal">false</span>, <span class="attr">auth</span>: <span class="literal">false</span> &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">'/mine'</span>,</span><br><span class="line">    name: <span class="string">'mine'</span>,</span><br><span class="line">    component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'../views/mine.vue'</span>),</span><br><span class="line">    meta: &#123; <span class="attr">title</span>: <span class="string">'我的'</span>, <span class="attr">keepAlive</span>: <span class="literal">false</span>, <span class="attr">auth</span>: <span class="literal">true</span> &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>2、在路由首页进行判断。当<code>to.meta.auth</code>为<code>true</code>(需要登录)，且不存在登录信息缓存时，需要重定向去登录页面</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">document</span>.title = to.meta.title</span><br><span class="line">  <span class="keyword">const</span> userInfo = sessionStorage.getItem(<span class="string">'userInfo'</span>) || <span class="literal">null</span></span><br><span class="line">  <span class="keyword">if</span> (!userInfo &amp;&amp; to.meta.auth) &#123;</span><br><span class="line">    next(<span class="string">'/login'</span>)</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    next()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="页面缓存配置"><a href="#页面缓存配置" class="headerlink" title="页面缓存配置"></a>页面缓存配置</h4><p>项目中，总有一些页面我们是希望加载一次就缓存下来的，此时就用到 keep-alive 了。keep-alive 是 Vue 提供的一个抽象组件，用来对组件进行缓存，从而节省性能，由于是一个抽象组件，所以在 v 页面渲染完毕后不会被渲染成一个 DOM 元素。</p>
+<p>1、通过配置路由的 meta 对象的 keepAlive 属性值来区分页面是否需要缓存</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">'/'</span>,</span><br><span class="line">    name: <span class="string">'home'</span>,</span><br><span class="line">    component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'../views/Home.vue'</span>),</span><br><span class="line">    meta: &#123; <span class="attr">title</span>: <span class="string">'首页'</span>, <span class="attr">keepAlive</span>: <span class="literal">false</span>, <span class="attr">auth</span>: <span class="literal">false</span> &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">'/list'</span>,</span><br><span class="line">    name: <span class="string">'list'</span>,</span><br><span class="line">    component: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'../views/list.vue'</span>),</span><br><span class="line">    meta: &#123; <span class="attr">title</span>: <span class="string">'列表页'</span>, <span class="attr">keepAlive</span>: <span class="literal">true</span>, <span class="attr">auth</span>: <span class="literal">false</span> &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>2、在 app.vue 做缓存判断</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">router-view</span> <span class="attr">v-if</span>=<span class="string">"!$route.meta.keepAlive"</span>&gt;</span><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">keep-alive</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">router-view</span> <span class="attr">v-if</span>=<span class="string">"$route.meta.keepAlive"</span>&gt;</span><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">keep-alive</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="多环境变量配置"><a href="#多环境变量配置" class="headerlink" title="多环境变量配置"></a>多环境变量配置</h2><p>首先我们先来了解一下环境变量，一般情况下我们的项目会有三个环境，本地环境(development)，测试环境(test)，生产环境(production)，我们可以在项目根目录下建三个配置环境变量的文件<code>.env.development</code>，<code>.env.test</code>，<code>.env.production</code></p>
+<p>环境变量文件中只包含环境变量的“键=值”对：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">NODE_ENV = <span class="string">'production'</span></span><br><span class="line">VUE_APP_ENV = <span class="string">'production'</span> <span class="comment">// 只有VUE_APP开头的环境变量可以在项目代码中直接使用</span></span><br></pre></td></tr></table></figure>
+<p>除了自定义的 VUE<em>APP</em>*变量之外，还有两个可用的变量：</p>
+<ul>
+<li>NODE_ENV : “development”、”production” 或 “test”中的一个。具体的值取决于应用运行的模式。</li>
+<li>BASE_URL : 和 vue.config.js 中的 publicPath 选项相符，即你的应用会部署到的基础路径。</li>
+</ul>
+<p>下面开始配置我们的环境变量</p>
+<p>1、在项目根目录中新建.env.*</p>
+<ul>
+<li>.env.development 本地开发环境配置</li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">NODE_ENV</span>=<span class="string">'development'</span></span><br><span class="line"><span class="attr">VUE_APP_ENV</span> = <span class="string">'development'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>env.staging 测试环境配置</li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">NODE_ENV</span>=<span class="string">'production'</span></span><br><span class="line"><span class="attr">VUE_APP_ENV</span> = <span class="string">'staging'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>env.production 正式环境配置</li>
+</ul>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">NODE_ENV</span>=<span class="string">'production'</span></span><br><span class="line"><span class="attr">VUE_APP_ENV</span> = <span class="string">'production'</span></span><br></pre></td></tr></table></figure>
+<p>为了在不同环境配置更多的变量，我们在 src 文件下新建一个 config/index</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据环境引入不同配置 process.env.NODE_ENV</span></span><br><span class="line"><span class="keyword">const</span> config = <span class="built_in">require</span>(<span class="string">'./env.'</span> + process.env.VUE_APP_ENV)</span><br><span class="line"><span class="built_in">module</span>.exports = config</span><br></pre></td></tr></table></figure>
+<p>在同级目录下新建 <code>env.development.js</code>，<code>env.test.js</code>，<code>env.production.js</code>，在里面配置需要的变量。<br>以 env.development.js 为例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  baseUrl: <span class="string">'http://localhost:8089'</span>, <span class="comment">// 项目地址</span></span><br><span class="line">  baseApi: <span class="string">'https://www.mock.com/api'</span>, <span class="comment">// 本地api请求地址</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>2、配置打包命令</p>
+<p>package.json 里的 scripts 不同环境的打包命令</p>
+<ul>
+<li>通过 npm run serve 启动本地</li>
+<li>通过 npm run test 打包测试</li>
+<li>通过 npm run build 打包正式</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"scripts"</span>: &#123;</span><br><span class="line">  <span class="string">"dev"</span>: <span class="string">"vue-cli-service serve"</span>,</span><br><span class="line">  <span class="string">"build"</span>: <span class="string">"vue-cli-service build"</span>,</span><br><span class="line">  <span class="string">"test"</span>: <span class="string">"vue-cli-service build --mode test"</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="vue-config-js-配置"><a href="#vue-config-js-配置" class="headerlink" title="vue.config.js 配置"></a>vue.config.js 配置</h2><p>vue-cli3 开始，新建的脚手架都需要我们在 vue.config.js 配置我们项目的东西。主要包括</p>
+<ul>
+<li>打包后文件输出位置</li>
+<li>关闭生产环境 sourcemap</li>
+<li>配置 rem 转化 px</li>
+<li>配置 alias 别名</li>
+<li>去除生产环境 console</li>
+<li>跨域代理设置</li>
+</ul>
+<p>此外，还有很多属于优化打包的配置，后面会一一道来。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  publicPath: <span class="string">'./'</span>, <span class="comment">// 默认为'/'</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 将构建好的文件输出到哪里，本司要求</span></span><br><span class="line">  outputDir: <span class="string">'dist/static'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 放置生成的静态资源(js、css、img、fonts)的目录。</span></span><br><span class="line">  assetsDir: <span class="string">'static'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 指定生成的 index.html 的输出路径</span></span><br><span class="line">  indexPath: <span class="string">'index.html'</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 是否使用包含运行时编译器的 Vue 构建版本。</span></span><br><span class="line">  runtimeCompiler: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">  transpileDependencies: [],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 如果你不需要生产环境的 source map</span></span><br><span class="line">  productionSourceMap: <span class="literal">false</span>,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 配置css</span></span><br><span class="line">  css: &#123;</span><br><span class="line">    <span class="comment">// 是否使用css分离插件 ExtractTextPlugin</span></span><br><span class="line">    extract: <span class="literal">true</span>,</span><br><span class="line">    sourceMap: <span class="literal">true</span>,</span><br><span class="line">    <span class="comment">// css预设器配置项</span></span><br><span class="line">    loaderOptions: &#123;</span><br><span class="line">      postcss: &#123;</span><br><span class="line">        plugins: [</span><br><span class="line">          <span class="built_in">require</span>(<span class="string">'postcss-px2rem'</span>)(&#123;</span><br><span class="line">            remUnit: <span class="number">100</span>,</span><br><span class="line">          &#125;),</span><br><span class="line">        ],</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 启用 CSS modules for all css / pre-processor files.</span></span><br><span class="line">    modules: <span class="literal">false</span>,</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 是一个函数，允许对内部的 webpack 配置进行更细粒度的修改。</span></span><br><span class="line">  chainWebpack: <span class="function">(<span class="params">config</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 配置别名</span></span><br><span class="line">    config.resolve.alias</span><br><span class="line">      .set(<span class="string">'@'</span>, resolve(<span class="string">'src'</span>))</span><br><span class="line">      .set(<span class="string">'assets'</span>, resolve(<span class="string">'src/assets'</span>))</span><br><span class="line">      .set(<span class="string">'components'</span>, resolve(<span class="string">'src/components'</span>))</span><br><span class="line">      .set(<span class="string">'views'</span>, resolve(<span class="string">'src/views'</span>))</span><br><span class="line"></span><br><span class="line">    config.optimization.minimizer(<span class="string">'terser'</span>).tap(<span class="function">(<span class="params">args</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 去除生产环境console</span></span><br><span class="line">      args[<span class="number">0</span>].terserOptions.compress.drop_console = <span class="literal">true</span></span><br><span class="line">      <span class="keyword">return</span> args</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 是否为 Babel 或 TypeScript 使用 thread-loader。该选项在系统的 CPU 有多于一个内核时自动启用，仅作用于生产构建。</span></span><br><span class="line">  parallel: <span class="built_in">require</span>(<span class="string">'os'</span>).cpus().length &gt; <span class="number">1</span>,</span><br><span class="line"></span><br><span class="line">  devServer: &#123;</span><br><span class="line">    host: <span class="string">'0.0.0.0'</span>,</span><br><span class="line">    port: <span class="number">8088</span>, <span class="comment">// 端口号</span></span><br><span class="line">    https: <span class="literal">false</span>, <span class="comment">// https:&#123;type:Boolean&#125;</span></span><br><span class="line">    open: <span class="literal">false</span>, <span class="comment">// 配置自动启动浏览器  open: 'Google Chrome'-默认启动谷歌</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 配置多个代理</span></span><br><span class="line">    proxy: &#123;</span><br><span class="line">      <span class="string">'/api'</span>: &#123;</span><br><span class="line">        target: <span class="string">'https://www.mock.com'</span>,</span><br><span class="line">        ws: <span class="literal">true</span>, <span class="comment">// 代理的WebSockets</span></span><br><span class="line">        changeOrigin: <span class="literal">true</span>, <span class="comment">// 允许websockets跨域</span></span><br><span class="line">        pathRewrite: &#123;</span><br><span class="line">          <span class="string">'^/api'</span>: <span class="string">''</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="基础组件封装"><a href="#基础组件封装" class="headerlink" title="基础组件封装"></a>基础组件封装</h2><p>在开发项目过程中，通常会用到很多功能和设计相类似的组件，toast 和 dialog 组件基本是每一个移动端项目都会用到的。为了更好匹配自己公司的 UI 设计风格，我们没有直接用 vant 的 toast 和 dialog 组件，而是自己封装了类似的组件，可供直接调用，如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.$toast(&#123; <span class="attr">msg</span>: <span class="string">'手机号码不能为空'</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">this</span>.$toast(&#123;</span><br><span class="line">  msg: <span class="string">'成功提示'</span>,</span><br><span class="line">  type: <span class="string">'success'</span>,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">this</span>.$dialog(&#123;</span><br><span class="line">  title: <span class="string">'删除提示'</span>,</span><br><span class="line">  text: <span class="string">'是否确定删除此标签？'</span>,</span><br><span class="line">  showCancelBtn: <span class="literal">true</span>,</span><br><span class="line">  confirmText: <span class="string">'确认'</span>,</span><br><span class="line">  confirm(content) &#123;</span><br><span class="line">    alert(<span class="string">'删除成功'</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>效果图如下</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/5/10/171fc7862c4a065f?w=1032&amp;h=523&amp;f=png&amp;s=70452" alt=""></p>
+<h4 id="toast-传入参数"><a href="#toast-传入参数" class="headerlink" title="toast 传入参数"></a>toast 传入参数</h4><p><strong>Props</strong></p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>msg</td>
+<td>String</td>
+<td>‘’</td>
+<td>弹窗提示语</td>
+</tr>
+<tr>
+<td>type</td>
+<td>String</td>
+<td>‘’</td>
+<td>弹窗类型：success(成功提示),fail(失败提示),warning(警告),loading(加载)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="dialog-传入参数"><a href="#dialog-传入参数" class="headerlink" title="dialog 传入参数"></a>dialog 传入参数</h4><p><strong>Props</strong></p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>default</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>title</td>
+<td>String</td>
+<td>‘’</td>
+<td>标题</td>
+</tr>
+<tr>
+<td>text</td>
+<td>String</td>
+<td>‘’</td>
+<td>文本内容</td>
+</tr>
+<tr>
+<td>type</td>
+<td>String</td>
+<td>‘’</td>
+<td>默认纯文本，input(输入框)</td>
+</tr>
+<tr>
+<td>maxlength</td>
+<td>Number</td>
+<td>20</td>
+<td>输入的最多字数</td>
+</tr>
+<tr>
+<td>confirmText</td>
+<td>String</td>
+<td>确定</td>
+<td>右边按钮</td>
+</tr>
+<tr>
+<td>cancelText</td>
+<td>String</td>
+<td>取消</td>
+<td>左边按钮</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Events</strong></p>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>params</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>confirm</td>
+<td>null</td>
+<td>选择后的回调</td>
+</tr>
+<tr>
+<td>cancel</td>
+<td>ull</td>
+<td>取消后的回调</td>
+</tr>
+</tbody>
+</table>
+<h2 id="webpack-可视化分析"><a href="#webpack-可视化分析" class="headerlink" title="webpack 可视化分析"></a>webpack 可视化分析</h2><p>从这里开始，我们开始进行 webpack 优化打包。首先我们来分析一下 webpack 打包性能瓶颈，找出问题所在，然后才能对症下药。此时就用到 webpack-bundle-analyzer 了。<br>1、安装依赖</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install webpack-bundle-analyzer -D</span><br></pre></td></tr></table></figure>
+<p>2、在 vue.config.js 配置</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; BundleAnalyzerPlugin &#125; = <span class="built_in">require</span>(<span class="string">'webpack-bundle-analyzer'</span>)</span><br><span class="line">configureWebpack: <span class="function">(<span class="params">config</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">'production'</span>) &#123;</span><br><span class="line">    config.plugins.push(<span class="keyword">new</span> BundleAnalyzerPlugin())</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>打包后，我们可以看到这样一份依赖图</p>
+<p><img src="https://user-gold-cdn.xitu.io/2020/5/10/171fc78ad5a37759?w=1909&amp;h=931&amp;f=png&amp;s=235323" alt=""></p>
+<p>从以上的界面中，我们可以得到以下信息：</p>
+<ul>
+<li>打包出的文件中都包含了什么，以及模块之间的依赖关系</li>
+<li>每个文件的大小在总体中的占比，找出较大的文件，思考是否有替换方案，是否使用了它包含了不必要的依赖？</li>
+<li>是否有重复的依赖项，对此可以如何优化？</li>
+<li>每个文件的压缩后的大小。</li>
+</ul>
+<h2 id="CDN-资源优化"><a href="#CDN-资源优化" class="headerlink" title="CDN 资源优化"></a>CDN 资源优化</h2><p>CDN 的全称是 <code>Content Delivery Network</code>，即内容分发网络。CDN 是构建在网络之上的内容分发网络，依靠部署在各地的边缘服务器，通过中心平台的负载均衡、内容分发、调度等功能模块，使用户就近获取所需内容，降低网络拥塞，提高用户访问响应速度和命中率。CDN 的关键技术主要有内容存储和分发技术。</p>
+<p>随着项目越做越大，依赖的第三方 npm 包越来越多，构建之后的文件也会越来越大。再加上又是单页应用，这就会导致在网速较慢或者服务器带宽有限的情况出现长时间的白屏。此时我们可以使用 CDN 的方法，优化网络加载速度。</p>
+<p>1、将 <code>vue、vue-router、vuex、axios</code> 这些 vue 全家桶的资源，全部改为通过 CDN 链接获取，在 <code>index.html</code> 里插入 相应链接。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcss.com/vue/2.6.10/vue.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcss.com/vuex/3.1.0/vuex.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcss.com/vue-router/3.0.2/vue-router.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"https://cdn.bootcss.com/element-ui/2.6.1/index.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2、在 <code>vue.config.js</code> 配置 externals 属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line"> ···</span><br><span class="line">    externals: &#123;</span><br><span class="line">      <span class="string">'vue'</span>: <span class="string">'Vue'</span>,</span><br><span class="line">      <span class="string">'vuex'</span>: <span class="string">'Vuex'</span>,</span><br><span class="line">      <span class="string">'vue-router'</span>: <span class="string">'VueRouter'</span>,</span><br><span class="line">      <span class="string">'axios'</span>:<span class="string">'axios'</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>3、卸载相关依赖的 npm 包</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">npm</span> uninstall  vue vue-router vuex axios</span><br></pre></td></tr></table></figure>
+<p>此时启动项目运行就可以了。我们在控制台就能发现项目加载了以上四个 CDN 资源。</p>
+<p>不过现在有不少声音说，vue 全家桶加载 CDN 资源其实作用并不大，而且公共的 CDN 资源也没有 npm 包那么稳定，这个就见仁见智了。所以我在源码时新建的分支做这个优化。当项目较小的就不考虑 CDN 优化了。</p>
+<p>当然，当引入其他较大第三方资源，比如 echarts，AMAP(高德地图)，采用 CDN 资源还是很有必要的。</p>
+<h2 id="gZip-加速优化"><a href="#gZip-加速优化" class="headerlink" title="gZip 加速优化"></a>gZip 加速优化</h2><p>所有现代浏览器都支持 gzip 压缩，启用 gzip 压缩可大幅缩减传输资源大小，从而缩短资源下载时间，减少首次白屏时间，提升用户体验。</p>
+<p>gzip 对基于文本格式文件的压缩效果最好（如：CSS、JavaScript 和 HTML），在压缩较大文件时往往可实现高达 70-90% 的压缩率，对已经压缩过的资源（如：图片）进行 gzip 压缩处理，效果很不好。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> CompressionPlugin = <span class="built_in">require</span>(<span class="string">'compression-webpack-plugin'</span>)</span><br><span class="line">configureWebpack: <span class="function">(<span class="params">config</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (process.env.NODE_ENV === <span class="string">'production'</span>) &#123;</span><br><span class="line">    config.plugins.push(</span><br><span class="line">      <span class="keyword">new</span> CompressionPlugin(&#123;</span><br><span class="line">        <span class="comment">// gzip压缩配置</span></span><br><span class="line">        test: <span class="regexp">/\.js$|\.html$|\.css/</span>, <span class="comment">// 匹配文件名</span></span><br><span class="line">        threshold: <span class="number">10240</span>, <span class="comment">// 对超过10kb的数据进行压缩</span></span><br><span class="line">        deleteOriginalAssets: <span class="literal">false</span>, <span class="comment">// 是否删除原文件</span></span><br><span class="line">      &#125;)</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="首页添加骨架屏"><a href="#首页添加骨架屏" class="headerlink" title="首页添加骨架屏"></a>首页添加骨架屏</h2><p>随着 SPA 在前端界的逐渐流行，单页面应用不可避免地给首页加载带来压力，此时良好的首页用户体验至关重要。很多 APP 采用了“骨架屏”的方式去展示未加载内容，给予了用户焕然一新的体验。</p>
+<p>所谓的骨架屏，就是在页面内容未加载完成的时候，先使用一些图形进行占位，待内容加载完成之后再把它替换掉。在这个过程中用户会感知到内容正在逐渐加载并即将呈现，降低了“白屏”的不良体验。</p>
+<p>本文采用vue-skeleton-webpack-plugin插件为单页面应用注入骨架屏。  </p>
+<p>1、在src的common文件夹下面创建了Skeleton1.vue，Skeleton2.vue，具体的结构和样式自行设计，此处省略一万字。。。。</p>
+<p>2、在同级目录下新建entry-skeleton.js<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">import</span> Skeleton1 <span class="keyword">from</span> <span class="string">'./Skeleton1'</span></span><br><span class="line"><span class="keyword">import</span> Skeleton2 <span class="keyword">from</span> <span class="string">'./Skeleton2'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  components: &#123;</span><br><span class="line">    Skeleton1,</span><br><span class="line">    Skeleton2</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div&gt;</span></span><br><span class="line"><span class="string">      &lt;skeleton1 id="skeleton1" style="display:none"/&gt;</span></span><br><span class="line"><span class="string">      &lt;skeleton2 id="skeleton2" style="display:none"/&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>在vue.config.js下配置插件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> SkeletonWebpackPlugin = <span class="built_in">require</span>(<span class="string">'vue-skeleton-webpack-plugin'</span>)</span><br><span class="line">configureWebpack: <span class="function">(<span class="params">config</span>) =&gt;</span> &#123;</span><br><span class="line">  config.plugins.push(</span><br><span class="line">    <span class="keyword">new</span> SkeletonWebpackPlugin(&#123;</span><br><span class="line">      webpackConfig: &#123;</span><br><span class="line">        entry: &#123;</span><br><span class="line">          app: path.join(__dirname, <span class="string">'./src/common/entry-skeleton.js'</span>),</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">      minimize: <span class="literal">true</span>,</span><br><span class="line">      quiet: <span class="literal">true</span>,</span><br><span class="line">      router: &#123;</span><br><span class="line">        mode: <span class="string">'hash'</span>,</span><br><span class="line">        routes: [</span><br><span class="line">          &#123; <span class="attr">path</span>: <span class="string">'/'</span>, <span class="attr">skeletonId</span>: <span class="string">'skeleton1'</span> &#125;,</span><br><span class="line">          &#123; <span class="attr">path</span>: <span class="string">'/about'</span>, <span class="attr">skeletonId</span>: <span class="string">'skeleton2'</span> &#125;,</span><br><span class="line">        ],</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;)</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时重新加载页面就可以看到我们的骨架屏了。<strong>注意：一定要配置样式分离extract: true</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a cup of coffee,thanks!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="andy Wong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="andy Wong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
+          
+            <a href="/tags/webpack/" rel="tag"><i class="fa fa-tag"></i> webpack</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/05/09/webpack/react-webpack4配置与优化/" rel="next" title="react-webpack4配置与优化">
+                <i class="fa fa-chevron-left"></i> react-webpack4配置与优化
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/05/09/vue/Vue2.x脱坑-解决方法总结/" rel="prev" title="Vue2.x脱坑-解决方法总结">
+                Vue2.x脱坑-解决方法总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/doggy.jpg"
+                alt="andy Wong" />
+            
+              <p class="site-author-name" itemprop="name">andy Wong</p>
+              <p class="site-description motion-element" itemprop="description">前端渣渣辉</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/chongdee" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.cn/" title="掘金" target="_blank">掘金</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://segmentfault.com/" title="segmentfault" target="_blank">segmentfault</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://docschina.org/" title="印记中文" target="_blank">印记中文</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com/" title="阮一峰ES6书籍" target="_blank">阮一峰ES6书籍</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div> 
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x7B80;&#x4ECB;" class="headerlink" title="&#x7B80;&#x4ECB;"></a>&#x7B80;&#x4ECB;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-vant"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x914D;&#x7F6E;-vant" class="headerlink" title="&#x914D;&#x7F6E; vant"></a>&#x914D;&#x7F6E; vant</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rem-适配"><span class="nav-number">3.</span> <span class="nav-text"><a href="#rem-&#x9002;&#x914D;" class="headerlink" title="rem &#x9002;&#x914D;"></a>rem &#x9002;&#x914D;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#axios-请求封装"><span class="nav-number">4.</span> <span class="nav-text"><a href="#axios-&#x8BF7;&#x6C42;&#x5C01;&#x88C5;" class="headerlink" title="axios &#x8BF7;&#x6C42;&#x5C01;&#x88C5;"></a>axios &#x8BF7;&#x6C42;&#x5C01;&#x88C5;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#工具类函数封装"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x5DE5;&#x5177;&#x7C7B;&#x51FD;&#x6570;&#x5C01;&#x88C5;" class="headerlink" title="&#x5DE5;&#x5177;&#x7C7B;&#x51FD;&#x6570;&#x5C01;&#x88C5;"></a>&#x5DE5;&#x5177;&#x7C7B;&#x51FD;&#x6570;&#x5C01;&#x88C5;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-router-配置"><span class="nav-number">6.</span> <span class="nav-text"><a href="#vue-router-&#x914D;&#x7F6E;" class="headerlink" title="vue-router &#x914D;&#x7F6E;"></a>vue-router &#x914D;&#x7F6E;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#路由懒加载配置"><span class="nav-number">6.0.1.</span> <span class="nav-text"><a href="#&#x8DEF;&#x7531;&#x61D2;&#x52A0;&#x8F7D;&#x914D;&#x7F6E;" class="headerlink" title="&#x8DEF;&#x7531;&#x61D2;&#x52A0;&#x8F7D;&#x914D;&#x7F6E;"></a>&#x8DEF;&#x7531;&#x61D2;&#x52A0;&#x8F7D;&#x914D;&#x7F6E;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#改变单页面应用的-title"><span class="nav-number">6.0.2.</span> <span class="nav-text"><a href="#&#x6539;&#x53D8;&#x5355;&#x9875;&#x9762;&#x5E94;&#x7528;&#x7684;-title" class="headerlink" title="&#x6539;&#x53D8;&#x5355;&#x9875;&#x9762;&#x5E94;&#x7528;&#x7684; title"></a>&#x6539;&#x53D8;&#x5355;&#x9875;&#x9762;&#x5E94;&#x7528;&#x7684; title</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#登录权限校验"><span class="nav-number">6.0.3.</span> <span class="nav-text"><a href="#&#x767B;&#x5F55;&#x6743;&#x9650;&#x6821;&#x9A8C;" class="headerlink" title="&#x767B;&#x5F55;&#x6743;&#x9650;&#x6821;&#x9A8C;"></a>&#x767B;&#x5F55;&#x6743;&#x9650;&#x6821;&#x9A8C;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#页面缓存配置"><span class="nav-number">6.0.4.</span> <span class="nav-text"><a href="#&#x9875;&#x9762;&#x7F13;&#x5B58;&#x914D;&#x7F6E;" class="headerlink" title="&#x9875;&#x9762;&#x7F13;&#x5B58;&#x914D;&#x7F6E;"></a>&#x9875;&#x9762;&#x7F13;&#x5B58;&#x914D;&#x7F6E;</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多环境变量配置"><span class="nav-number">7.</span> <span class="nav-text"><a href="#&#x591A;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x914D;&#x7F6E;" class="headerlink" title="&#x591A;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x914D;&#x7F6E;"></a>&#x591A;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#x914D;&#x7F6E;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-config-js-配置"><span class="nav-number">8.</span> <span class="nav-text"><a href="#vue-config-js-&#x914D;&#x7F6E;" class="headerlink" title="vue.config.js &#x914D;&#x7F6E;"></a>vue.config.js &#x914D;&#x7F6E;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础组件封装"><span class="nav-number">9.</span> <span class="nav-text"><a href="#&#x57FA;&#x7840;&#x7EC4;&#x4EF6;&#x5C01;&#x88C5;" class="headerlink" title="&#x57FA;&#x7840;&#x7EC4;&#x4EF6;&#x5C01;&#x88C5;"></a>&#x57FA;&#x7840;&#x7EC4;&#x4EF6;&#x5C01;&#x88C5;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#toast-传入参数"><span class="nav-number">9.0.1.</span> <span class="nav-text"><a href="#toast-&#x4F20;&#x5165;&#x53C2;&#x6570;" class="headerlink" title="toast &#x4F20;&#x5165;&#x53C2;&#x6570;"></a>toast &#x4F20;&#x5165;&#x53C2;&#x6570;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dialog-传入参数"><span class="nav-number">9.0.2.</span> <span class="nav-text"><a href="#dialog-&#x4F20;&#x5165;&#x53C2;&#x6570;" class="headerlink" title="dialog &#x4F20;&#x5165;&#x53C2;&#x6570;"></a>dialog &#x4F20;&#x5165;&#x53C2;&#x6570;</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack-可视化分析"><span class="nav-number">10.</span> <span class="nav-text"><a href="#webpack-&#x53EF;&#x89C6;&#x5316;&#x5206;&#x6790;" class="headerlink" title="webpack &#x53EF;&#x89C6;&#x5316;&#x5206;&#x6790;"></a>webpack &#x53EF;&#x89C6;&#x5316;&#x5206;&#x6790;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CDN-资源优化"><span class="nav-number">11.</span> <span class="nav-text"><a href="#CDN-&#x8D44;&#x6E90;&#x4F18;&#x5316;" class="headerlink" title="CDN &#x8D44;&#x6E90;&#x4F18;&#x5316;"></a>CDN &#x8D44;&#x6E90;&#x4F18;&#x5316;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gZip-加速优化"><span class="nav-number">12.</span> <span class="nav-text"><a href="#gZip-&#x52A0;&#x901F;&#x4F18;&#x5316;" class="headerlink" title="gZip &#x52A0;&#x901F;&#x4F18;&#x5316;"></a>gZip &#x52A0;&#x901F;&#x4F18;&#x5316;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#首页添加骨架屏"><span class="nav-number">13.</span> <span class="nav-text"><a href="#&#x9996;&#x9875;&#x6DFB;&#x52A0;&#x9AA8;&#x67B6;&#x5C4F;" class="headerlink" title="&#x9996;&#x9875;&#x6DFB;&#x52A0;&#x9AA8;&#x67B6;&#x5C4F;"></a>&#x9996;&#x9875;&#x6DFB;&#x52A0;&#x9AA8;&#x67B6;&#x5C4F;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; 2015 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span>Powered By -</span>
+  <span class="author" itemprop="copyrightHolder">andy Wong</span>
+
+  
+</div>
+
+
+  <div>Theme by &copy;next</div>
+
+
+<div>Hosted by <strong><a href="https://github.com/">Github Pages</a></strong></div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":true,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"left","width":145,"height":315},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script>
+</body>
+</html>

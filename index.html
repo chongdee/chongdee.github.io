@@ -269,12 +269,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/11/05/Less常用公共样式封装(zless)/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/JavaScript/条件语句优雅写法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/cat_cute.jpg">
+      <meta itemprop="image" content="/images/doggy.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -288,7 +288,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/11/05/Less常用公共样式封装(zless)/" itemprop="url">Less常用公共样式封装</a></h1>
+                <a class="post-title-link" href="/2021/05/09/JavaScript/条件语句优雅写法/" itemprop="url">条件语句优雅写法</a></h1>
         
 
         <div class="post-meta">
@@ -300,456 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-05T17:47:02+08:00">
-                2018-11-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>平常项目用到less样式封装，zless库（常用的less公共样式库）<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/05/Less常用公共样式封装(zless)/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/11/04/Less-编码规范/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="andy Wong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/cat_cute.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="andy Wong's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/04/Less-编码规范/" itemprop="url">Less 编码规范</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-04T15:38:00+08:00">
-                2018-11-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-           代码组织代码必须（MUST）按如下形式按顺序组织：
-
-@import
-变量声明
-样式声明123456789// ✓@import "est/all.less";@default-text-color: #333;.page &#123;    width: 960px;    margin: 0 auto;&#125;
-
-
-@import 语句@import 语句引用的文件必须（MUST）写在一对引号内，.less 后缀不得（MUST NOT）省略（与引入 CSS 文件时的路径格式一致）。引号使用 ‘ 和 “ 均可，但在同一项目内必须（MUST）统一。
-1234567// ✗@import 
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/04/Less-编码规范/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/11/04/Airbnb-CSS-Sass-指南/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="andy Wong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/cat_cute.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="andy Wong's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/04/Airbnb-CSS-Sass-指南/" itemprop="url">Airbnb CSS / Sass 指南</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-04T14:44:45+08:00">
-                2018-11-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="规则声明"><a href="#规则声明" class="headerlink" title="规则声明"></a>规则声明</h2><p>我们把一个（或一组）选择器和一组属性称之为 “规则声明”。举个例子：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.listing</span> &#123;</span><br><span class="line">  <span class="attribute">font-size</span>: <span class="number">18px</span>;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">1.2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/11/04/Airbnb-CSS-Sass-指南/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/11/03/Airbnb-JavaScript-编码风格指南/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="andy Wong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/cat_cute.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="andy Wong's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/03/Airbnb-JavaScript-编码风格指南/" itemprop="url">Airbnb JavaScript 编码风格指南</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-03T17:29:15+08:00">
-                2018-11-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T03:32:15+08:00">
+                2021-05-09
               </time>
             
 
@@ -809,20 +361,454 @@
 
       
         
-          <h2 id="Airbnb-JavaScript-编码风格指南（2018年最新版）"><a href="#Airbnb-JavaScript-编码风格指南（2018年最新版）" class="headerlink" title="Airbnb JavaScript 编码风格指南（2018年最新版）"></a>Airbnb JavaScript 编码风格指南（2018年最新版）</h2><blockquote>
-<p>Airbnb JS规范原文： <a href="https://github.com/airbnb/javascript" target="_blank" rel="noopener">https://github.com/airbnb/javascript</a></p>
-</blockquote>
-<h2 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h2><p>1.基本类型：直接存取</p>
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在任何编程语言中，代码需要根据不同的条件在给定的输入中做不同的决定和执行相应的动作。</p>
+<p>例如，在一个游戏中，如果玩家生命点为0，游戏结束。在天气应用中，如果在早上被查看，显示一个日出图片，如果是晚上，则显示星星和月亮。在这篇文章中，我们将探索JavaScript中所谓的条件语句如何工作。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/05/09/JavaScript/条件语句优雅写法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/JavaScript/手写Promise讲解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/doggy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/05/09/JavaScript/手写Promise讲解/" itemprop="url">手写Promise讲解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T03:24:00+08:00">
+                2021-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="整体结构"><a href="#整体结构" class="headerlink" title="整体结构"></a>整体结构</h2><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">MyPromise</span> &#123;</span></span><br><span class="line"><span class="class">    constructor(<span class="title">fn</span>)&#123;</span></span><br><span class="line"><span class="class">        </span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    resolve()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    then()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    reject()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    catch()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">&#125;</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/05/09/JavaScript/手写Promise讲解/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/vue/路由权限,大文件下载等问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/doggy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/05/09/vue/路由权限,大文件下载等问题/" itemprop="url">路由权限,大文件下载等问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T03:13:18+08:00">
+                2021-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>有一些问题不限于 Vue，还适应于其他类型的 SPA 项目。</p>
+<h2 id="1-页面权限控制和登陆验证"><a href="#1-页面权限控制和登陆验证" class="headerlink" title="1. 页面权限控制和登陆验证"></a>1. 页面权限控制和登陆验证</h2><h3 id="页面权限控制"><a href="#页面权限控制" class="headerlink" title="页面权限控制"></a>页面权限控制</h3><p>页面权限控制是什么意思呢？</p>
+<p>就是一个网站有不同的角色，比如管理员和普通用户，要求不同的角色能访问的页面是不一样的。如果一个页面，有角色越权访问，这时就得做出限制了。<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/05/09/vue/路由权限,大文件下载等问题/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/vue/Vue2.x脱坑-解决方法总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/doggy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/05/09/vue/Vue2.x脱坑-解决方法总结/" itemprop="url">Vue2.x脱坑-解决方法总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T02:57:03+08:00">
+                2021-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>文章内容覆盖范围,芝麻绿豆的破问题都有,不止于vue;<br>给出的是方案,而非手把手一字一句的给你说十万个为什么!</p>
+<h2 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h2><h3 id="Q-安装超时-install-timeout"><a href="#Q-安装超时-install-timeout" class="headerlink" title="Q:安装超时(install timeout)"></a>Q:安装超时(install timeout)</h3><p>方案有这么些:</p>
 <ul>
-<li>string</li>
-<li>number</li>
-<li>boolean</li>
-<li>null</li>
-<li>undefined</li>
-<li>symbol
+<li><p>cnpm : 国内对npm的镜像版本</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/03/Airbnb-JavaScript-编码风格指南/#more" rel="contents">
+            <a class="btn" href="/2021/05/09/vue/Vue2.x脱坑-解决方法总结/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -873,12 +859,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/js设计模式/js设计模式-享元模式/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/webpack/vue-cli4+webpack4移动端框架/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/cat_cute.jpg">
+      <meta itemprop="image" content="/images/doggy.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -892,7 +878,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/31/js设计模式/js设计模式-享元模式/" itemprop="url">js设计模式-享元模式</a></h1>
+                <a class="post-title-link" href="/2021/05/09/webpack/vue-cli4+webpack4移动端框架/" itemprop="url">vue-cli4+webpack4移动端框架</a></h1>
         
 
         <div class="post-meta">
@@ -904,8 +890,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T21:46:23+08:00">
-                2018-10-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T01:16:10+08:00">
+                2021-05-09
               </time>
             
 
@@ -927,8 +913,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webpack/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
                   </a>
                 </span>
 
@@ -965,11 +962,13 @@
 
       
         
-          <h2 id="享元模式"><a href="#享元模式" class="headerlink" title="享元模式"></a>享元模式</h2><p>享元模式是一种用于性能优化的模式，如果系统中因为创建了大量类似的对象而导致内存不足或占用过高这种模式就非常有用了。<br>下面通过具体的实例来看看。</p>
-<p>假设有个内衣工厂，目前的产品有50种男士内衣与50种女士内衣，为了推销产品，工厂决定生产一些塑料模特来穿上它们的内衣拍成内衣广告。<br>正常情况需要50个男模特与50个女模特，然后让他们每人分别穿上一套内衣来拍照。不使用享元模式可能会有这种方式来写：<br>
+          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>这是基于 vue-cli4 实现的移动端框架，其中包含项目常用的配置，组件封装及webpack优化方法，可供快速开发使用。</p>
+<p>技术栈：vue-cli4 + webpack4 + vant + axios + less + postcss-px2rem</p>
+<p>源码 <a href="https://github.com/Michael-lzg/vue-cli4-vant" target="_blank" rel="noopener">https://github.com/Michael-lzg/vue-cli4-vant</a></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment">// 本地启动</span></span><br><span class="line">npm run dev</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生产打包</span></span><br><span class="line">npm run build</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/10/31/js设计模式/js设计模式-享元模式/#more" rel="contents">
+            <a class="btn" href="/2021/05/09/webpack/vue-cli4+webpack4移动端框架/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1020,12 +1019,12 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/js设计模式/js设计模式-状态模式/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/webpack/react-webpack4配置与优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/cat_cute.jpg">
+      <meta itemprop="image" content="/images/doggy.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -1039,7 +1038,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/31/js设计模式/js设计模式-状态模式/" itemprop="url">js设计模式-状态模式</a></h1>
+                <a class="post-title-link" href="/2021/05/09/webpack/react-webpack4配置与优化/" itemprop="url">react-webpack4配置与优化</a></h1>
         
 
         <div class="post-meta">
@@ -1051,8 +1050,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T21:45:44+08:00">
-                2018-10-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T01:08:22+08:00">
+                2021-05-09
               </time>
             
 
@@ -1074,8 +1073,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack</span>
                   </a>
                 </span>
 
@@ -1112,10 +1111,11 @@
 
       
         
-          <h2 id="状态模式的基础"><a href="#状态模式的基础" class="headerlink" title="状态模式的基础"></a>状态模式的基础</h2><p>定义：状态模式（State）定义一个对象，这个对象可以通过管理其状态从而使得应用程序作出相应的变化。<br>状态模式是一个非常常用的设计模式，它主要有两个角色组成：<br>（1）环境类：拥有一个状态成员，可以修改其状态并作出相应反应。<br>（2）状态类：表示一种状态，包含其相应的处理方法<br>作用：状态模式就是一种适合多种状态场景下的设计模式。使用状态模式可以让代码更加清晰，提高应用程序的维护性和扩展性。<br>使用场景：文件下载（开始、暂停、完成、失败等）、红绿灯<br>
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一篇文章不写前言总感觉不太正式，大概介绍下我是怎么完成一个总的知识点的概括的把。其实很多人都有一看就会,一做就废的特点(当然也包括我在内),这个时候，你需要制定一个略微详细的计划，就比如我这篇会首先列出知识点，列出大的方向，制定思维导图，然后根据思维导图编写代码，计划明确，就会事半功倍，因此，希望你可以跟着本篇循序渐进的跟着代码走一遍，不管是真实开发，还是面试，都有的扯。好了，不扯了，可以先看下目录。现在开始</p>
+<h2 id="一、基础配置"><a href="#一、基础配置" class="headerlink" title="一、基础配置"></a>一、基础配置</h2><h3 id="1、init项目"><a href="#1、init项目" class="headerlink" title="1、init项目"></a>1、init项目</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mkdir</span> react-webpack4-cook</span><br><span class="line"><span class="keyword">cd</span> react-webpack4-cook</span><br><span class="line"><span class="keyword">mkdir</span> src</span><br><span class="line"><span class="keyword">mkdir</span> dist</span><br><span class="line">npm init -<span class="built_in">y</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/10/31/js设计模式/js设计模式-状态模式/#more" rel="contents">
+            <a class="btn" href="/2021/05/09/webpack/react-webpack4配置与优化/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1157,7 +1157,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1193,7 +1193,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="/images/cat_cute.jpg"
+                src="/images/doggy.jpg"
                 alt="andy Wong" />
             
               <p class="site-author-name" itemprop="name">andy Wong</p>
@@ -1207,7 +1207,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1218,7 +1218,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1229,7 +1229,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -1264,11 +1264,11 @@
               <ul class="links-of-blogroll-list">
                 
                   <li class="links-of-blogroll-item">
-                    <a href="http://www.uisdc.com/" title="优设" target="_blank">优设</a>
+                    <a href="https://juejin.cn/" title="掘金" target="_blank">掘金</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="http://www.zhangxinxu.com/" title="张鑫旭" target="_blank">张鑫旭</a>
+                    <a href="https://segmentfault.com/" title="segmentfault" target="_blank">segmentfault</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">
@@ -1276,11 +1276,7 @@
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="http://www.36zhen.com/t?id=3448" title="前端书籍资料" target="_blank">前端书籍资料</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://ife.baidu.com/" title="百度前端技术学院" target="_blank">百度前端技术学院</a>
+                    <a href="https://docschina.org/" title="印记中文" target="_blank">印记中文</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">
@@ -1493,5 +1489,7 @@
 
   
 
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":true,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"left","width":145,"height":315},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script>
 </body>
 </html>

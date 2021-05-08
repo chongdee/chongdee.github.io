@@ -120,7 +120,7 @@
 <meta property="og:image" content="https://chongdee.github.io/img/next_theme_set/32_2.png">
 <meta property="og:image" content="https://chongdee.github.io/img/next_theme_set/32_3.png">
 <meta property="og:image" content="https://chongdee.github.io/img/next_theme_set/33.png">
-<meta property="og:updated_time" content="2018-07-11T15:23:29.677Z">
+<meta property="og:updated_time" content="2021-05-08T18:47:53.647Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo的next主题个性化配置教程">
 <meta name="twitter:description" content="在右上角或者左上角实现fork me on github具体实现方法点击这里挑选自己喜欢的样式，并复制代码:">
@@ -312,7 +312,7 @@
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
       <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/cat_cute.jpg">
+      <meta itemprop="image" content="/images/doggy.jpg">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -458,7 +458,7 @@
 <p>然后在/themes/next/layout/_partials/footer.swig文件尾部加上：<br><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;<span class="keyword">div</span> <span class="built_in">class</span>=<span class="string">"theme-info"</span>&gt;</span><br><span class="line">  &lt;<span class="keyword">div</span> <span class="built_in">class</span>=<span class="string">"powered-by"</span>&gt;&lt;/<span class="keyword">div</span>&gt;</span><br><span class="line">  &lt;span <span class="built_in">class</span>=<span class="string">"post-count"</span>&gt;博客全站共&#123;&#123; totalcount(site) &#125;&#125;字&lt;/span&gt;</span><br><span class="line">&lt;/<span class="keyword">div</span>&gt;</span><br></pre></td></tr></table></figure></p>
 <h2 id="添加-README-md-文件"><a href="#添加-README-md-文件" class="headerlink" title="添加 README.md 文件"></a>添加 README.md 文件</h2><p>每个项目下一般都有一个 README.md 文件，但是使用 hexo 部署到仓库后，项目下是没有 README.md 文件的。<br>在 Hexo 目录下的 source 根目录下添加一个 README.md 文件，修改站点配置文件 _config.yml ，将 skip_render 参数的值设置为<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">skip_render:</span> README.md</span><br></pre></td></tr></table></figure></p>
 <p>保存退出即可。再次使用 hexo d 命令部署博客的时候就不会在渲染 README.md 这个文件了。</p>
-<h2 id="设置网站的图标Favicon"><a href="#设置网站的图标Favicon" class="headerlink" title="设置网站的图标Favicon"></a>设置网站的图标Favicon</h2><p>实现效果图<br><img src="/img/next_theme_set/favicon.png" alt="&quot;马丹，图片不见了~~~&quot;"><br>具体方法实现:<br>在<a href="https://www.easyicon.net/" target="_blank" rel="noopener">EasyIcon</a>中找一张（32*32）的ico图标,或者去别的网站下载或者制作，并将图标名称改为favicon.ico，然后把图标放在/themes/next/source/images里，并且修改主题配置文件_config.yml：<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Put your favicon.ico into `hexo-site/source/` directory.</span><br><span class="line">favicon: /favicon.ico</span><br></pre></td></tr></table></figure></p>
+<h2 id="设置网站的图标Favicon"><a href="#设置网站的图标Favicon" class="headerlink" title="设置网站的图标Favicon"></a>设置网站的图标Favicon</h2><p>实现效果图<br><img src="/img/next_theme_set/favicon.png" alt="&quot;马丹，图片不见了~~~&quot;"><br>具体方法实现:<br>在<a href="https://tool.lu/favicon/" target="_blank" rel="noopener">tool.lu</a>中找一张（32*32）的ico图标,或者去别的网站下载或者制作，并将图标名称改为favicon.ico，然后把图标放在/themes/next/source/images里，并且修改主题配置文件_config.yml：<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># Put your favicon.ico into `hexo-site/source/` directory.</span><br><span class="line">favicon: /favicon.ico</span><br></pre></td></tr></table></figure></p>
 <h2 id="添加顶部加载条"><a href="#添加顶部加载条" class="headerlink" title="添加顶部加载条"></a>添加顶部加载条</h2><p>具体实现方法:<br>打开/themes/next/layout/_partials/head.swig文件，添加红框上的代码<br><img src="/img/next_theme_set/19.png" alt="&quot;马丹，图片不见了~~~&quot;"><br>代码如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"//cdn.bootcss.com/pace/1.0.2/pace.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">href</span>=<span class="string">"//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css"</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>但是，默认的是粉色的，要改变颜色可以在/themes/next/layout/_partials/head.swig文件中添加如下代码（接在刚才link的后面）<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-class">.pace</span> <span class="selector-class">.pace-progress</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">background</span>: <span class="selector-id">#1E92FB</span>; <span class="comment">/*进度条颜色*/</span></span></span><br><span class="line"><span class="undefined">        height: 3px;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.pace</span> <span class="selector-class">.pace-progress-inner</span> &#123;</span></span><br><span class="line"><span class="css">         <span class="selector-tag">box-shadow</span>: 0 0 10<span class="selector-tag">px</span> <span class="selector-id">#1E92FB</span>, 0 0 5<span class="selector-tag">px</span>     <span class="selector-id">#1E92FB</span>; <span class="comment">/*阴影颜色*/</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.pace</span> <span class="selector-class">.pace-activity</span> &#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">border-top-color</span>: <span class="selector-id">#1E92FB</span>;    <span class="comment">/*上边框颜色*/</span></span></span><br><span class="line"><span class="css">        <span class="selector-tag">border-left-color</span>: <span class="selector-id">#1E92FB</span>;    <span class="comment">/*左边框颜色*/</span></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <blockquote>
@@ -501,8 +501,9 @@
 </blockquote>
 <h2 id="为博客加上萌萌的宠物"><a href="#为博客加上萌萌的宠物" class="headerlink" title="为博客加上萌萌的宠物"></a>为博客加上萌萌的宠物</h2><p>实现效果图:<br><img src="/img/next_theme_set/31.png" alt="&quot;马丹，图片不见了~~~&quot;"></p>
 <p>具体实现方法:<br>在终端切换到你的博客根路径，然后输入如下代码：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> -<span class="keyword">save</span> hexo-helper-live2d</span><br></pre></td></tr></table></figure></p>
+<p><strong>安装相关依赖</strong><br><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> live2d-widget-model-z16  <span class="comment">#我安装的是z16，一个小萝莉，那就安装z16，可以换</span></span><br></pre></td></tr></table></figure></p>
 <p>然后打开Hexo/blog/themes/next/layout<br>的_layout.swig,将下面代码放到&lt;/body&gt;之前：<br><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123; live2d() &#125;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>然后在在 hexo 的 _config.yml 中添加参数：<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">live2d:</span></span><br><span class="line"><span class="symbol">  model:</span> wanko</span><br><span class="line"><span class="symbol">  bottom:</span> <span class="number">-30</span></span><br></pre></td></tr></table></figure></p>
+<p>然后在在 hexo 的 _config.yml 中添加参数：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># live2d配置宠物</span></span><br><span class="line"><span class="attr">live2d:</span></span><br><span class="line">  <span class="comment"># enable: true</span></span><br><span class="line"><span class="attr">  scriptFrom:</span> <span class="string">local</span></span><br><span class="line"><span class="attr">  pluginRootPath:</span> <span class="string">live2dw/</span></span><br><span class="line"><span class="attr">  pluginJsPath:</span> <span class="string">lib/</span></span><br><span class="line"><span class="attr">  pluginModelPath:</span> <span class="string">assets/</span></span><br><span class="line"><span class="attr">  model:</span></span><br><span class="line">    <span class="comment"># live2d-widget-model-wanko </span></span><br><span class="line"><span class="attr">    use:</span> <span class="string">live2d-widget-model-z16</span> <span class="comment"># 通过修改use来确定使用哪种model</span></span><br><span class="line">    <span class="comment"># Other Models：</span></span><br><span class="line">    <span class="comment"># hibiki </span></span><br><span class="line">    <span class="comment"># use: live2d-widget-model-hibiki</span></span><br><span class="line">    <span class="comment"># haruto </span></span><br><span class="line">    <span class="comment"># use: live2d-widget-model-haruto</span></span><br><span class="line"><span class="attr">  display:</span></span><br><span class="line"><span class="attr">    position:</span> <span class="string">right</span>   <span class="comment"># 在本博客中我放置于右侧</span></span><br><span class="line"><span class="attr">    width:</span> <span class="number">150</span></span><br><span class="line"><span class="attr">    height:</span> <span class="number">300</span></span><br><span class="line"><span class="attr">    hOffset:</span> <span class="number">80</span>  <span class="comment"># 调节水平位置</span></span><br><span class="line"><span class="attr">    vOffset:</span> <span class="bullet">-50</span>  <span class="comment"># 调节垂直位置</span></span><br><span class="line"><span class="attr">  mobile:</span></span><br><span class="line"><span class="attr">    show:</span> <span class="literal">false</span> <span class="comment"># 手机模式不显示宠物</span></span><br></pre></td></tr></table></figure></p>
 <p>然后hexo clean ，hexo g ，hexo d 就可以看到了。<br><strong>下面是一些model，可以换不同的宠物</strong></p>
 <ol>
 <li>model 模型名称 默认值: z16<ul>
@@ -565,7 +566,7 @@
     
       <div>
         <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-  <div>好累,好困~~~Have a cup of coffee,please. ?</div>
+  <div>Buy me a cup of coffee,thanks!</div>
   <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
     <span>打赏</span>
   </button>
@@ -622,7 +623,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/11/深入理解JavaScript运行机制/" rel="prev" title="深入理解JavaScript运行机制">
+              <a href="/2018/07/11/JavaScript/深入理解JavaScript运行机制/" rel="prev" title="深入理解JavaScript运行机制">
                 深入理解JavaScript运行机制 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -691,7 +692,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <img class="site-author-image" itemprop="image"
-                src="/images/cat_cute.jpg"
+                src="/images/doggy.jpg"
                 alt="andy Wong" />
             
               <p class="site-author-name" itemprop="name">andy Wong</p>
@@ -705,7 +706,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -716,7 +717,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -727,7 +728,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -762,11 +763,11 @@
               <ul class="links-of-blogroll-list">
                 
                   <li class="links-of-blogroll-item">
-                    <a href="http://www.uisdc.com/" title="优设" target="_blank">优设</a>
+                    <a href="https://juejin.cn/" title="掘金" target="_blank">掘金</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="http://www.zhangxinxu.com/" title="张鑫旭" target="_blank">张鑫旭</a>
+                    <a href="https://segmentfault.com/" title="segmentfault" target="_blank">segmentfault</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">
@@ -774,11 +775,7 @@
                   </li>
                 
                   <li class="links-of-blogroll-item">
-                    <a href="http://www.36zhen.com/t?id=3448" title="前端书籍资料" target="_blank">前端书籍资料</a>
-                  </li>
-                
-                  <li class="links-of-blogroll-item">
-                    <a href="http://ife.baidu.com/" title="百度前端技术学院" target="_blank">百度前端技术学院</a>
+                    <a href="https://docschina.org/" title="印记中文" target="_blank">印记中文</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">
@@ -1011,5 +1008,7 @@
 
   
 
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":true,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"left","width":145,"height":315},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script>
 </body>
 </html>
