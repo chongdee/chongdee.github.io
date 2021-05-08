@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>andy Wong&#39;s Blog</title>
   
-  <subtitle>A little bit progress every day</subtitle>
+  <subtitle>知道的越多，不知道的越多</subtitle>
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://chongdee.github.io/"/>
@@ -119,9 +119,9 @@
       <category term="JavaScript" scheme="https://chongdee.github.io/categories/JavaScript/"/>
     
     
-      <category term="代码规范" scheme="https://chongdee.github.io/tags/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/"/>
-    
       <category term="JavaScript" scheme="https://chongdee.github.io/tags/JavaScript/"/>
+    
+      <category term="代码规范" scheme="https://chongdee.github.io/tags/%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83/"/>
     
   </entry>
   
