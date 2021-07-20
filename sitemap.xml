@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://chongdee.github.io/2021/07/20/JavaScript/reduce_25%E7%A7%8D%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</loc>
+    
+    <lastmod>2021-07-20T15:41:38.251Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chongdee.github.io/2018/10/17/JavaScript/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%96%B9%E6%B3%95/</loc>
+    
+    <lastmod>2021-07-20T15:38:32.852Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://chongdee.github.io/2021/07/20/vue/vue3%E6%96%B0%E7%89%B9%E6%80%A7/</loc>
     
     <lastmod>2021-07-20T10:18:13.584Z</lastmod>
@@ -261,14 +275,14 @@
   </url>
   
   <url>
-    <loc>https://chongdee.github.io/2018/07/20/vue/vue2.0-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
+    <loc>https://chongdee.github.io/2018/07/23/vue/vuex/</loc>
     
     <lastmod>2018-11-11T21:26:45.753Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://chongdee.github.io/2018/07/23/vue/vuex/</loc>
+    <loc>https://chongdee.github.io/2018/07/20/vue/vue2.0-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
     
     <lastmod>2018-11-11T21:26:45.753Z</lastmod>
     
@@ -401,13 +415,6 @@
   </url>
   
   <url>
-    <loc>https://chongdee.github.io/2018/10/31/JavaScript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/</loc>
-    
-    <lastmod>2018-11-11T20:38:23.718Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>https://chongdee.github.io/2018/10/31/JavaScript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/</loc>
     
     <lastmod>2018-11-11T20:38:23.718Z</lastmod>
@@ -422,16 +429,16 @@
   </url>
   
   <url>
-    <loc>https://chongdee.github.io/2018/10/31/JavaScript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%B8%AD%E4%BB%8B%E6%A8%A1%E5%BC%8F/</loc>
+    <loc>https://chongdee.github.io/2018/10/31/JavaScript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/</loc>
     
-    <lastmod>2018-11-11T20:38:23.716Z</lastmod>
+    <lastmod>2018-11-11T20:38:23.718Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://chongdee.github.io/2018/10/17/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%96%B9%E6%B3%95/</loc>
+    <loc>https://chongdee.github.io/2018/10/31/JavaScript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%B8%AD%E4%BB%8B%E6%A8%A1%E5%BC%8F/</loc>
     
-    <lastmod>2018-10-17T01:47:12.844Z</lastmod>
+    <lastmod>2018-11-11T20:38:23.716Z</lastmod>
     
   </url>
   

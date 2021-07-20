@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript,es6," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言reduce作为ES5新增的常规数组方法之一，对比forEach、filter和map，在实际使用上好像有些被忽略，发现身边的人极少使用它，导致这个如此强大的方法被逐渐埋没。如果经常使用reduce，怎么可能放过如此好用的它呢！我还是得把他从尘土中取出来擦干净，奉上它的高级用法给大家。一个如此好用的方法不应该被大众埋没。 下面对reduce的语法进行简单说明  定义：对数组中的每个元素执行一">
+<meta name="keywords" content="JavaScript,es6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="reduce_25种高级用法">
+<meta property="og:url" content="https://chongdee.github.io/2021/07/20/JavaScript/reduce_25种高级用法/index.html">
+<meta property="og:site_name" content="andy Wong&#39;s Blog">
+<meta property="og:description" content="前言reduce作为ES5新增的常规数组方法之一，对比forEach、filter和map，在实际使用上好像有些被忽略，发现身边的人极少使用它，导致这个如此强大的方法被逐渐埋没。如果经常使用reduce，怎么可能放过如此好用的它呢！我还是得把他从尘土中取出来擦干净，奉上它的高级用法给大家。一个如此好用的方法不应该被大众埋没。 下面对reduce的语法进行简单说明  定义：对数组中的每个元素执行一">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-07-20T15:41:38.251Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="reduce_25种高级用法">
+<meta name="twitter:description" content="前言reduce作为ES5新增的常规数组方法之一，对比forEach、filter和map，在实际使用上好像有些被忽略，发现身边的人极少使用它，导致这个如此强大的方法被逐渐埋没。如果经常使用reduce，怎么可能放过如此好用的它呢！我还是得把他从尘土中取出来擦干净，奉上它的高级用法给大家。一个如此好用的方法不应该被大众埋没。 下面对reduce的语法进行简单说明  定义：对数组中的每个元素执行一">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chongdee.github.io/2021/07/20/JavaScript/reduce_25种高级用法/"/>
+
+
+
+
+
+  <title>reduce_25种高级用法 | andy Wong's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?63d30ffc3ac0fa4a98c97c20372430af";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">andy Wong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">知道的越多，不知道的越多</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/JavaScript/reduce_25种高级用法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/doggy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">reduce_25种高级用法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T23:40:35+08:00">
+                2021-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/es6/" itemprop="url" rel="index">
+                    <span itemprop="name">es6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script src="\assets\js\APlayer.min.js"> </script><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>reduce作为ES5新增的常规数组方法之一，对比forEach、filter和map，在实际使用上好像有些被忽略，发现身边的人极少使用它，导致这个如此强大的方法被逐渐埋没。<br>如果经常使用reduce，怎么可能放过如此好用的它呢！我还是得把他从尘土中取出来擦干净，奉上它的高级用法给大家。一个如此好用的方法不应该被大众埋没。</p>
+<p>下面对reduce的语法进行简单说明</p>
+<ul>
+<li>定义：对数组中的每个元素执行一个自定义的累计器，将其结果汇总为单个返回值</li>
+<li>形式：array.reduce((t, v, i, a) =&gt; {}, initValue)</li>
+<li><p>参数</p>
+<ul>
+<li>callback：回调函数(必选)</li>
+<li>initValue：初始值(可选)</li>
+</ul>
+</li>
+<li><p>回调函数的参数</p>
+<ul>
+<li>total(t)：累计器完成计算的返回值(必选)</li>
+<li>value(v)：当前元素(必选)</li>
+<li>index(i)：当前元素的索引(可选)</li>
+<li>array(a)：当前元素所属的数组对象(可选)</li>
+</ul>
+</li>
+<li><p>过程</p>
+<ul>
+<li>以t作为累计结果的初始值，不设置t则以数组第一个元素为初始值</li>
+<li>开始遍历，使用累计器处理v，将v的映射结果累计到t上，结束此次循环，返回t</li>
+<li>进入下一次循环，重复上述操作，直至数组最后一个元素</li>
+<li>结束遍历，返回最终的t</li>
+</ul>
+</li>
+</ul>
+<p>reduce的精华所在是将累计器逐个作用于数组成员上，把上一次输出的值作为下一次输入的值。下面举个简单的栗子，看看reduce的计算结果。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">3</span>, <span class="number">5</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">2</span>];</span><br><span class="line"><span class="keyword">const</span> a = arr.reduce(<span class="function">(<span class="params">t, v</span>) =&gt;</span> t + v);</span><br><span class="line"><span class="comment">// 等同于</span></span><br><span class="line"><span class="keyword">const</span> b = arr.reduce(<span class="function">(<span class="params">t, v</span>) =&gt;</span> t + v, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p>reduce实质上是一个累计器函数，通过用户自定义的累计器对数组成员进行自定义累计，得出一个由累计器生成的值。另外reduce还有一个胞弟reduceRight，两个方法的功能其实是一样的，只不过reduce是升序执行，reduceRight是降序执行。</p>
+<blockquote>
+<p>对空数组调用reduce()和reduceRight()是不会执行其回调函数的，可认为reduce()对空数组无效</p>
+</blockquote>
+<h2 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h2><p>单凭以上一个简单栗子不足以说明reduce是个什么。为了展示reduce的魅力，我为大家提供25种场景来应用reduce的高级用法。有部分高级用法可能需要结合其他方法来实现，这样为reduce的多元化提供了更多的可能性。</p>
+<blockquote>
+<p>部分示例代码的写法可能有些骚，看得不习惯可自行整理成自己的习惯写法</p>
+</blockquote>
+<h2 id="累加累乘"><a href="#累加累乘" class="headerlink" title="累加累乘"></a>累加累乘</h2><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Accumulation</span><span class="params">(<span class="rest_arg">...vals</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> vals.reduce((t, v) =&gt; t + v, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Multiplication</span><span class="params">(<span class="rest_arg">...vals</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> vals.reduce((t, v) =&gt; t * v, <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Accumulation(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>); <span class="comment">// 15</span></span><br><span class="line">Multiplication(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>); <span class="comment">// 120</span></span><br></pre></td></tr></table></figure>
+<h2 id="权重求和"><a href="#权重求和" class="headerlink" title="权重求和"></a>权重求和</h2><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const <span class="keyword">scores </span>= [</span><br><span class="line">    &#123; <span class="keyword">score: </span><span class="number">90</span>, <span class="keyword">subject: </span><span class="string">"chinese"</span>, weight: <span class="number">0</span>.<span class="number">5</span> &#125;,</span><br><span class="line">    &#123; <span class="keyword">score: </span><span class="number">95</span>, <span class="keyword">subject: </span><span class="string">"math"</span>, weight: <span class="number">0</span>.<span class="number">3</span> &#125;,</span><br><span class="line">    &#123; <span class="keyword">score: </span><span class="number">85</span>, <span class="keyword">subject: </span><span class="string">"english"</span>, weight: <span class="number">0</span>.<span class="number">2</span> &#125;</span><br><span class="line">]<span class="comment">;</span></span><br><span class="line">const result = <span class="keyword">scores.reduce((t, </span>v) =&gt; t + v.<span class="keyword">score </span>* v.weight, <span class="number">0</span>)<span class="comment">; // 90.5</span></span><br></pre></td></tr></table></figure>
+<h2 id="代替reverse"><a href="#代替reverse" class="headerlink" title="代替reverse"></a>代替reverse</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Reverse</span>(<span class="params">arr = []</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> arr.reduceRight(<span class="function">(<span class="params">t, v</span>) =&gt;</span> (t.push(v), t), []);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Reverse([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]); <span class="comment">// [5, 4, 3, 2, 1]</span></span><br></pre></td></tr></table></figure>
+<h2 id="代替map和filter"><a href="#代替map和filter" class="headerlink" title="代替map和filter"></a>代替map和filter</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> arr = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代替map：[0, 2, 4, 6]</span></span><br><span class="line"><span class="keyword">const</span> a = arr.map(<span class="function"><span class="params">v</span> =&gt;</span> v * <span class="number">2</span>);</span><br><span class="line"><span class="keyword">const</span> b = arr.reduce(<span class="function">(<span class="params">t, v</span>) =&gt;</span> [...t, v * <span class="number">2</span>], []);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代替filter：[2, 3]</span></span><br><span class="line"><span class="keyword">const</span> c = arr.filter(<span class="function"><span class="params">v</span> =&gt;</span> v &gt; <span class="number">1</span>);</span><br><span class="line"><span class="keyword">const</span> d = arr.reduce(<span class="function">(<span class="params">t, v</span>) =&gt;</span> v &gt; <span class="number">1</span> ? [...t, v] : t, []);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代替map和filter：[4, 6]</span></span><br><span class="line"><span class="keyword">const</span> e = arr.map(<span class="function"><span class="params">v</span> =&gt;</span> v * <span class="number">2</span>).filter(<span class="function"><span class="params">v</span> =&gt;</span> v &gt; <span class="number">2</span>);</span><br><span class="line"><span class="keyword">const</span> f = arr.reduce(<span class="function">(<span class="params">t, v</span>) =&gt;</span> v * <span class="number">2</span> &gt; <span class="number">2</span> ? [...t, v * <span class="number">2</span>] : t, []);</span><br></pre></td></tr></table></figure>
+<h2 id="代替some和every"><a href="#代替some和every" class="headerlink" title="代替some和every"></a>代替some和every</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> scores = [</span><br><span class="line">    &#123; <span class="attr">score</span>: <span class="number">45</span>, <span class="attr">subject</span>: <span class="string">"chinese"</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">score</span>: <span class="number">90</span>, <span class="attr">subject</span>: <span class="string">"math"</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">score</span>: <span class="number">60</span>, <span class="attr">subject</span>: <span class="string">"english"</span> &#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代替some：至少一门合格</span></span><br><span class="line"><span class="keyword">const</span> isAtLeastOneQualified = scores.reduce(<span class="function">(<span class="params">t, v</span>) =&gt;</span> t || v.score &gt;= <span class="number">60</span>, <span class="literal">false</span>); <span class="comment">// true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 代替every：全部合格</span></span><br><span class="line"><span class="keyword">const</span> isAllQualified = scores.reduce(<span class="function">(<span class="params">t, v</span>) =&gt;</span> t &amp;&amp; v.score &gt;= <span class="number">60</span>, <span class="literal">true</span>); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组分割"><a href="#数组分割" class="headerlink" title="数组分割"></a>数组分割</h2><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// size分割份数</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Chunk</span><span class="params">(arr = [], size = 1)</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> arr.length ? arr.reduce((t, v) =&gt; (t[t.length - <span class="number">1</span>].length === size ? t.push([v]) : t[t.length - <span class="number">1</span>].push(v), t), <span class="string">[[]]</span>) : [];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">const arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line">Chunk(arr, <span class="number">2</span>); // <span class="string">[[1, 2], [3, 4], [5]]</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组过滤"><a href="#数组过滤" class="headerlink" title="数组过滤"></a>数组过滤</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Difference</span>(<span class="params">arr = [], oarr = []</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> arr.reduce(<span class="function">(<span class="params">t, v</span>) =&gt;</span> (!oarr.includes(v) &amp;&amp; t.push(v), t), []);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr1 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</span><br><span class="line"><span class="keyword">const</span> arr2 = [<span class="number">2</span>, <span class="number">3</span>, <span class="number">6</span>]</span><br><span class="line">Difference(arr1, arr2); <span class="comment">// [1, 4, 5]</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组填充"><a href="#数组填充" class="headerlink" title="数组填充"></a>数组填充</h2><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function Fill(arr = [], val = <span class="string">""</span>, start = <span class="number">0</span>, <span class="keyword">end</span> = arr.length) &#123;</span><br><span class="line">    <span class="keyword">if</span> (start &lt; <span class="number">0</span> <span class="params">||</span> start &gt;= <span class="keyword">end</span> <span class="params">||</span> <span class="keyword">end</span> &gt; arr.length) <span class="keyword">return</span> arr;</span><br><span class="line">    <span class="keyword">return</span> [</span><br><span class="line">        ...arr.slice(<span class="number">0</span>, start),</span><br><span class="line">        ...arr.slice(start, <span class="keyword">end</span>).reduce((t, v) =&gt; (t.push(val <span class="params">||</span> v), t), []),</span><br><span class="line">        ...arr.slice(<span class="keyword">end</span>, arr.length)</span><br><span class="line">    ];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const arr = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</span><br><span class="line">Fill(arr, <span class="string">"aaa"</span>, <span class="number">2</span>, <span class="number">5</span>); <span class="regexp">//</span> [<span class="number">0</span>, <span class="number">1</span>, <span class="string">"aaa"</span>, <span class="string">"aaa"</span>, <span class="string">"aaa"</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="数组扁平"><a href="#数组扁平" class="headerlink" title="数组扁平"></a>数组扁平</h2><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Flat(arr = <span class="comment">[]</span>) &#123;</span><br><span class="line">    return arr.reduce((t, v) =&gt; t.concat(Array.isArray(v) ? Flat(v) : v), <span class="comment">[]</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const arr = <span class="comment">[0, 1, <span class="comment">[2, 3]</span>, <span class="comment">[4, 5, <span class="comment">[6, 7]</span>]</span>, <span class="comment">[8, <span class="comment">[9, 10, <span class="comment">[11, 12]</span>]</span>]</span>]</span>;</span><br><span class="line">Flat(arr); // <span class="comment">[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a>数组去重</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Unique</span>(<span class="params">arr = []</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> arr.reduce(<span class="function">(<span class="params">t, v</span>) =&gt;</span> t.includes(v) ? t : [...t, v], []);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">2</span>, <span class="number">1</span>, <span class="number">0</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line">Unique(arr); <span class="comment">// [2, 1, 0, 3]</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组最大最小值"><a href="#数组最大最小值" class="headerlink" title="数组最大最小值"></a>数组最大最小值</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Max</span>(<span class="params">arr = []</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> arr.reduce(<span class="function">(<span class="params">t, v</span>) =&gt;</span> t &gt; v ? t : v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Min</span>(<span class="params">arr = []</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> arr.reduce(<span class="function">(<span class="params">t, v</span>) =&gt;</span> t &lt; v ? t : v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr = [<span class="number">12</span>, <span class="number">45</span>, <span class="number">21</span>, <span class="number">65</span>, <span class="number">38</span>, <span class="number">76</span>, <span class="number">108</span>, <span class="number">43</span>];</span><br><span class="line">Max(arr); <span class="comment">// 108</span></span><br><span class="line">Min(arr); <span class="comment">// 12</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组成员独立拆解"><a href="#数组成员独立拆解" class="headerlink" title="数组成员独立拆解"></a>数组成员独立拆解</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Unzip</span>(<span class="params">arr = []</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> arr.reduce(</span><br><span class="line">        (t, v) =&gt; <span class="function">(<span class="params">v.forEach((w, i</span>) =&gt;</span> t[i].push(w)), t),</span><br><span class="line">        <span class="built_in">Array</span>.from(&#123; <span class="attr">length</span>: <span class="built_in">Math</span>.max(...arr.map(<span class="function"><span class="params">v</span> =&gt;</span> v.length)) &#125;).map(<span class="function"><span class="params">v</span> =&gt;</span> [])</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> arr = [[<span class="string">"a"</span>, <span class="number">1</span>, <span class="literal">true</span>], [<span class="string">"b"</span>, <span class="number">2</span>, <span class="literal">false</span>]];</span><br><span class="line">Unzip(arr); <span class="comment">// [["a", "b"], [1, 2], [true, false]]</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组成员个数统计"><a href="#数组成员个数统计" class="headerlink" title="数组成员个数统计"></a>数组成员个数统计</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function Count(arr = []) &#123;</span><br><span class="line">    return arr.reduce((t, v) =&gt; (t[v] = (t[v] || <span class="number">0</span>) + <span class="number">1</span>, t), &#123;&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const arr = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>];</span><br><span class="line">Count(arr); <span class="comment">// &#123; 0: 1, 1: 2, 2: 3 &#125;</span></span><br><span class="line"></span><br><span class="line">此方法是字符统计和单词统计的原理，入参时把字符串处理成数组即可</span><br></pre></td></tr></table></figure>
+<h2 id="数组成员位置记录"><a href="#数组成员位置记录" class="headerlink" title="数组成员位置记录"></a>数组成员位置记录</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function Position(arr = [], val) &#123;</span><br><span class="line">    return arr.reduce((t, v, i) =&gt; (v === val &amp;&amp; t.push(i), t), []);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const arr = [<span class="number">2</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">6</span>, <span class="number">7</span>];</span><br><span class="line">Position(arr, <span class="number">2</span>); <span class="comment">// [0, 4]</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组成员特性分组"><a href="#数组成员特性分组" class="headerlink" title="数组成员特性分组"></a>数组成员特性分组</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function Group(arr = [], key) &#123;</span><br><span class="line">    <span class="keyword">return</span> key ? arr.reduce((t, v) =&gt; (!t[v[key]] &amp;&amp; (t[v[key]] = []), t[v[key]].push(v), t), &#123;&#125;) : &#123;&#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const arr = [</span><br><span class="line">    &#123; <span class="string">area:</span> <span class="string">"GZ"</span>, <span class="string">name:</span> <span class="string">"YZW"</span>, <span class="string">age:</span> <span class="number">27</span> &#125;,</span><br><span class="line">    &#123; <span class="string">area:</span> <span class="string">"GZ"</span>, <span class="string">name:</span> <span class="string">"TYJ"</span>, <span class="string">age:</span> <span class="number">25</span> &#125;,</span><br><span class="line">    &#123; <span class="string">area:</span> <span class="string">"SZ"</span>, <span class="string">name:</span> <span class="string">"AAA"</span>, <span class="string">age:</span> <span class="number">23</span> &#125;,</span><br><span class="line">    &#123; <span class="string">area:</span> <span class="string">"FS"</span>, <span class="string">name:</span> <span class="string">"BBB"</span>, <span class="string">age:</span> <span class="number">21</span> &#125;,</span><br><span class="line">    &#123; <span class="string">area:</span> <span class="string">"SZ"</span>, <span class="string">name:</span> <span class="string">"CCC"</span>, <span class="string">age:</span> <span class="number">19</span> &#125;</span><br><span class="line">]; <span class="comment">// 以地区area作为分组依据</span></span><br><span class="line">Group(arr, <span class="string">"area"</span>); <span class="comment">// &#123; GZ: Array(2), SZ: Array(2), FS: Array(1) &#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组成员所含关键字"><a href="#数组成员所含关键字" class="headerlink" title="数组成员所含关键字"></a>数组成员所含关键字</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Keyword</span>(<span class="params">arr = [], keys = []</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> keys.reduce(<span class="function">(<span class="params">t, v</span>) =&gt;</span> (arr.some(<span class="function"><span class="params">w</span> =&gt;</span> w.includes(v)) &amp;&amp; t.push(v), t), []);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> text = [</span><br><span class="line">    <span class="string">"今天天气真好，我想出去钓鱼"</span>,</span><br><span class="line">    <span class="string">"我一边看电视，一边写作业"</span>,</span><br><span class="line">    <span class="string">"小明喜欢同桌的小红，又喜欢后桌的小君，真TM花心"</span>,</span><br><span class="line">    <span class="string">"最近上班喜欢摸鱼的人实在太多了，代码不好好写，在想入非非"</span></span><br><span class="line">];</span><br><span class="line"><span class="keyword">const</span> keyword = [<span class="string">"偷懒"</span>, <span class="string">"喜欢"</span>, <span class="string">"睡觉"</span>, <span class="string">"摸鱼"</span>, <span class="string">"真好"</span>, <span class="string">"一边"</span>, <span class="string">"明天"</span>];</span><br><span class="line">Keyword(text, keyword); <span class="comment">// ["喜欢", "摸鱼", "真好", "一边"]</span></span><br></pre></td></tr></table></figure>
+<h2 id="字符串翻转"><a href="#字符串翻转" class="headerlink" title="字符串翻转"></a>字符串翻转</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ReverseStr</span>(<span class="params">str = <span class="string">""</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> str.split(<span class="string">""</span>).reduceRight(<span class="function">(<span class="params">t, v</span>) =&gt;</span> t + v);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> str = <span class="string">"reduce最牛逼"</span>;</span><br><span class="line">ReverseStr(str); <span class="comment">// "逼牛最ecuder"</span></span><br></pre></td></tr></table></figure>
+<h2 id="数字千分化"><a href="#数字千分化" class="headerlink" title="数字千分化"></a>数字千分化</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ThousandNum</span>(<span class="params">num = <span class="number">0</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> str = (+num).toString().split(<span class="string">"."</span>);</span><br><span class="line">    <span class="keyword">const</span> int = <span class="function"><span class="params">nums</span> =&gt;</span> nums.split(<span class="string">""</span>).reverse().reduceRight(<span class="function">(<span class="params">t, v, i</span>) =&gt;</span> t + (i % <span class="number">3</span> ? v : <span class="string">`<span class="subst">$&#123;v&#125;</span>,`</span>), <span class="string">""</span>).replace(<span class="regexp">/^,|,$/g</span>, <span class="string">""</span>);</span><br><span class="line">    <span class="keyword">const</span> dec = <span class="function"><span class="params">nums</span> =&gt;</span> nums.split(<span class="string">""</span>).reduce(<span class="function">(<span class="params">t, v, i</span>) =&gt;</span> t + ((i + <span class="number">1</span>) % <span class="number">3</span> ? v : <span class="string">`<span class="subst">$&#123;v&#125;</span>,`</span>), <span class="string">""</span>).replace(<span class="regexp">/^,|,$/g</span>, <span class="string">""</span>);</span><br><span class="line">    <span class="keyword">return</span> str.length &gt; <span class="number">1</span> ? <span class="string">`<span class="subst">$&#123;int(str[<span class="number">0</span>])&#125;</span>.<span class="subst">$&#123;dec(str[<span class="number">1</span>])&#125;</span>`</span> : int(str[<span class="number">0</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ThousandNum(<span class="number">1234</span>); <span class="comment">// "1,234"</span></span><br><span class="line">ThousandNum(<span class="number">1234.00</span>); <span class="comment">// "1,234"</span></span><br><span class="line">ThousandNum(<span class="number">0.1234</span>); <span class="comment">// "0.123,4"</span></span><br><span class="line">ThousandNum(<span class="number">1234.5678</span>); <span class="comment">// "1,234.567,8"</span></span><br></pre></td></tr></table></figure>
+<h2 id="异步累计"><a href="#异步累计" class="headerlink" title="异步累计"></a>异步累计</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">AsyncTotal</span>(<span class="params">arr = []</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> arr.reduce(<span class="keyword">async</span>(t, v) =&gt; &#123;</span><br><span class="line">        <span class="keyword">const</span> at = <span class="keyword">await</span> t;</span><br><span class="line">        <span class="keyword">const</span> todo = <span class="keyword">await</span> Todo(v);</span><br><span class="line">        at[v] = todo;</span><br><span class="line">        <span class="keyword">return</span> at;</span><br><span class="line">    &#125;, <span class="built_in">Promise</span>.resolve(&#123;&#125;));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> result = <span class="keyword">await</span> AsyncTotal(); <span class="comment">// 需要在async包围下使用</span></span><br></pre></td></tr></table></figure>
+<h2 id="斐波那契数列"><a href="#斐波那契数列" class="headerlink" title="斐波那契数列"></a>斐波那契数列</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fibonacci</span>(<span class="params">len = <span class="number">2</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> arr = [...new <span class="built_in">Array</span>(len).keys()];</span><br><span class="line">    <span class="keyword">return</span> arr.reduce(<span class="function">(<span class="params">t, v, i</span>) =&gt;</span> (i &gt; <span class="number">1</span> &amp;&amp; t.push(t[i - <span class="number">1</span>] + t[i - <span class="number">2</span>]), t), [<span class="number">0</span>, <span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Fibonacci(<span class="number">10</span>); <span class="comment">// [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]</span></span><br></pre></td></tr></table></figure>
+<h2 id="URL参数反序列化"><a href="#URL参数反序列化" class="headerlink" title="URL参数反序列化"></a>URL参数反序列化</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ParseUrlSearch</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> location.search.replace(<span class="regexp">/(^\?)|(&amp;$)/g</span>, <span class="string">""</span>).split(<span class="string">"&amp;"</span>).reduce(<span class="function">(<span class="params">t, v</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> [key, val] = v.split(<span class="string">"="</span>);</span><br><span class="line">        t[key] = <span class="built_in">decodeURIComponent</span>(val);</span><br><span class="line">        <span class="keyword">return</span> t;</span><br><span class="line">    &#125;, &#123;&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 假设URL为：https://www.baidu.com?age=25&amp;name=TYJ</span></span><br><span class="line">ParseUrlSearch(); <span class="comment">// &#123; age: "25", name: "TYJ" &#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="URL参数序列化"><a href="#URL参数序列化" class="headerlink" title="URL参数序列化"></a>URL参数序列化</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">StringifyUrlSearch</span>(<span class="params">search = &#123;&#125;</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.entries(search).reduce(</span><br><span class="line">        (t, v) =&gt; <span class="string">`<span class="subst">$&#123;t&#125;</span><span class="subst">$&#123;v[<span class="number">0</span>]&#125;</span>=<span class="subst">$&#123;<span class="built_in">encodeURIComponent</span>(v[<span class="number">1</span>])&#125;</span>&amp;`</span>,</span><br><span class="line">        <span class="built_in">Object</span>.keys(search).length ? <span class="string">"?"</span> : <span class="string">""</span></span><br><span class="line">    ).replace(<span class="regexp">/&amp;$/</span>, <span class="string">""</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">StringifyUrlSearch(&#123; <span class="attr">age</span>: <span class="number">27</span>, <span class="attr">name</span>: <span class="string">"YZW"</span> &#125;); <span class="comment">// "?age=27&amp;name=YZW"</span></span><br></pre></td></tr></table></figure>
+<h2 id="返回对象指定键值"><a href="#返回对象指定键值" class="headerlink" title="返回对象指定键值"></a>返回对象指定键值</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">GetKeys</span>(<span class="params">obj = &#123;&#125;, keys = []</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Object</span>.keys(obj).reduce(<span class="function">(<span class="params">t, v</span>) =&gt;</span> (keys.includes(v) &amp;&amp; (t[v] = obj[v]), t), &#123;&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> target = &#123; <span class="attr">a</span>: <span class="number">1</span>, <span class="attr">b</span>: <span class="number">2</span>, <span class="attr">c</span>: <span class="number">3</span>, <span class="attr">d</span>: <span class="number">4</span> &#125;;</span><br><span class="line"><span class="keyword">const</span> keyword = [<span class="string">"a"</span>, <span class="string">"d"</span>];</span><br><span class="line">GetKeys(target, keyword); <span class="comment">// &#123; a: 1, d: 4 &#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="数组转对象"><a href="#数组转对象" class="headerlink" title="数组转对象"></a>数组转对象</h2><figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const people = [</span><br><span class="line">    &#123; area: <span class="string">"GZ"</span>, name: <span class="string">"YZW"</span>, age: <span class="number">27</span> &#125;,</span><br><span class="line">    &#123; area: <span class="string">"SZ"</span>, name: <span class="string">"TYJ"</span>, age: <span class="number">25</span> &#125;</span><br><span class="line">];</span><br><span class="line">const <span class="keyword">map</span> = people.reduce((t, v) =&gt; &#123;</span><br><span class="line">    const &#123; name, ...rest &#125; = v;</span><br><span class="line">    t[name] = rest;</span><br><span class="line">    return t;</span><br><span class="line">&#125;, &#123;&#125;); // &#123; YZW: &#123;…&#125;, TYJ: &#123;…&#125; &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Redux-Compose函数原理"><a href="#Redux-Compose函数原理" class="headerlink" title="Redux Compose函数原理"></a>Redux Compose函数原理</h2><figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Compose</span><span class="params">(<span class="rest_arg">...funs</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (funs.length === <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> arg =&gt; arg;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (funs.length === <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> funs[<span class="number">0</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> funs.reduce((t, v) =&gt; (...arg) =&gt; t(v(...arg)));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="兼容和性能"><a href="#兼容和性能" class="headerlink" title="兼容和性能"></a>兼容和性能</h2><p>好用是挺好用的，但是兼容性如何呢？在Caniuse上搜索一番，兼容性绝对的好，可大胆在任何项目上使用。不要吝啬你的想象力，尽情发挥reduce的compose技能啦。对于时常做一些累计的功能，reduce绝对是首选方法。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a cup of coffee,thanks!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="andy Wong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="andy Wong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+            <a href="/tags/es6/" rel="tag"><i class="fa fa-tag"></i> es6</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/07/20/vue/路由权限,大文件下载等问题/" rel="next" title="路由权限,大文件下载等问题">
+                <i class="fa fa-chevron-left"></i> 路由权限,大文件下载等问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/doggy.jpg"
+                alt="andy Wong" />
+            
+              <p class="site-author-name" itemprop="name">andy Wong</p>
+              <p class="site-description motion-element" itemprop="description">前端渣渣辉</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/chongdee" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.cn/" title="掘金" target="_blank">掘金</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://segmentfault.com/" title="segmentfault" target="_blank">segmentfault</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://docschina.org/" title="印记中文" target="_blank">印记中文</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com/" title="阮一峰ES6书籍" target="_blank">阮一峰ES6书籍</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div> 
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x524D;&#x8A00;" class="headerlink" title="&#x524D;&#x8A00;"></a>&#x524D;&#x8A00;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级用法"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;" class="headerlink" title="&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;"></a>&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#累加累乘"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x7D2F;&#x52A0;&#x7D2F;&#x4E58;" class="headerlink" title="&#x7D2F;&#x52A0;&#x7D2F;&#x4E58;"></a>&#x7D2F;&#x52A0;&#x7D2F;&#x4E58;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#权重求和"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x6743;&#x91CD;&#x6C42;&#x548C;" class="headerlink" title="&#x6743;&#x91CD;&#x6C42;&#x548C;"></a>&#x6743;&#x91CD;&#x6C42;&#x548C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代替reverse"><span class="nav-number">5.</span> <span class="nav-text"><a href="#&#x4EE3;&#x66FF;reverse" class="headerlink" title="&#x4EE3;&#x66FF;reverse"></a>&#x4EE3;&#x66FF;reverse</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代替map和filter"><span class="nav-number">6.</span> <span class="nav-text"><a href="#&#x4EE3;&#x66FF;map&#x548C;filter" class="headerlink" title="&#x4EE3;&#x66FF;map&#x548C;filter"></a>&#x4EE3;&#x66FF;map&#x548C;filter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代替some和every"><span class="nav-number">7.</span> <span class="nav-text"><a href="#&#x4EE3;&#x66FF;some&#x548C;every" class="headerlink" title="&#x4EE3;&#x66FF;some&#x548C;every"></a>&#x4EE3;&#x66FF;some&#x548C;every</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组分割"><span class="nav-number">8.</span> <span class="nav-text"><a href="#&#x6570;&#x7EC4;&#x5206;&#x5272;" class="headerlink" title="&#x6570;&#x7EC4;&#x5206;&#x5272;"></a>&#x6570;&#x7EC4;&#x5206;&#x5272;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组过滤"><span class="nav-number">9.</span> <span class="nav-text"><a href="#&#x6570;&#x7EC4;&#x8FC7;&#x6EE4;" class="headerlink" title="&#x6570;&#x7EC4;&#x8FC7;&#x6EE4;"></a>&#x6570;&#x7EC4;&#x8FC7;&#x6EE4;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组填充"><span class="nav-number">10.</span> <span class="nav-text"><a href="#&#x6570;&#x7EC4;&#x586B;&#x5145;" class="headerlink" title="&#x6570;&#x7EC4;&#x586B;&#x5145;"></a>&#x6570;&#x7EC4;&#x586B;&#x5145;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组扁平"><span class="nav-number">11.</span> <span class="nav-text"><a href="#&#x6570;&#x7EC4;&#x6241;&#x5E73;" class="headerlink" title="&#x6570;&#x7EC4;&#x6241;&#x5E73;"></a>&#x6570;&#x7EC4;&#x6241;&#x5E73;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组去重"><span class="nav-number">12.</span> <span class="nav-text"><a href="#&#x6570;&#x7EC4;&#x53BB;&#x91CD;" class="headerlink" title="&#x6570;&#x7EC4;&#x53BB;&#x91CD;"></a>&#x6570;&#x7EC4;&#x53BB;&#x91CD;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组最大最小值"><span class="nav-number">13.</span> <span class="nav-text"><a href="#&#x6570;&#x7EC4;&#x6700;&#x5927;&#x6700;&#x5C0F;&#x503C;" class="headerlink" title="&#x6570;&#x7EC4;&#x6700;&#x5927;&#x6700;&#x5C0F;&#x503C;"></a>&#x6570;&#x7EC4;&#x6700;&#x5927;&#x6700;&#x5C0F;&#x503C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组成员独立拆解"><span class="nav-number">14.</span> <span class="nav-text"><a href="#&#x6570;&#x7EC4;&#x6210;&#x5458;&#x72EC;&#x7ACB;&#x62C6;&#x89E3;" class="headerlink" title="&#x6570;&#x7EC4;&#x6210;&#x5458;&#x72EC;&#x7ACB;&#x62C6;&#x89E3;"></a>&#x6570;&#x7EC4;&#x6210;&#x5458;&#x72EC;&#x7ACB;&#x62C6;&#x89E3;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组成员个数统计"><span class="nav-number">15.</span> <span class="nav-text"><a href="#&#x6570;&#x7EC4;&#x6210;&#x5458;&#x4E2A;&#x6570;&#x7EDF;&#x8BA1;" class="headerlink" title="&#x6570;&#x7EC4;&#x6210;&#x5458;&#x4E2A;&#x6570;&#x7EDF;&#x8BA1;"></a>&#x6570;&#x7EC4;&#x6210;&#x5458;&#x4E2A;&#x6570;&#x7EDF;&#x8BA1;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组成员位置记录"><span class="nav-number">16.</span> <span class="nav-text"><a href="#&#x6570;&#x7EC4;&#x6210;&#x5458;&#x4F4D;&#x7F6E;&#x8BB0;&#x5F55;" class="headerlink" title="&#x6570;&#x7EC4;&#x6210;&#x5458;&#x4F4D;&#x7F6E;&#x8BB0;&#x5F55;"></a>&#x6570;&#x7EC4;&#x6210;&#x5458;&#x4F4D;&#x7F6E;&#x8BB0;&#x5F55;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组成员特性分组"><span class="nav-number">17.</span> <span class="nav-text"><a href="#&#x6570;&#x7EC4;&#x6210;&#x5458;&#x7279;&#x6027;&#x5206;&#x7EC4;" class="headerlink" title="&#x6570;&#x7EC4;&#x6210;&#x5458;&#x7279;&#x6027;&#x5206;&#x7EC4;"></a>&#x6570;&#x7EC4;&#x6210;&#x5458;&#x7279;&#x6027;&#x5206;&#x7EC4;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组成员所含关键字"><span class="nav-number">18.</span> <span class="nav-text"><a href="#&#x6570;&#x7EC4;&#x6210;&#x5458;&#x6240;&#x542B;&#x5173;&#x952E;&#x5B57;" class="headerlink" title="&#x6570;&#x7EC4;&#x6210;&#x5458;&#x6240;&#x542B;&#x5173;&#x952E;&#x5B57;"></a>&#x6570;&#x7EC4;&#x6210;&#x5458;&#x6240;&#x542B;&#x5173;&#x952E;&#x5B57;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串翻转"><span class="nav-number">19.</span> <span class="nav-text"><a href="#&#x5B57;&#x7B26;&#x4E32;&#x7FFB;&#x8F6C;" class="headerlink" title="&#x5B57;&#x7B26;&#x4E32;&#x7FFB;&#x8F6C;"></a>&#x5B57;&#x7B26;&#x4E32;&#x7FFB;&#x8F6C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字千分化"><span class="nav-number">20.</span> <span class="nav-text"><a href="#&#x6570;&#x5B57;&#x5343;&#x5206;&#x5316;" class="headerlink" title="&#x6570;&#x5B57;&#x5343;&#x5206;&#x5316;"></a>&#x6570;&#x5B57;&#x5343;&#x5206;&#x5316;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步累计"><span class="nav-number">21.</span> <span class="nav-text"><a href="#&#x5F02;&#x6B65;&#x7D2F;&#x8BA1;" class="headerlink" title="&#x5F02;&#x6B65;&#x7D2F;&#x8BA1;"></a>&#x5F02;&#x6B65;&#x7D2F;&#x8BA1;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#斐波那契数列"><span class="nav-number">22.</span> <span class="nav-text"><a href="#&#x6590;&#x6CE2;&#x90A3;&#x5951;&#x6570;&#x5217;" class="headerlink" title="&#x6590;&#x6CE2;&#x90A3;&#x5951;&#x6570;&#x5217;"></a>&#x6590;&#x6CE2;&#x90A3;&#x5951;&#x6570;&#x5217;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL参数反序列化"><span class="nav-number">23.</span> <span class="nav-text"><a href="#URL&#x53C2;&#x6570;&#x53CD;&#x5E8F;&#x5217;&#x5316;" class="headerlink" title="URL&#x53C2;&#x6570;&#x53CD;&#x5E8F;&#x5217;&#x5316;"></a>URL&#x53C2;&#x6570;&#x53CD;&#x5E8F;&#x5217;&#x5316;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#URL参数序列化"><span class="nav-number">24.</span> <span class="nav-text"><a href="#URL&#x53C2;&#x6570;&#x5E8F;&#x5217;&#x5316;" class="headerlink" title="URL&#x53C2;&#x6570;&#x5E8F;&#x5217;&#x5316;"></a>URL&#x53C2;&#x6570;&#x5E8F;&#x5217;&#x5316;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回对象指定键值"><span class="nav-number">25.</span> <span class="nav-text"><a href="#&#x8FD4;&#x56DE;&#x5BF9;&#x8C61;&#x6307;&#x5B9A;&#x952E;&#x503C;" class="headerlink" title="&#x8FD4;&#x56DE;&#x5BF9;&#x8C61;&#x6307;&#x5B9A;&#x952E;&#x503C;"></a>&#x8FD4;&#x56DE;&#x5BF9;&#x8C61;&#x6307;&#x5B9A;&#x952E;&#x503C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组转对象"><span class="nav-number">26.</span> <span class="nav-text"><a href="#&#x6570;&#x7EC4;&#x8F6C;&#x5BF9;&#x8C61;" class="headerlink" title="&#x6570;&#x7EC4;&#x8F6C;&#x5BF9;&#x8C61;"></a>&#x6570;&#x7EC4;&#x8F6C;&#x5BF9;&#x8C61;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redux-Compose函数原理"><span class="nav-number">27.</span> <span class="nav-text"><a href="#Redux-Compose&#x51FD;&#x6570;&#x539F;&#x7406;" class="headerlink" title="Redux Compose&#x51FD;&#x6570;&#x539F;&#x7406;"></a>Redux Compose&#x51FD;&#x6570;&#x539F;&#x7406;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#兼容和性能"><span class="nav-number">28.</span> <span class="nav-text"><a href="#&#x517C;&#x5BB9;&#x548C;&#x6027;&#x80FD;" class="headerlink" title="&#x517C;&#x5BB9;&#x548C;&#x6027;&#x80FD;"></a>&#x517C;&#x5BB9;&#x548C;&#x6027;&#x80FD;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; 2015 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span>Powered By -</span>
+  <span class="author" itemprop="copyrightHolder">andy Wong</span>
+
+  
+</div>
+
+
+  <div>Theme by &copy;next</div>
+
+
+<div>Hosted by <strong><a href="https://github.com/">Github Pages</a></strong></div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":true,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"left","width":145,"height":315},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script>
+</body>
+</html>
