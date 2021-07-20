@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="HTTP," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Cookie众所周知，http 是无状态协议，浏览器和服务器不可能凭协议的实现辨别请求的上下文。 于是 cookie 登场，既然协议本身不能分辨链接，那就在请求头部手动带着上下文信息吧。 举个例子，以前去旅游的时候，到了景区可能会需要存放行李，被大包小包压着，旅游也不开心啦。在存放行李后，服务员会给你一个牌子，上面写着你的行李放在哪个格子，离开时，你就能凭这个牌子和上面的数字成功取回行李。 co">
+<meta name="keywords" content="HTTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cookie、session、token 的区别">
+<meta property="og:url" content="https://chongdee.github.io/2021/07/20/HTTP/cookie、session、token 的区别/index.html">
+<meta property="og:site_name" content="andy Wong&#39;s Blog">
+<meta property="og:description" content="Cookie众所周知，http 是无状态协议，浏览器和服务器不可能凭协议的实现辨别请求的上下文。 于是 cookie 登场，既然协议本身不能分辨链接，那就在请求头部手动带着上下文信息吧。 举个例子，以前去旅游的时候，到了景区可能会需要存放行李，被大包小包压着，旅游也不开心啦。在存放行李后，服务员会给你一个牌子，上面写着你的行李放在哪个格子，离开时，你就能凭这个牌子和上面的数字成功取回行李。 co">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-07-20T08:31:23.380Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="cookie、session、token 的区别">
+<meta name="twitter:description" content="Cookie众所周知，http 是无状态协议，浏览器和服务器不可能凭协议的实现辨别请求的上下文。 于是 cookie 登场，既然协议本身不能分辨链接，那就在请求头部手动带着上下文信息吧。 举个例子，以前去旅游的时候，到了景区可能会需要存放行李，被大包小包压着，旅游也不开心啦。在存放行李后，服务员会给你一个牌子，上面写着你的行李放在哪个格子，离开时，你就能凭这个牌子和上面的数字成功取回行李。 co">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chongdee.github.io/2021/07/20/HTTP/cookie、session、token 的区别/"/>
+
+
+
+
+
+  <title>cookie、session、token 的区别 | andy Wong's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?63d30ffc3ac0fa4a98c97c20372430af";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">andy Wong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">知道的越多，不知道的越多</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/HTTP/cookie、session、token 的区别/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/doggy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">cookie、session、token 的区别</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T16:30:52+08:00">
+                2021-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HTTP/" itemprop="url" rel="index">
+                    <span itemprop="name">HTTP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script src="\assets\js\APlayer.min.js"> </script><h2 id="Cookie"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</h2><p>众所周知，http 是无状态协议，浏览器和服务器不可能凭协议的实现辨别请求的上下文。</p>
+<p>于是 cookie 登场，既然协议本身不能分辨链接，那就在请求头部手动带着上下文信息吧。</p>
+<p>举个例子，以前去旅游的时候，到了景区可能会需要存放行李，被大包小包压着，旅游也不开心啦。在存放行李后，服务员会给你一个牌子，上面写着你的行李放在哪个格子，离开时，你就能凭这个牌子和上面的数字成功取回行李。</p>
+<p>cookie 做的正是这么一件事，旅客就像客户端，寄存处就像服务器，凭着写着数字的牌子，寄存处（服务器）就能分辨出不同旅客（客户端）。</p>
+<p>你会不会想到，如果牌子被偷了怎么办，cookie 也会被偷吗？确实会，这就是一个很常被提到的网络安全问题——CSRF。</p>
+<p>cookie 诞生初似乎是用于电商存放用户购物车一类的数据，但现在前端拥有两个 storage（local、session），两种数据库（websql、IndexedDB），根本不愁信息存放问题，所以现在基本上 100% 都是在连接上证明客户端的身份。例如登录之后，服务器给你一个标志，就存在 cookie 里，之后再连接时，都会自动带上 cookie，服务器便分清谁是谁。另外，cookie 还可以用于跟踪一个用户，这就产生了隐私问题，于是也就有了“禁用 cookie”这个选项（然而现在这个时代禁用 cookie 是挺麻烦的事情）。</p>
+<h3 id="设置方式"><a href="#设置方式" class="headerlink" title="设置方式"></a>设置方式</h3><p>现实世界的例子明白了，在计算机中怎么才能设置 cookie 呢？一般来说，安全起见，cookie 都是依靠 set-cookie 头设置，且不允许 JavaScript 设置。</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: <span class="params">&lt;cookie-name&gt;</span>=<span class="params">&lt;cookie-value&gt;</span></span><br><span class="line">Set-Cookie: <span class="params">&lt;cookie-name&gt;</span>=<span class="params">&lt;cookie-value&gt;</span>; Expires=<span class="params">&lt;date&gt;</span></span><br><span class="line">Set-Cookie: <span class="params">&lt;cookie-name&gt;</span>=<span class="params">&lt;cookie-value&gt;</span>; Max-Age=<span class="params">&lt;non-zero-digit&gt;</span></span><br><span class="line">Set-Cookie: <span class="params">&lt;cookie-name&gt;</span>=<span class="params">&lt;cookie-value&gt;</span>; Domain=<span class="params">&lt;domain-value&gt;</span></span><br><span class="line">Set-Cookie: <span class="params">&lt;cookie-name&gt;</span>=<span class="params">&lt;cookie-value&gt;</span>; Path=<span class="params">&lt;path-value&gt;</span></span><br><span class="line">Set-Cookie: <span class="params">&lt;cookie-name&gt;</span>=<span class="params">&lt;cookie-value&gt;</span>; Secure</span><br><span class="line">Set-Cookie: <span class="params">&lt;cookie-name&gt;</span>=<span class="params">&lt;cookie-value&gt;</span>; HttpOnly</span><br><span class="line"></span><br><span class="line">Set-Cookie: <span class="params">&lt;cookie-name&gt;</span>=<span class="params">&lt;cookie-value&gt;</span>; SameSite=Strict</span><br><span class="line">Set-Cookie: <span class="params">&lt;cookie-name&gt;</span>=<span class="params">&lt;cookie-value&gt;</span>; SameSite=Lax</span><br><span class="line">Set-Cookie: <span class="params">&lt;cookie-name&gt;</span>=<span class="params">&lt;cookie-value&gt;</span>; SameSite=None; Secure</span><br><span class="line"></span><br><span class="line"><span class="comment">// Multiple attributes are also possible, for example:</span></span><br><span class="line">Set-Cookie: <span class="params">&lt;cookie-name&gt;</span>=<span class="params">&lt;cookie-value&gt;</span>; Domain=<span class="params">&lt;domain-value&gt;</span>; Secure; HttpOnly</span><br></pre></td></tr></table></figure>
+<p>其中 <cookie-name>=<cookie-value> 这样的 kv 对，内容随你定，另外还有 HttpOnly、SameSite 等配置，一条 Set-Cookie 只配置一项 cookie。</cookie-value></cookie-name></p>
+<ul>
+<li>Expires 设置 cookie 的过期时间（时间戳），这个时间是客户端时间。</li>
+<li>Max-Age 设置 cookie 的保留时长（秒数），同时存在 Expires 和 Max-Age 的话，Max-Age 优先</li>
+<li>Domain 设置生效的域名，默认就是当前域名，不包含子域名</li>
+<li>Path 设置生效路径，/ 全匹配</li>
+<li>Secure 设置 cookie 只在 https 下发送，防止中间人攻击</li>
+<li>HttpOnly 设置禁止 JavaScript 访问 cookie，<strong>防止XSS</strong></li>
+<li>SameSite 设置跨域时不携带 cookie，<strong>防止CSRF</strong></li>
+</ul>
+<p><strong>Secure 和 HttpOnly 是强烈建议开启的</strong>。SameSite 选项需要根据实际情况讨论，因为 SameSite 可能会导致即使你用 CORS 解决了跨越问题，依然会因为请求没自带 cookie 引起一系列问题，一开始还以为是 axios 配置问题，绕了一大圈，然而根本没关系。</p>
+<p>其实因为 Chrome 在某一次更新后把没设置 SameSite 默认为 Lax，你不在服务器手动把 SameSite 设置为 None 就不会自动带 cookie 了。</p>
+<h3 id="发送方式"><a href="#发送方式" class="headerlink" title="发送方式"></a>发送方式</h3><p>参考 MDN，cookie 的发送格式如下（其中 PHPSESSID 相关内容下面会提到）：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Cookie: &lt;cookie-list&gt;</span><br><span class="line">Cookie: <span class="attribute">name</span>=value</span><br><span class="line">Cookie: <span class="attribute">name</span>=value; <span class="attribute">name2</span>=value2; <span class="attribute">name3</span>=value3</span><br><span class="line"></span><br><span class="line">Cookie: <span class="attribute">PHPSESSID</span>=298zf09hf012fh2; <span class="attribute">csrftoken</span>=u32t4o3tb3gg43; <span class="attribute">_gat</span>=1</span><br></pre></td></tr></table></figure>
+<p>在发送 cookie 时，并不会把上面提到的 Expires 等配置传到服务器，因为服务器在设置后就不需要关心这些信息了，只要现代浏览器运作正常，收到的 cookie 就是没问题的。</p>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>从 cookie 说到 session，是因为 session 才是真正的“信息”，如上面提到的，cookie 是容器，里面装着 PHPSESSID=298zf09hf012fh2;，这就是一个 session ID。</p>
+<p>不知道 session 和 session id 会不会让你看得有点头晕？</p>
+<p>当初 session 的存在就是要为客户端和服务器连接提供的信息，所以我将 session 理解为信息，而 session id 是获取信息的钥匙，通常是一串唯一的哈希码。</p>
+<p>接下来分析两个 node.js express 的中间件，理解两种 session 的实现方式。</p>
+<p>session 信息可以储存在客户端，如 cookie-session，也可以储存在服务器，如 express-session。使用 session ID 就是把 session 放在服务器里，用 cookie 里的 id 寻找服务器的信息。</p>
+<h3 id="客户端储存"><a href="#客户端储存" class="headerlink" title="客户端储存"></a>客户端储存</h3><p>对于 cookie-session 库，比较容易理解，其实就是把所有信息加密后塞到 cookie 里。其中涉及到 cookies 库。在设置 session 时其实就是调用 cookies.set，把信息写到 set-cookie 里，再返回浏览器。换言之，取值和赋值的本质都是操作 cookie。</p>
+<p>浏览器在接收到 set-cookie 头后，会把信息写到 cookie 里。在下次发送请求时，信息又通过 cookie 原样带回来，所以服务器什么东西都不用存，只负责获取和处理 cookie 里的信息，这种实现方法不需要 session ID。</p>
+<p>这是一段使用 cookie-session 中间件为请求添加 cookie 的代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> express = <span class="keyword">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> cookieSession = <span class="keyword">require</span>(<span class="string">'cookie-session'</span>)</span><br><span class="line"><span class="keyword">const</span> app = express()</span><br><span class="line">app.<span class="keyword">use</span>(</span><br><span class="line">  cookieSession(&#123;</span><br><span class="line">    name: <span class="string">'session'</span>,</span><br><span class="line">    keys: [</span><br><span class="line">      <span class="comment">/* secret keys */</span></span><br><span class="line">      <span class="string">'key'</span>,</span><br><span class="line">    ],</span><br><span class="line">    <span class="comment">// Cookie Options</span></span><br><span class="line">    maxAge: <span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span>, <span class="comment">// 24 hours</span></span><br><span class="line">  &#125;)</span><br><span class="line">)</span><br><span class="line">app.get(<span class="string">'/'</span>, <span class="function"><span class="keyword">function</span><span class="params">(req, res)</span> </span>&#123;</span><br><span class="line">  req.session.test = <span class="string">'hey'</span></span><br><span class="line">  res.json(&#123;</span><br><span class="line">    wow: <span class="string">'crazy'</span>,</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3001</span>)</span><br></pre></td></tr></table></figure>
+<p>在通过 app.use(cookieSession()) 使用中间件之前，请求是不会设置 cookie 的，添加后再访问（并且在设置 req.session 后，若不添加 session 信息就没必要、也没内容写到 cookie 里），就能看到服务器响应头部新增了下面两行，分别写入 session 和 session.sig：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: <span class="attribute">session</span>=eyJ0ZXN0IjoiaGV5In0=; <span class="attribute">path</span>=/; <span class="attribute">expires</span>=Tue, 23 Feb 2021 01:07:05 GMT; httponly</span><br><span class="line">Set-Cookie: session.<span class="attribute">sig</span>=QBoXofGvnXbVoA8dDmfD-GMMM6E; <span class="attribute">path</span>=/; <span class="attribute">expires</span>=Tue, 23 Feb 2021 01:07:05 GMT; httponly</span><br></pre></td></tr></table></figure>
+<p>然后你就能在 DevTools 的 Application 标签看到 cookie 成功写入。session 的值 eyJ0ZXN0IjoiaGV5In0= 通过 base64 解码即可得到 {“test”:”hey”}，这就是所谓的“将 session 信息放到客户端”，因为 base64 编码并不是加密，这就跟明文传输没啥区别，所以<strong>请不要在客户端 session 里放用户密码之类的机密信息</strong>。</p>
+<p>即使现代浏览器和服务器做了一些约定，例如使用 https、跨域限制、还有上面提到 cookie 的 httponly 和 sameSite 配置等，保障了 cookie 安全。但是想想，传输安全保障了，如果有人偷看你电脑里的 cookie，密码又恰好存在 cookie，那就能无声无息地偷走密码。相反的，只放其他信息或是仅仅证明“已登录”标志的话，只要退出一次，这个 cookie 就失效了，算是降低了潜在危险。</p>
+<p>说回第二个值 session.sig，它是一个 27 字节的 SHA1 签名，<strong>用以校验 session 是否被篡改，是 cookie 安全的又一层保障。</strong></p>
+<h3 id="服务器储存"><a href="#服务器储存" class="headerlink" title="服务器储存"></a>服务器储存</h3><p>既然要储存在服务器，那么 express-session 就需要一个容器 store，它可以是内存、redis、mongoDB 等等等等，内存应该是最快的，但是重启程序就没了，<strong>redis 可以作为备选，用数据库存 session 的场景感觉不多</strong>。</p>
+<p>express-session 的源码没 cookie-session 那么简明易懂，里面有一个有点绕的问题，req.session 到底是怎么插入的？</p>
+<p><strong>不关注实现可以跳过下面几行</strong>，有兴趣的话可以跟着思路看看 express-session 的源码：</p>
+<p>我们可以从 .session = 这个关键词开始找，找到：</p>
+<ul>
+<li>store.generate 否决这个，容易看出这个是初始化使用的</li>
+<li>Store.prototype.createSession 这个是根据 req 和 sess 参数在 req 中设置 session 属性，没错，就是你了</li>
+</ul>
+<p>于是全局搜索 createSession，锁定 index 里的 inflate（就是填充的意思）函数。</p>
+<p>最后寻找 inflate 的调用点，是使用 sessionID 为参数的 store.get 的回调函数，一切说得通啦——</p>
+<p>在监测到客户端送来的 cookie 之后，可以从 cookie 获取 sessionID，再使用 id 在 store 中获取 session 信息，挂到 req.session 上，经过这个中间件，你就能顺利地使用 req 中的 session。</p>
+<p>那赋值怎么办呢？这就和上面储存在客户端不同了，上面要修改客户端 cookie 信息，但是对于储存在服务器的情况，你修改了 session 那就是“实实在在地修改”了嘛，不用其他花里胡哨的方法，内存中的信息就是修改了，下次获取内存里的对应信息也是修改后的信息。（仅限于内存的实现方式，使用数据库时仍需要额外的写入）</p>
+<p>在请求没有 session id 的情况下，通过 store.generate 创建新的 session，在你写 session 的时候，cookie 可以不改变，只要根据原来的 cookie 访问内存里的 session 信息就可以了。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> express = <span class="keyword">require</span>(<span class="string">'express'</span>)</span><br><span class="line"><span class="keyword">var</span> parseurl = <span class="keyword">require</span>(<span class="string">'parseurl'</span>)</span><br><span class="line"><span class="keyword">var</span> session = <span class="keyword">require</span>(<span class="string">'express-session'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> app = express()</span><br><span class="line"></span><br><span class="line">app.<span class="keyword">use</span>(</span><br><span class="line">  session(&#123;</span><br><span class="line">    secret: <span class="string">'keyboard cat'</span>,</span><br><span class="line">    resave: <span class="keyword">false</span>,</span><br><span class="line">    saveUninitialized: <span class="keyword">true</span>,</span><br><span class="line">  &#125;)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">app.<span class="keyword">use</span>(<span class="function"><span class="keyword">function</span><span class="params">(req, res, next)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (!req.session.views) &#123;</span><br><span class="line">    req.session.views = &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// get the url pathname</span></span><br><span class="line">  <span class="keyword">var</span> pathname = parseurl(req).pathname</span><br><span class="line"></span><br><span class="line">  <span class="comment">// count the views</span></span><br><span class="line">  req.session.views[pathname] = (req.session.views[pathname] || <span class="number">0</span>) + <span class="number">1</span></span><br><span class="line"></span><br><span class="line">  next()</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/foo'</span>, <span class="function"><span class="keyword">function</span><span class="params">(req, res, next)</span> </span>&#123;</span><br><span class="line">  res.json(&#123;</span><br><span class="line">    session: req.session,</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/bar'</span>, <span class="function"><span class="keyword">function</span><span class="params">(req, res, next)</span> </span>&#123;</span><br><span class="line">  res.send(<span class="string">'you viewed this page '</span> + req.session.views[<span class="string">'/bar'</span>] + <span class="string">' times'</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">app.listen(<span class="number">3001</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="两种储存方式的对比"><a href="#两种储存方式的对比" class="headerlink" title="两种储存方式的对比"></a>两种储存方式的对比</h3><p>首先还是计算机世界最重要的哲学问题：时间和空间的抉择。</p>
+<p>储存在客户端的情况，解放了服务器存放 session 的内存，但是每次都带上一堆 base64 处理的 session 信息，如果量大的话传输就会很缓慢。</p>
+<p>储存在服务器相反，用服务器的内存拯救了带宽。</p>
+<p>另外，在退出登录的实现和结果，也是有区别的。</p>
+<p>储存在服务器的情况就很简单，如果 req.session.isLogin = true 是登录，那么 req.session.isLogin = false 就是退出。</p>
+<p>但是状态存放在客户端要做到真正的“即时退出登录”就很困难了。你可以在 session 信息里加上过期日期，也可以直接依靠 cookie 的过期日期，过期之后，就当是退出了。</p>
+<p>但是如果你不想等到 session 过期，现在就想退出登录！怎么办？认真想想你会发现，仅仅依靠客户端储存的 session 信息真的没有办法做到。</p>
+<p>即使你通过 req.session = null 删掉客户端 cookie，那也只是删掉了，但是如果有人曾经把 cookie 复制出来了，那他手上的 cookie 直到 session 信息里的过期时间前，都是有效的。</p>
+<p>说“即时退出登录”有点标题党的意味，其实我想表达的是，你没办法立即废除一个 session，这可能会造成一些隐患。</p>
+<h2 id="Token"><a href="#Token" class="headerlink" title="Token"></a>Token</h2><p>session 说完了，那么出现频率超高的关键字 token 又是什么？</p>
+<p>不妨谷歌搜一下 token 这个词，可以看到冒出来几个（年纪大的人）比较熟悉的图片：密码器。过去网上银行不是只要短信认证就能转账，还要经过一个密码器，上面显示着一个变动的密码，在转账时你需要输入密码器中的代码才能转账，这就是 token 现实世界中的例子。凭借一串码或是一个数字证明自己身份，这事情不就和上面提到的行李问题还是一样的吗……</p>
+<p><strong>其实本质上 token 的功能就是和 session id 一模一样</strong>。你把 session id 说成 session token 也没什么问题（Wikipedia 里就写了这个别名）。</p>
+<p>其中的区别在于，session id 一般存在 cookie 里，自动带上；token 一般是要你主动放在请求中，例如设置请求头的 Authorization 为 bearer:<access_token>。</access_token></p>
+<p>然而上面说的都是一般情况，根本没有明确规定！</p>
+<p>剧透一下，下面要讲的 JWT（JSON Web Token）！他是一个 token！但是里面放着 session 信息！放在客户端，并且可以随你选择放在 cookie 或是手动添加在 Authorization！但是他就叫 token！</p>
+<p>所以，个人觉得你不能通过存放的位置判断是 token 或是 session id，也不能通过内容判断是 token 或是 session 信息，session、session id 以及 token 都是很意识流的东西，只要你明白他是什么、怎么用就好了，怎么称呼不太重要。</p>
+<p>另外在搜索资料时也看到有些文章说 session 和 token 的区别就是新旧技术的区别，好像有点道理。</p>
+<p>在 session 的 Wikipedia 页面上 HTTP session token 这一栏，举例都是 JSESSIONID (JSP)、PHPSESSID (PHP)、CGISESSID (CGI)、ASPSESSIONID (ASP) 等比较传统的技术，就像 SESSIONID 是他们的代名词一般；而在研究现在各种平台的 API 接口和 OAuth2.0 登录时，都是使用 access token 这样的字眼，这个区别着实有点意思。</p>
+<p>理解 session 和 token 的联系之后，可以在哪里能看到“活的” token 呢？</p>
+<p>打开 GitHub 进入设置，找到 Settings / Developer settings，可以看到 Personal access tokens 选项，生成新的 token 后，你就可以带着它通过 GitHub API，证明“你就是你”。</p>
+<p>在 OAuth 系统中也使用了 Access token 这个关键词，写过微信登录的朋友应该都能感受到 token 是个什么啦。</p>
+<p>Token 在权限证明上真的很重要，不可泄漏，谁拿到 token，谁就是“主人”。所以要做一个 Token 系统，刷新或删除 Token 是必须要的，这样在尽快弥补 token 泄漏的问题。</p>
+<p>在理解了三个关键字和两种储存方式之后，下面我们正式开始说“用户登录”相关的知识和两种登录规范——JWT 和 OAuth2.0。</p>
+<p>接着你可能会频繁见到 Authentication 和 Authorization 这两个单词，它们都是 Auth 开头，但可不是一个意思，简单来说前者是验证，后者是授权。在编写登录系统时，要先验证用户身份，设置登录状态，给用户发送 token 就是授权。</p>
+<h3 id="JWT"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</h3><p>全称 JSON Web Token（RFC 7519），是的，JWT 就是一个 token。为了方便理解，提前告诉大家，JWT 用的是上面客户端储存的方式，所以这部分可能会经常用到上面提到的名称。</p>
+<h4 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h4><p>虽说 JWT 就是客户端储存 session 信息的一种，但是 JWT 有着自己的结构：Header.Payload.Signature（分为三个部分，用 . 隔开）</p>
+<p><strong>Header</strong><br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"alg"</span>: <span class="string">"HS256"</span>,</span><br><span class="line">  <span class="attr">"typ"</span>: <span class="string">"JWT"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>typ 说明 token 类型是 JWT，alg 代表签名算法，HMAC、SHA256、RSA 等。然后将其 base64 编码。</p>
+<p><strong>Payload</strong><br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"sub"</span>: <span class="string">"1234567890"</span>,</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"John Doe"</span>,</span><br><span class="line">  <span class="attr">"admin"</span>: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Payload 是放置 session 信息的位置，最后也要将这些信息进行 base64 编码，结果就和上面客户端储存的 session 信息差不多。</p>
+<p>不过 JWT 有一些约定好的属性，被称为 Registered claims，包括：</p>
+<ul>
+<li>iss (issuer)：签发人</li>
+<li>exp (expiration time)：过期时间</li>
+<li>sub (subject)：主题</li>
+<li>aud (audience)：受众</li>
+<li>nbf (Not Before)：生效时间</li>
+<li>iat (Issued At)：签发时间</li>
+<li>jti (JWT ID)：编号</li>
+</ul>
+<p><strong>Signature</strong><br>最后一部分是签名，和上面提到的 session.sig 一样是用于防止篡改，不过 JWT 把签名和内容组合到一起罢了。</p>
+<p>JWT 签名的生成算法是这样的：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">HMACSHA256(</span><br><span class="line">  base64UrlEncode(<span class="name">header</span>) + <span class="string">"."</span> +</span><br><span class="line">  base64UrlEncode(<span class="name">payload</span>),</span><br><span class="line">  secret)</span><br></pre></td></tr></table></figure>
+<p>使用 Header 里 alg 的算法和自己设定的密钥 secret 编码 base64UrlEncode(header) + “.” + base64UrlEncode(payload)</p>
+<p>最后将三部分通过 . 组合在一起，你可以通过 jwt.io Debugger 形象地看到 JWT 的组成原理：</p>
+<h4 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h4><p>在验证用户，顺利登录后，会给用户返回 JWT。因为 JWT 的信息没有加密，所以别往里面放密码，详细原因在客户端储存的 cookie 中提到。</p>
+<p>用户访问需要授权的连接时，可以把 token 放在 cookie，也可以在请求头带上 Authorization: Bearer <token>。（手动放在请求头不受 CORS 限制，不怕 CSRF）</token></p>
+<p>这样可以用于自家登录，也可以用于第三方登录。单点登录也是 JWT 的常用领域。</p>
+<p><strong>JWT 也因为信息储存在客户端造成无法让自己失效的问题，这算是 JWT 的一个缺点</strong>。</p>
+<h3 id="HTTP-authentication"><a href="#HTTP-authentication" class="headerlink" title="HTTP authentication"></a>HTTP authentication</h3><p>HTTP authentication 是一种标准化的校验方式，<strong>不会使用 cookie 和 session</strong> 相关技术。请求头带有 Authorization: Basic <credentials> 格式的授权字段。</credentials></p>
+<p>其中 credentials 就是 Base64 编码的用户名 + : + 密码（或 token），以后看到 Basic authentication，意识到就是每次请求都带上用户名密码就好了。</p>
+<p>Basic authentication 大概比较适合 serverless，毕竟他没有运行着的内存，无法记录 session，直接每次都带上验证就完事了。</p>
+<h3 id="OAuth-2-0"><a href="#OAuth-2-0" class="headerlink" title="OAuth 2.0"></a>OAuth 2.0</h3><p>OAuth 2.0（RFC 6749）也是用 token 授权的一种协议，它的特点是你可以在<strong>有限范围内使用别家接口</strong>，也可以借此使用别家的登录系统登录自家应用，也就是第三方应用登录。（注意啦注意啦，OAuth 2.0 授权流程说不定面试会考哦！）</p>
+<p>既然是第三方登录，那除了应用本身，必定存在第三方登录服务器。在 OAuth 2.0 中涉及三个角色：用户、应用提供方、登录平台，相互调用关系如下：</p>
+<pre><code>+--------+                               +---------------+
+|        |--(A)- Authorization Request -&gt;|   Resource    |
+|        |                               |     Owner     |
+|        |&lt;-(B)-- Authorization Grant ---|               |
+|        |                               +---------------+
+|        |
+|        |                               +---------------+
+|        |--(C)-- Authorization Grant --&gt;| Authorization |
+| Client |                               |     Server    |
+|        |&lt;-(D)----- Access Token -------|               |
+|        |                               +---------------+
+|        |
+|        |                               +---------------+
+|        |--(E)----- Access Token ------&gt;|    Resource   |
+|        |                               |     Server    |
+|        |&lt;-(F)--- Protected Resource ---|               |
++--------+                               +---------------+
+</code></pre><p>很多大公司都提供 OAuth 2.0 第三方登录，这里就拿小聋哥的微信举例吧——</p>
+<h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><p>一般来说，应用提供方需要先在登录平台申请好 AppID 和 AppSecret。（微信使用这个名称，其他平台也差不多，一个 ID 和一个 Secret）</p>
+<h4 id="获取-code"><a href="#获取-code" class="headerlink" title="获取 code"></a>获取 code</h4><p>什么是授权临时票据（code）？答：第三方通过 code 进行获取 access_token 的时候需要用到，code 的超时时间为 10 分钟，一个 code 只能成功换取一次 access_token 即失效。code 的临时性和一次保障了微信授权登录的安全性。第三方可通过使用 https 和 state 参数，进一步加强自身授权登录的安全性。</p>
+<p>在这一步中，用户先在登录平台进行身份校验。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">https://open.weixin.qq.com/connect/qrconnect?</span></span><br><span class="line">appid=APPID&amp;</span><br><span class="line">redirect_uri=REDIRECT_URI&amp;</span><br><span class="line">response_type=code&amp;</span><br><span class="line">scope=SCOPE&amp;</span><br><span class="line">state=STATE</span><br><span class="line"><span class="comment">#wechat_redirect</span></span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>appid</td>
+<td>是</td>
+<td>应用唯一标识</td>
+</tr>
+<tr>
+<td>redirect_uri</td>
+<td>是</td>
+<td>请使用 urlEncode 对链接进行处理</td>
+</tr>
+<tr>
+<td>response_type</td>
+<td>是</td>
+<td>填 code</td>
+</tr>
+<tr>
+<td>scope</td>
+<td>是</td>
+<td>应用授权作用域，拥有多个作用域用逗号（,）分隔，网页应用目前仅填写 snsapi_login</td>
+</tr>
+<tr>
+<td>state</td>
+<td>否</td>
+<td>用于保持请求和回调的状态，授权请求后原样带回给第三方。该参数可用于防止 csrf 攻击（跨站请求伪造攻击）</td>
+</tr>
+</tbody>
+</table>
+<p>注意一下 scope 是 OAuth2.0 权限控制的特点，定义了这个 code 换取的 token 可以用于什么接口。</p>
+<p>正确配置参数后，打开这个页面看到的是授权页面，在用户授权成功后，登录平台会带着 code 跳转到应用提供方指定的 redirect_uri：</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect_uri?code=CODE&amp;<span class="keyword">state</span>=STATE</span><br></pre></td></tr></table></figure>
+<p>授权失败时，跳转到</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redirect_uri?<span class="keyword">state</span>=STATE</span><br></pre></td></tr></table></figure>
+<p>也就是失败时没 code。</p>
+<h4 id="获取-token"><a href="#获取-token" class="headerlink" title="获取 token"></a>获取 token</h4><p>在跳转到重定向 URI 之后，应用提供方的后台需要使用微信给你的code获取 token，同时，你也可以用传回来的 state 进行来源校验。</p>
+<p>要获取 token，传入正确参数访问这个接口：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">https://api.weixin.qq.com/sns/oauth2/access_token?</span></span><br><span class="line">appid=APPID&amp;</span><br><span class="line">secret=SECRET&amp;</span><br><span class="line">code=CODE&amp;</span><br><span class="line">grant_type=authorization_code</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>appid</td>
+<td>是</td>
+<td>应用唯一标识，在微信开放平台提交应用审核通过后获得</td>
+</tr>
+<tr>
+<td>secret</td>
+<td>是</td>
+<td>应用密钥 AppSecret，在微信开放平台提交应用审核通过后获得</td>
+</tr>
+<tr>
+<td>code</td>
+<td>是</td>
+<td>填写第一步获取的 code 参数</td>
+</tr>
+<tr>
+<td>grant_type</td>
+<td>是</td>
+<td>填 authorization_code，是其中一种授权模式，微信现在只支持这一种</td>
+</tr>
+</tbody>
+</table>
+<p>正确的返回：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"access_token"</span>: <span class="string">"ACCESS_TOKEN"</span>,</span><br><span class="line">  <span class="attr">"expires_in"</span>: <span class="number">7200</span>,</span><br><span class="line">  <span class="attr">"refresh_token"</span>: <span class="string">"REFRESH_TOKEN"</span>,</span><br><span class="line">  <span class="attr">"openid"</span>: <span class="string">"OPENID"</span>,</span><br><span class="line">  <span class="attr">"scope"</span>: <span class="string">"SCOPE"</span>,</span><br><span class="line">  <span class="attr">"unionid"</span>: <span class="string">"o6_bmasdasdsad6_2sgVt7hMZOPfL"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>得到 token 之后你就可以根据之前申请 code 填写的 scope 调用接口了。</p>
+<h4 id="使用-token-调用微信接口"><a href="#使用-token-调用微信接口" class="headerlink" title="使用 token 调用微信接口"></a>使用 token 调用微信接口</h4><table>
+<thead>
+<tr>
+<th>授权作用域（scope）</th>
+<th>接口</th>
+<th>接口说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>snsapi_base</td>
+<td>/sns/oauth2/access_token</td>
+<td>通过 code 换取 access_token、refresh_token 和已授权 scope</td>
+</tr>
+<tr>
+<td>snsapi_base</td>
+<td>/sns/oauth2/refresh_token</td>
+<td>刷新或续期 access_token 使用</td>
+</tr>
+<tr>
+<td>snsapi_base</td>
+<td>/sns/auth</td>
+<td>检查 access_token 有效性</td>
+</tr>
+<tr>
+<td>snsapi_userinfo</td>
+<td>/sns/userinfo</td>
+<td>获取用户个人信息</td>
+</tr>
+</tbody>
+</table>
+<p>例如获取个人信息就是 GET <a href="https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&amp;openid=OPENID&amp;lang=zh_CN" target="_blank" rel="noopener">https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&amp;openid=OPENID&amp;lang=zh_CN</a></p>
+<p>注意啦，在微信 OAuth 2.0，access_token 使用 query 传输，而不是上面提到的 Authorization。</p>
+<p>使用 Authorization 的例子，如 GitHub 的授权，前面的步骤基本一致，在获取 token 后，这样请求接口：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -H <span class="string">"Authorization: token OAUTH-TOKEN"</span> <span class="string">https:</span><span class="comment">//api.github.com</span></span><br></pre></td></tr></table></figure>
+<p>说回微信的 userinfo 接口，返回的数据格式如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"openid"</span>: <span class="string">"OPENID"</span>,</span><br><span class="line">  <span class="attr">"nickname"</span>: <span class="string">"NICKNAME"</span>,</span><br><span class="line">  <span class="attr">"sex"</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">"province"</span>:<span class="string">"PROVINCE"</span>,</span><br><span class="line">  <span class="attr">"city"</span>:<span class="string">"CITY"</span>,</span><br><span class="line">  <span class="attr">"country"</span>:<span class="string">"COUNTRY"</span>,</span><br><span class="line">  <span class="attr">"headimgurl"</span>:<span class="string">"https://thirdwx.qlogo.cn/mmopen/g3MonUZtNHkdmzicIlibx6iaFqAc56vxLSUfpb6n5WKSYVY0ChQKkiaJSgQ1dZuTOgvLLrhJbERQQ4eMsv84eavHiaiceqxibJxCfHe/46"</span>,</span><br><span class="line">  <span class="attr">"privilege"</span>:[ <span class="string">"PRIVILEGE1"</span> <span class="string">"PRIVILEGE2"</span> ],</span><br><span class="line">  <span class="attr">"unionid"</span>: <span class="string">"o6_bmasdasdsad6_2sgVt7hMZOPfL"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="后续使用"><a href="#后续使用" class="headerlink" title="后续使用"></a>后续使用</h4><p>在使用 token 获取用户个人信息后，你可以接着用 userinfo 接口返回的 openid，结合 session 技术实现在自己服务器登录。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 登录</span></span><br><span class="line">req<span class="selector-class">.session</span><span class="selector-class">.id</span> = openid</span><br><span class="line"><span class="keyword">if</span> (req<span class="selector-class">.session</span><span class="selector-class">.id</span>) &#123;</span><br><span class="line">  <span class="comment">//   已登录</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">//   未登录</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 退出</span></span><br><span class="line">req<span class="selector-class">.session</span><span class="selector-class">.id</span> = null</span><br><span class="line"><span class="comment">// 清除 session</span></span><br></pre></td></tr></table></figure>
+<p>总结一下 OAuth2.0 的流程和重点：</p>
+<ul>
+<li>为你的应用申请 ID 和 Secret</li>
+<li>准备好重定向接口</li>
+<li>正确传参获取 code   <strong>（重要）</strong></li>
+<li>code 传入你的重定向接口</li>
+<li>在重定向接口中使用 code 获取 token &lt;- 重要</li>
+<li>传入 token 使用微信接口</li>
+</ul>
+<p>OAuth2.0 着重于第三方登录和权限限制。而且 OAuth2.0 不止微信使用的这一种授权方式，其他方式可以看阮老师的OAuth 2.0 的四种方式。</p>
+<h3 id="其他方法"><a href="#其他方法" class="headerlink" title="其他方法"></a>其他方法</h3><p>JWT 和 OAuth2.0 都是成体系的鉴权方法，不代表登录系统就一定要这么复杂。</p>
+<p>简单登录系统其实就以上面两种 session 储存方式为基础就能做到。</p>
+<ol>
+<li>使用服务器储存 session 为基础，可以用类似 req.session.isLogin = true 的方法标志该 session 的状态为已登录。</li>
+<li>使用客户端储存 session 为基础，设置 session 的过期日期和登录人就基本能用了。</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"exp"</span>: <span class="number">1614088104313</span>,</span><br><span class="line">  <span class="attr">"usr"</span>: <span class="string">"admin"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（就是和 JWT 原理基本一样，不过没有一套体系）</p>
+<ol>
+<li>甚至你可以使用上面的知识自己写一个 express 的登录系统：</li>
+<li>初始化一个 store，内存、redis、数据库都可以</li>
+<li>在用户身份验证成功后，随机生成一串哈希码作为 token</li>
+<li>用 set-cookie 写到客户端</li>
+<li>再在服务器写入登录状态，以内存为例就是在 store 中添加哈希码作为属性</li>
+<li>下次请求带着 cookie 的话检查 cookie 带来的 token 是否已经写入 store 中即可</li>
+</ol>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> store = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 登录成功后</span></span><br><span class="line">store[HASH] = <span class="literal">true</span></span><br><span class="line">cookie.<span class="keyword">set</span>(<span class="string">'token'</span>, HASH)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 需要鉴权的请求钟</span></span><br><span class="line"><span class="keyword">const</span> hash = cookie.<span class="keyword">get</span>(<span class="string">'token'</span>)</span><br><span class="line"><span class="keyword">if</span> (store[hash]) &#123;</span><br><span class="line">  <span class="comment">// 已登录</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="comment">// 未登录</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 退出</span></span><br><span class="line"><span class="keyword">const</span> hash = cookie.<span class="keyword">get</span>(<span class="string">'token'</span>)</span><br><span class="line">delete store[hash]</span><br></pre></td></tr></table></figure>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>以下列出本文重点：</p>
+<ul>
+<li>cookie 是储存 session/session id/token 的容器</li>
+<li>cookie 设置一般通过 set-cookie 请求头设置</li>
+<li>session 信息可以存放在浏览器，也可以存放在服务器</li>
+<li>session 存放在服务器时，以 session id 为钥匙获取信息</li>
+<li>token/session/session id 三者的界限是模糊的</li>
+<li>一般新技术使用 token，传统技术使用 session id</li>
+<li>cookie/token/session/session id 都是用于鉴权的实用技术</li>
+<li>JWT 是浏览器储存 session 的一种</li>
+<li>JWT 常用于单点登录（SSO）</li>
+<li>OAuth2.0 的 token 不是由应用端颁发，存在另外的授权服务器</li>
+<li>OAuth2.0 常用于第三方应用登录</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a cup of coffee,thanks!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="andy Wong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="andy Wong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTTP/" rel="tag"><i class="fa fa-tag"></i> HTTP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/07/20/webpack/总结18个webpack插件/" rel="next" title="总结18个webpack插件">
+                <i class="fa fa-chevron-left"></i> 总结18个webpack插件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/07/20/HTTP/cors跨域详解/" rel="prev" title="cors跨域详解">
+                cors跨域详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/doggy.jpg"
+                alt="andy Wong" />
+            
+              <p class="site-author-name" itemprop="name">andy Wong</p>
+              <p class="site-description motion-element" itemprop="description">前端渣渣辉</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/chongdee" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.cn/" title="掘金" target="_blank">掘金</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://segmentfault.com/" title="segmentfault" target="_blank">segmentfault</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://docschina.org/" title="印记中文" target="_blank">印记中文</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com/" title="阮一峰ES6书籍" target="_blank">阮一峰ES6书籍</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div> 
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cookie"><span class="nav-number">1.</span> <span class="nav-text"><a href="#Cookie" class="headerlink" title="Cookie"></a>Cookie</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设置方式"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x8BBE;&#x7F6E;&#x65B9;&#x5F0F;" class="headerlink" title="&#x8BBE;&#x7F6E;&#x65B9;&#x5F0F;"></a>&#x8BBE;&#x7F6E;&#x65B9;&#x5F0F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发送方式"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x53D1;&#x9001;&#x65B9;&#x5F0F;" class="headerlink" title="&#x53D1;&#x9001;&#x65B9;&#x5F0F;"></a>&#x53D1;&#x9001;&#x65B9;&#x5F0F;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number">2.</span> <span class="nav-text"><a href="#Session" class="headerlink" title="Session"></a>Session</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端储存"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#&#x5BA2;&#x6237;&#x7AEF;&#x50A8;&#x5B58;" class="headerlink" title="&#x5BA2;&#x6237;&#x7AEF;&#x50A8;&#x5B58;"></a>&#x5BA2;&#x6237;&#x7AEF;&#x50A8;&#x5B58;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务器储存"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#&#x670D;&#x52A1;&#x5668;&#x50A8;&#x5B58;" class="headerlink" title="&#x670D;&#x52A1;&#x5668;&#x50A8;&#x5B58;"></a>&#x670D;&#x52A1;&#x5668;&#x50A8;&#x5B58;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两种储存方式的对比"><span class="nav-number">2.3.</span> <span class="nav-text"><a href="#&#x4E24;&#x79CD;&#x50A8;&#x5B58;&#x65B9;&#x5F0F;&#x7684;&#x5BF9;&#x6BD4;" class="headerlink" title="&#x4E24;&#x79CD;&#x50A8;&#x5B58;&#x65B9;&#x5F0F;&#x7684;&#x5BF9;&#x6BD4;"></a>&#x4E24;&#x79CD;&#x50A8;&#x5B58;&#x65B9;&#x5F0F;&#x7684;&#x5BF9;&#x6BD4;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Token"><span class="nav-number">3.</span> <span class="nav-text"><a href="#Token" class="headerlink" title="Token"></a>Token</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JWT"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#JWT" class="headerlink" title="JWT"></a>JWT</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#结构"><span class="nav-number">3.1.1.</span> <span class="nav-text"><a href="#&#x7ED3;&#x6784;" class="headerlink" title="&#x7ED3;&#x6784;"></a>&#x7ED3;&#x6784;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何使用"><span class="nav-number">3.1.2.</span> <span class="nav-text"><a href="#&#x5982;&#x4F55;&#x4F7F;&#x7528;" class="headerlink" title="&#x5982;&#x4F55;&#x4F7F;&#x7528;"></a>&#x5982;&#x4F55;&#x4F7F;&#x7528;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-authentication"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#HTTP-authentication" class="headerlink" title="HTTP authentication"></a>HTTP authentication</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OAuth-2-0"><span class="nav-number">3.3.</span> <span class="nav-text"><a href="#OAuth-2-0" class="headerlink" title="OAuth 2.0"></a>OAuth 2.0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#准备"><span class="nav-number">3.3.1.</span> <span class="nav-text"><a href="#&#x51C6;&#x5907;" class="headerlink" title="&#x51C6;&#x5907;"></a>&#x51C6;&#x5907;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取-code"><span class="nav-number">3.3.2.</span> <span class="nav-text"><a href="#&#x83B7;&#x53D6;-code" class="headerlink" title="&#x83B7;&#x53D6; code"></a>&#x83B7;&#x53D6; code</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取-token"><span class="nav-number">3.3.3.</span> <span class="nav-text"><a href="#&#x83B7;&#x53D6;-token" class="headerlink" title="&#x83B7;&#x53D6; token"></a>&#x83B7;&#x53D6; token</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用-token-调用微信接口"><span class="nav-number">3.3.4.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;-token-&#x8C03;&#x7528;&#x5FAE;&#x4FE1;&#x63A5;&#x53E3;" class="headerlink" title="&#x4F7F;&#x7528; token &#x8C03;&#x7528;&#x5FAE;&#x4FE1;&#x63A5;&#x53E3;"></a>&#x4F7F;&#x7528; token &#x8C03;&#x7528;&#x5FAE;&#x4FE1;&#x63A5;&#x53E3;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#后续使用"><span class="nav-number">3.3.5.</span> <span class="nav-text"><a href="#&#x540E;&#x7EED;&#x4F7F;&#x7528;" class="headerlink" title="&#x540E;&#x7EED;&#x4F7F;&#x7528;"></a>&#x540E;&#x7EED;&#x4F7F;&#x7528;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他方法"><span class="nav-number">3.4.</span> <span class="nav-text"><a href="#&#x5176;&#x4ED6;&#x65B9;&#x6CD5;" class="headerlink" title="&#x5176;&#x4ED6;&#x65B9;&#x6CD5;"></a>&#x5176;&#x4ED6;&#x65B9;&#x6CD5;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.5.</span> <span class="nav-text"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; 2015 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span>Powered By -</span>
+  <span class="author" itemprop="copyrightHolder">andy Wong</span>
+
+  
+</div>
+
+
+  <div>Theme by &copy;next</div>
+
+
+<div>Hosted by <strong><a href="https://github.com/">Github Pages</a></strong></div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":true,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"left","width":145,"height":315},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script>
+</body>
+</html>

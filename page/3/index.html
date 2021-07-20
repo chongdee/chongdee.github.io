@@ -269,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/JavaScript设计模式/js设计模式-职责链模式/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/Webpack/webpack 中最易混淆的 5 个知识点/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -288,7 +288,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/31/JavaScript设计模式/js设计模式-职责链模式/" itemprop="url">js设计模式-职责链模式</a></h1>
+                <a class="post-title-link" href="/2021/07/20/Webpack/webpack 中最易混淆的 5 个知识点/" itemprop="url">webpack中最易混淆的5个知识点</a></h1>
         
 
         <div class="post-meta">
@@ -300,8 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T21:45:16+08:00">
-                2018-10-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T15:39:47+08:00">
+                2021-07-20
               </time>
             
 
@@ -323,8 +323,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/webpack/" itemprop="url" rel="index">
+                    <span itemprop="name">webpack</span>
                   </a>
                 </span>
 
@@ -361,11 +361,15 @@
 
       
         
-          <h2 id="职责链模式的基础"><a href="#职责链模式的基础" class="headerlink" title="职责链模式的基础"></a>职责链模式的基础</h2><p>定义：职责链模式（Chain of responsibility）是使多个对象都有机会处理请求，从而避免请求的发送者和接受者之间的耦合关系。将这个对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理他为止。职责链模式的名字非常形象，一系列可能会处理请求的对象被该连接成一条链，请求在这些对象之间依次传递，直到遇到一个可以处理它的对象，我们把这些对象成为链中的节点。<br>优点：请求发送者只需要知道链中的第一个节点，从而弱化了发送者和一组接收者之间的强联系。</p>
-<p>使用场景：挤公交车递钱（只有售票员可以收钱）、交押金预定手机<br>
+          
+           1.webpack 中，module，chunk 和 bundle 的区别是什么？说实话我刚开始看 webpack 文档的时候，对这 3 个名词云里雾里的，感觉他们都在说打包文件，但是一会儿 chunk 一会儿 bundle 的，逐渐就迷失在细节里了，所以我们要跳出来，从宏观的角度来看这几个名词。
+webpack 官网对 chunk 和 bundle 做出了解释[3]，说实话太抽象了，我这里举个例子，给大家形象化的解释一下。
+首先我们在 src 目录下写我们的业务代码，引入 index.js、utils.js、common.js 和 index.css 这 4 个文件，目录结构如下：
+123
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/10/31/JavaScript设计模式/js设计模式-职责链模式/#more" rel="contents">
+            <a class="btn" href="/2021/07/20/Webpack/webpack 中最易混淆的 5 个知识点/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -416,7 +420,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/JavaScript设计模式/js设计模式-备忘录模式/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/JavaScript/条件语句优雅写法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -435,7 +439,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/31/JavaScript设计模式/js设计模式-备忘录模式/" itemprop="url">js设计模式-备忘录模式</a></h1>
+                <a class="post-title-link" href="/2021/05/09/JavaScript/条件语句优雅写法/" itemprop="url">条件语句优雅写法</a></h1>
         
 
         <div class="post-meta">
@@ -447,8 +451,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T21:45:00+08:00">
-                2018-10-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T03:32:15+08:00">
+                2021-05-09
               </time>
             
 
@@ -508,10 +512,11 @@
 
       
         
-          <h2 id="备忘录模式的基础"><a href="#备忘录模式的基础" class="headerlink" title="备忘录模式的基础"></a>备忘录模式的基础</h2><p>定义：在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。这样就可以将该对象恢复到原先保存的状态<br>作用：在我们的开发中偶尔会遇到这样一种情况，需要对用户的行为进行撤销。要想实现撤销，首先需要保存软件系统的历史状态，当用户执行撤销时用之前的状态覆盖当前状态。本节介绍的备忘录模式提供了一种状态恢复的实现机制，使得用户可以方便的回到一个特定的历史步骤。备忘录模式在js中经常用于数据缓存。<br>使用场景：分页控件、撤销组件</p>
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在任何编程语言中，代码需要根据不同的条件在给定的输入中做不同的决定和执行相应的动作。</p>
+<p>例如，在一个游戏中，如果玩家生命点为0，游戏结束。在天气应用中，如果在早上被查看，显示一个日出图片，如果是晚上，则显示星星和月亮。在这篇文章中，我们将探索JavaScript中所谓的条件语句如何工作。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/10/31/JavaScript设计模式/js设计模式-备忘录模式/#more" rel="contents">
+            <a class="btn" href="/2021/05/09/JavaScript/条件语句优雅写法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -562,7 +567,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/JavaScript设计模式/js设计模式-组合模式/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/promise/手写Promise讲解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -581,7 +586,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/31/JavaScript设计模式/js设计模式-组合模式/" itemprop="url">js设计模式-组合模式</a></h1>
+                <a class="post-title-link" href="/2021/05/09/promise/手写Promise讲解/" itemprop="url">手写Promise讲解</a></h1>
         
 
         <div class="post-meta">
@@ -593,8 +598,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T21:44:39+08:00">
-                2018-10-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T03:24:00+08:00">
+                2021-05-09
               </time>
             
 
@@ -654,10 +659,10 @@
 
       
         
-          <h2 id="组合模式的基础"><a href="#组合模式的基础" class="headerlink" title="组合模式的基础"></a>组合模式的基础</h2><p>定义：组合模式（Composite）将对象组合成树形结构以表示“部分-整体”的层次结构，组合模式使得用户对单个对象和组合对象的使用具有一致性。<br>作用：组合模式让你可以优化处理递归或分级数据结构。<br>使用场景：系统目录结构、网站导航结构、文件扫描、DOM的机制，一个DOM节点可以包含子节点，不管是父节点还是子节点都有添加、删除、遍历子节点的通用功能。<br>该模式由两部分构成：<br>1.子对象（Leaf）：组成组合对象的最基本对象。<br>2.组合对象（Composite）：由子对象组合起来的复杂对象。</p>
+          <h2 id="整体结构"><a href="#整体结构" class="headerlink" title="整体结构"></a>整体结构</h2><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">MyPromise</span> &#123;</span></span><br><span class="line"><span class="class">    constructor(<span class="title">fn</span>)&#123;</span></span><br><span class="line"><span class="class">        </span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    resolve()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    then()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    reject()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    catch()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">&#125;</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/10/31/JavaScript设计模式/js设计模式-组合模式/#more" rel="contents">
+            <a class="btn" href="/2021/05/09/promise/手写Promise讲解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -708,7 +713,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/JavaScript设计模式/js设计模式-模板方法模式/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/Promise/手写Promise讲解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -727,7 +732,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/31/JavaScript设计模式/js设计模式-模板方法模式/" itemprop="url">js设计模式-模板方法模式</a></h1>
+                <a class="post-title-link" href="/2021/05/09/Promise/手写Promise讲解/" itemprop="url">手写Promise讲解</a></h1>
         
 
         <div class="post-meta">
@@ -739,8 +744,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T21:44:24+08:00">
-                2018-10-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T03:24:00+08:00">
+                2021-05-09
               </time>
             
 
@@ -800,13 +805,10 @@
 
       
         
-          <h2 id="模版方法模式"><a href="#模版方法模式" class="headerlink" title="模版方法模式"></a>模版方法模式</h2><p>定义：模板方法模式由二部分组成，第一部分是抽象父类，第二部分是具体实现的子类，一般的情况下是抽象父类封装了子类的算法框架，包括实现一些公共方法及封装子类中所有方法的执行顺序，子类可以继承这个父类，并且可以在子类中重写父类的方法，从而实现自己的业务逻辑。<br>使用场景：（主要用于步骤相似的事情）</p>
-<ol>
-<li>泡饮品（茶 和 coffee）</li>
-<li>公司面试
+          <h2 id="整体结构"><a href="#整体结构" class="headerlink" title="整体结构"></a>整体结构</h2><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">MyPromise</span> &#123;</span></span><br><span class="line"><span class="class">    constructor(<span class="title">fn</span>)&#123;</span></span><br><span class="line"><span class="class">        </span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    resolve()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    then()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    reject()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    catch()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">&#125;</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/10/31/JavaScript设计模式/js设计模式-模板方法模式/#more" rel="contents">
+            <a class="btn" href="/2021/05/09/Promise/手写Promise讲解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -857,7 +859,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/JavaScript设计模式/js设计模式-访问者模式/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/Vue/路由权限,大文件下载等问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -876,7 +878,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/31/JavaScript设计模式/js设计模式-访问者模式/" itemprop="url">js设计模式-访问者模式</a></h1>
+                <a class="post-title-link" href="/2021/05/09/Vue/路由权限,大文件下载等问题/" itemprop="url">路由权限,大文件下载等问题</a></h1>
         
 
         <div class="post-meta">
@@ -888,8 +890,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T21:44:04+08:00">
-                2018-10-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T03:13:18+08:00">
+                2021-05-09
               </time>
             
 
@@ -911,8 +913,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
                   </a>
                 </span>
 
@@ -949,17 +951,12 @@
 
       
         
-          <h2 id="访问者模式定义"><a href="#访问者模式定义" class="headerlink" title="访问者模式定义"></a>访问者模式定义</h2><p>介绍：访问者模式比较复杂，它包含访问者和被访问元素两个主要组成部分，这些被访问的元素通常具有不同的类型，且不同的访问者可以对他们进行不同的访问操作。访问者模式的主要目的是将数据结构与数据操作相分离。</p>
-<p>定义：提供一个作用于某对象结构中的个元素的操作表示，它使得可以再不改变各元素的类的前提下定义作用于这些元素的新操作。访问者模式是一种对象行为型模式</p>
-<h2 id="在访问者模式中，主要包括以下几个角色"><a href="#在访问者模式中，主要包括以下几个角色" class="headerlink" title="在访问者模式中，主要包括以下几个角色"></a>在访问者模式中，主要包括以下几个角色</h2><ol>
-<li>抽象访问者：抽象类或者接口，声明访问者可以访问哪些元素，具体到程序中就是visit方法中的参数定义哪些对象是可以被访问的。</li>
-<li>访问者：实现抽象访问者所声明的方法，它影响到访问者访问到一个类后该干什么，要做什么事情。</li>
-<li>抽象元素类：接口或者抽象类，声明接受哪一类访问者访问，程序上是通过accept方法中的参数来定义的。抽象元素一般有两类方法，一部分是本身的业务逻辑，另外就是允许接收哪类访问者来访问。</li>
-<li>元素类：实现抽象元素类所声明的accept方法，通常都是visitor.visit(this)，基本上已经形成一种定式了。</li>
-<li>结构对象：一个元素的容器，一般包含一个容纳多个不同类、不同接口的容器，如List、Set、Map等，在项目中一般很少抽象出这个角色。
+          <p>有一些问题不限于 Vue，还适应于其他类型的 SPA 项目。</p>
+<h2 id="1-页面权限控制和登陆验证"><a href="#1-页面权限控制和登陆验证" class="headerlink" title="1. 页面权限控制和登陆验证"></a>1. 页面权限控制和登陆验证</h2><h3 id="页面权限控制"><a href="#页面权限控制" class="headerlink" title="页面权限控制"></a>页面权限控制</h3><p>页面权限控制是什么意思呢？</p>
+<p>就是一个网站有不同的角色，比如管理员和普通用户，要求不同的角色能访问的页面是不一样的。如果一个页面，有角色越权访问，这时就得做出限制了。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/10/31/JavaScript设计模式/js设计模式-访问者模式/#more" rel="contents">
+            <a class="btn" href="/2021/05/09/Vue/路由权限,大文件下载等问题/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1010,7 +1007,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/31/JavaScript设计模式/js设计模式-外观模式/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/Vue/Vue2.x脱坑-解决方法总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -1029,7 +1026,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/10/31/JavaScript设计模式/js设计模式-外观模式/" itemprop="url">js设计模式-外观模式</a></h1>
+                <a class="post-title-link" href="/2021/05/09/Vue/Vue2.x脱坑-解决方法总结/" itemprop="url">Vue2.x脱坑-解决方法总结</a></h1>
         
 
         <div class="post-meta">
@@ -1041,8 +1038,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-31T21:43:45+08:00">
-                2018-10-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T02:57:03+08:00">
+                2021-05-09
               </time>
             
 
@@ -1064,8 +1061,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
                   </a>
                 </span>
 
@@ -1102,12 +1099,13 @@
 
       
         
-          <h2 id="外观模式基础"><a href="#外观模式基础" class="headerlink" title="外观模式基础"></a>外观模式基础</h2><p>定义：外观模式（Facade）为子系统中的一组接口提供了一个一致的界面，此模块定义了一个高层接口，这个接口使得这一子系统更加容易使用。<br>外观模式不仅简化类中的接口，而且对接口与调用者也进行了解耦。外观模式经常被认为开发者必备，它可以将一些复杂操作封装起来，并创建一个简单的接口用于调用。</p>
-<p>使用场景：外观模式经常被用于JavaScript类库里，通过它封装一些接口用于兼容多浏览器，外观模式可以让我们间接调用子系统，从而避免因直接访问子系统而产生不必要的错误。</p>
-<p>外观模式的优势是易于使用，而且本身也比较轻量级。但也有缺点外观模式被开发者连续使用时会产生一定的性能问题，因为在每次调用时都要检测功能的可用性。<br>
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>文章内容覆盖范围,芝麻绿豆的破问题都有,不止于vue;<br>给出的是方案,而非手把手一字一句的给你说十万个为什么!</p>
+<h2 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h2><h3 id="Q-安装超时-install-timeout"><a href="#Q-安装超时-install-timeout" class="headerlink" title="Q:安装超时(install timeout)"></a>Q:安装超时(install timeout)</h3><p>方案有这么些:</p>
+<ul>
+<li><p>cnpm : 国内对npm的镜像版本</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/10/31/JavaScript设计模式/js设计模式-外观模式/#more" rel="contents">
+            <a class="btn" href="/2021/05/09/Vue/Vue2.x脱坑-解决方法总结/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1149,7 +1147,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1199,7 +1197,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1210,7 +1208,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1221,7 +1219,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

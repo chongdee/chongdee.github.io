@@ -269,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/JavaScript/条件语句优雅写法/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/Git/分支使用规范/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -288,7 +288,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/05/09/JavaScript/条件语句优雅写法/" itemprop="url">条件语句优雅写法</a></h1>
+                <a class="post-title-link" href="/2021/07/20/Git/分支使用规范/" itemprop="url">分支使用规范</a></h1>
         
 
         <div class="post-meta">
@@ -300,8 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T03:32:15+08:00">
-                2021-05-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T16:41:46+08:00">
+                2021-07-20
               </time>
             
 
@@ -323,8 +323,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
                   </a>
                 </span>
 
@@ -361,11 +361,19 @@
 
       
         
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在任何编程语言中，代码需要根据不同的条件在给定的输入中做不同的决定和执行相应的动作。</p>
-<p>例如，在一个游戏中，如果玩家生命点为0，游戏结束。在天气应用中，如果在早上被查看，显示一个日出图片，如果是晚上，则显示星星和月亮。在这篇文章中，我们将探索JavaScript中所谓的条件语句如何工作。<br>
+          
+           前言本篇介绍具体的规范，包括分支的划分和命名规范，不同类型的分支应对不同的场景，然后会介绍下工作流工具git-flow，如何简化我们的操作。
+分支构成master和develop分支一直存在，且名称不会变化，一般不直接修改这2个分支，由其他分支合并而来。
+feature、release、hotfix分别用于功能点开发、优化，特定版本测试，线上问题紧急处理，同一类型的分支会产生多个。
+分支划分如下：
+
+master：与线上版本保持绝对一致；
+develop：开发分支，由下文提到的release、feature、hotfix分支合并过后的代码；
+feature：实际功能点开发分支，建议每个功能新
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/05/09/JavaScript/条件语句优雅写法/#more" rel="contents">
+            <a class="btn" href="/2021/07/20/Git/分支使用规范/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -416,7 +424,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/JavaScript/手写Promise讲解/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/Git/git 工作流和git commit规范/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -435,7 +443,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/05/09/JavaScript/手写Promise讲解/" itemprop="url">手写Promise讲解</a></h1>
+                <a class="post-title-link" href="/2021/07/20/Git/git 工作流和git commit规范/" itemprop="url">git 工作流和git commit规范</a></h1>
         
 
         <div class="post-meta">
@@ -447,8 +455,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T03:24:00+08:00">
-                2021-05-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T16:41:38+08:00">
+                2021-07-20
               </time>
             
 
@@ -470,8 +478,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
                   </a>
                 </span>
 
@@ -508,10 +516,27 @@
 
       
         
-          <h2 id="整体结构"><a href="#整体结构" class="headerlink" title="整体结构"></a>整体结构</h2><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">MyPromise</span> &#123;</span></span><br><span class="line"><span class="class">    constructor(<span class="title">fn</span>)&#123;</span></span><br><span class="line"><span class="class">        </span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    resolve()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    then()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    reject()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    catch()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">&#125;</span></span><br></pre></td></tr></table></figure>
+          
+           目的
+统一团队的Git工作流，包括分支使用、tag规范、issue等
+统一团队的Git Commit日志标准，便于后续代码review,版本发布以及日志自动化生成
+
+git工作流
+git flow工作流：
+
+master为主分支，属保护分支，不能直接在此进行代码修改和提交。
+develop为日常使用分支。
+feature新功能分支，当完成一个功能并测试通过后进行合并到develop分支中。
+hotfix线上紧急漏洞修复分支，从master分支拉取创建，修复完bug后合并到master和develop分支中。
+
+
+
+
+gitlab flow工作流（最大原则叫做”上游优先”（upsteam fi
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/05/09/JavaScript/手写Promise讲解/#more" rel="contents">
+            <a class="btn" href="/2021/07/20/Git/git 工作流和git commit规范/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -562,7 +587,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/vue/路由权限,大文件下载等问题/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/HTTP/输入URL请求过程，http版本对比/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -581,7 +606,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/05/09/vue/路由权限,大文件下载等问题/" itemprop="url">路由权限,大文件下载等问题</a></h1>
+                <a class="post-title-link" href="/2021/07/20/HTTP/输入URL请求过程，http版本对比/" itemprop="url">输入URL请求过程，http版本对比</a></h1>
         
 
         <div class="post-meta">
@@ -593,8 +618,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T03:13:18+08:00">
-                2021-05-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T16:37:01+08:00">
+                2021-07-20
               </time>
             
 
@@ -616,8 +641,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
+                  <a href="/categories/HTTP/" itemprop="url" rel="index">
+                    <span itemprop="name">HTTP</span>
                   </a>
                 </span>
 
@@ -654,12 +679,23 @@
 
       
         
-          <p>有一些问题不限于 Vue，还适应于其他类型的 SPA 项目。</p>
-<h2 id="1-页面权限控制和登陆验证"><a href="#1-页面权限控制和登陆验证" class="headerlink" title="1. 页面权限控制和登陆验证"></a>1. 页面权限控制和登陆验证</h2><h3 id="页面权限控制"><a href="#页面权限控制" class="headerlink" title="页面权限控制"></a>页面权限控制</h3><p>页面权限控制是什么意思呢？</p>
-<p>就是一个网站有不同的角色，比如管理员和普通用户，要求不同的角色能访问的页面是不一样的。如果一个页面，有角色越权访问，这时就得做出限制了。<br>
+          
+           浏览器输入 URL 发生了什么
+输入网址并DNS域名解析
+TCP/IP连接：三次握手
+HTTP请求
+服务器处理请求并返回 HTTP 报文
+断开连接：TCP 四次挥手
+浏览器渲染页面
+
+当我们在浏览器中键入 URL：https://www.google.com/ 时，浏览器会先去寻找该域名所对应的 IP 地址，毕竟最终通信我们还是得用 IP 才能找到对方的地址，域名只是方便用户记忆的别名。
+那么如何找到域名所对应的 IP 地址呢？接下来让笔者先来给大家介绍我们遇到的第一块内容：DNS。
+DNSDNS 的作用就是通过域名查询到具体的 IP。
+因为 IP 存在数字和英文的组合（IPv6），很不利于
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/05/09/vue/路由权限,大文件下载等问题/#more" rel="contents">
+            <a class="btn" href="/2021/07/20/HTTP/输入URL请求过程，http版本对比/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -710,7 +746,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/vue/Vue2.x脱坑-解决方法总结/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/HTTP/cors跨域详解/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -729,7 +765,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/05/09/vue/Vue2.x脱坑-解决方法总结/" itemprop="url">Vue2.x脱坑-解决方法总结</a></h1>
+                <a class="post-title-link" href="/2021/07/20/HTTP/cors跨域详解/" itemprop="url">cors跨域详解</a></h1>
         
 
         <div class="post-meta">
@@ -741,8 +777,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T02:57:03+08:00">
-                2021-05-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T16:31:36+08:00">
+                2021-07-20
               </time>
             
 
@@ -764,8 +800,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
+                  <a href="/categories/HTTP/" itemprop="url" rel="index">
+                    <span itemprop="name">HTTP</span>
                   </a>
                 </span>
 
@@ -802,13 +838,16 @@
 
       
         
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>文章内容覆盖范围,芝麻绿豆的破问题都有,不止于vue;<br>给出的是方案,而非手把手一字一句的给你说十万个为什么!</p>
-<h2 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h2><h3 id="Q-安装超时-install-timeout"><a href="#Q-安装超时-install-timeout" class="headerlink" title="Q:安装超时(install timeout)"></a>Q:安装超时(install timeout)</h3><p>方案有这么些:</p>
-<ul>
-<li><p>cnpm : 国内对npm的镜像版本</p>
+          
+           CORSCORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。
+它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。
+本文详细介绍CORS的内部机制。
+一、简介CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。
+整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/05/09/vue/Vue2.x脱坑-解决方法总结/#more" rel="contents">
+            <a class="btn" href="/2021/07/20/HTTP/cors跨域详解/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -859,7 +898,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/webpack/vue-cli4+webpack4移动端框架/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/HTTP/cookie、session、token 的区别/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -878,7 +917,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/05/09/webpack/vue-cli4+webpack4移动端框架/" itemprop="url">vue-cli4+webpack4移动端框架</a></h1>
+                <a class="post-title-link" href="/2021/07/20/HTTP/cookie、session、token 的区别/" itemprop="url">cookie、session、token 的区别</a></h1>
         
 
         <div class="post-meta">
@@ -890,8 +929,160 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T01:16:10+08:00">
-                2021-05-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T16:30:52+08:00">
+                2021-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HTTP/" itemprop="url" rel="index">
+                    <span itemprop="name">HTTP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+           Cookie众所周知，http 是无状态协议，浏览器和服务器不可能凭协议的实现辨别请求的上下文。
+于是 cookie 登场，既然协议本身不能分辨链接，那就在请求头部手动带着上下文信息吧。
+举个例子，以前去旅游的时候，到了景区可能会需要存放行李，被大包小包压着，旅游也不开心啦。在存放行李后，服务员会给你一个牌子，上面写着你的行李放在哪个格子，离开时，你就能凭这个牌子和上面的数字成功取回行李。
+cookie 做的正是这么一件事，旅客就像客户端，寄存处就像服务器，凭着写着数字的牌子，寄存处（服务器）就能分辨出不同旅客（客户端）。
+你会不会想到，如果牌子被偷了怎么办，cookie 也会被偷吗？确实会
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/07/20/HTTP/cookie、session、token 的区别/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/webpack/总结18个webpack插件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/doggy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/07/20/webpack/总结18个webpack插件/" itemprop="url">总结18个webpack插件</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T15:51:02+08:00">
+                2021-07-20
               </time>
             
 
@@ -920,17 +1111,6 @@
 
                 
                 
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/webpack/vue/" itemprop="url" rel="index">
-                    <span itemprop="name">vue</span>
-                  </a>
-                </span>
-
-                
-                
               
             </span>
           
@@ -962,160 +1142,17 @@
 
       
         
-          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>这是基于 vue-cli4 实现的移动端框架，其中包含项目常用的配置，组件封装及webpack优化方法，可供快速开发使用。</p>
-<p>技术栈：vue-cli4 + webpack4 + vant + axios + less + postcss-px2rem</p>
-<p>源码 <a href="https://github.com/Michael-lzg/vue-cli4-vant" target="_blank" rel="noopener">https://github.com/Michael-lzg/vue-cli4-vant</a></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment">// 本地启动</span></span><br><span class="line">npm run dev</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生产打包</span></span><br><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+          
+           Plugin何为插件(Plugin)？专注处理 webpack 在编译过程中的某个特定的任务的功能模块，可以称为插件。plugin 是一个扩展器，它丰富了 webpack 本身，针对是 loader 结束后，webpack 打包的整个过程，它并不直接操作文件，而是基于事件机制工作，会监听 webpack 打包过程中的某些节点，执行广泛的任务。
+Plugin 的特点
+
+是一个独立的模块
+模块对外暴露一个 js 函数
+函数的原型 (prototype) 上定义了一个注入 compiler 对象的 apply方法 apply 函数中需要有通过 compiler 对象挂载的 webpack 事件钩子
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/05/09/webpack/vue-cli4+webpack4移动端框架/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/webpack/react-webpack4配置与优化/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="andy Wong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/doggy.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="andy Wong's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/05/09/webpack/react-webpack4配置与优化/" itemprop="url">react-webpack4配置与优化</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T01:08:22+08:00">
-                2021-05-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/webpack/" itemprop="url" rel="index">
-                    <span itemprop="name">webpack</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一篇文章不写前言总感觉不太正式，大概介绍下我是怎么完成一个总的知识点的概括的把。其实很多人都有一看就会,一做就废的特点(当然也包括我在内),这个时候，你需要制定一个略微详细的计划，就比如我这篇会首先列出知识点，列出大的方向，制定思维导图，然后根据思维导图编写代码，计划明确，就会事半功倍，因此，希望你可以跟着本篇循序渐进的跟着代码走一遍，不管是真实开发，还是面试，都有的扯。好了，不扯了，可以先看下目录。现在开始</p>
-<h2 id="一、基础配置"><a href="#一、基础配置" class="headerlink" title="一、基础配置"></a>一、基础配置</h2><h3 id="1、init项目"><a href="#1、init项目" class="headerlink" title="1、init项目"></a>1、init项目</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mkdir</span> react-webpack4-cook</span><br><span class="line"><span class="keyword">cd</span> react-webpack4-cook</span><br><span class="line"><span class="keyword">mkdir</span> src</span><br><span class="line"><span class="keyword">mkdir</span> dist</span><br><span class="line">npm init -<span class="built_in">y</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/05/09/webpack/react-webpack4配置与优化/#more" rel="contents">
+            <a class="btn" href="/2021/07/20/webpack/总结18个webpack插件/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1157,7 +1194,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1207,7 +1244,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1218,7 +1255,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1229,7 +1266,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

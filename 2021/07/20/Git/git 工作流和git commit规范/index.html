@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Git," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="目的 统一团队的Git工作流，包括分支使用、tag规范、issue等 统一团队的Git Commit日志标准，便于后续代码review,版本发布以及日志自动化生成  git工作流 git flow工作流：  master为主分支，属保护分支，不能直接在此进行代码修改和提交。 develop为日常使用分支。 feature新功能分支，当完成一个功能并测试通过后进行合并到develop分支中。 ho">
+<meta name="keywords" content="Git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git 工作流和git commit规范">
+<meta property="og:url" content="https://chongdee.github.io/2021/07/20/Git/git 工作流和git commit规范/index.html">
+<meta property="og:site_name" content="andy Wong&#39;s Blog">
+<meta property="og:description" content="目的 统一团队的Git工作流，包括分支使用、tag规范、issue等 统一团队的Git Commit日志标准，便于后续代码review,版本发布以及日志自动化生成  git工作流 git flow工作流：  master为主分支，属保护分支，不能直接在此进行代码修改和提交。 develop为日常使用分支。 feature新功能分支，当完成一个功能并测试通过后进行合并到develop分支中。 ho">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-07-20T08:42:32.703Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git 工作流和git commit规范">
+<meta name="twitter:description" content="目的 统一团队的Git工作流，包括分支使用、tag规范、issue等 统一团队的Git Commit日志标准，便于后续代码review,版本发布以及日志自动化生成  git工作流 git flow工作流：  master为主分支，属保护分支，不能直接在此进行代码修改和提交。 develop为日常使用分支。 feature新功能分支，当完成一个功能并测试通过后进行合并到develop分支中。 ho">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chongdee.github.io/2021/07/20/Git/git 工作流和git commit规范/"/>
+
+
+
+
+
+  <title>git 工作流和git commit规范 | andy Wong's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?63d30ffc3ac0fa4a98c97c20372430af";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">andy Wong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">知道的越多，不知道的越多</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/Git/git 工作流和git commit规范/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/doggy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">git 工作流和git commit规范</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T16:41:38+08:00">
+                2021-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script src="\assets\js\APlayer.min.js"> </script><h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><ul>
+<li>统一团队的Git工作流，包括分支使用、tag规范、issue等</li>
+<li>统一团队的Git Commit日志标准，便于后续代码review,版本发布以及日志自动化生成</li>
+</ul>
+<h2 id="git工作流"><a href="#git工作流" class="headerlink" title="git工作流"></a>git工作流</h2><ul>
+<li><p>git flow工作流：</p>
+<ul>
+<li>master为主分支，属保护分支，不能直接在此进行代码修改和提交。</li>
+<li>develop为日常使用分支。</li>
+<li>feature新功能分支，当完成一个功能并测试通过后进行合并到develop分支中。</li>
+<li>hotfix线上紧急漏洞修复分支，从master分支拉取创建，修复完bug后合并到master和develop分支中。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>gitlab flow工作流（最大原则叫做”上游优先”（upsteam first），即只存在一个主分支master，它是所有其他分支的”上游”。只有上游分支采纳的代码变化，才能应用到其他分支）：</li>
+</ul>
+<p><strong>master-&gt;pre-production-&gt;production</strong></p>
+<ul>
+<li>master开发环境分支</li>
+<li>pre-production预发环境分支</li>
+<li>production生产环境分支</li>
+</ul>
+<h2 id="git-commit规范"><a href="#git-commit规范" class="headerlink" title="git commit规范"></a>git commit规范</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">type</span>&gt;</span>(<span class="tag">&lt;<span class="name">scope</span>&gt;</span>): <span class="tag">&lt;<span class="name">subject</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">BLANK</span> <span class="attr">LINE</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">BLANK</span> <span class="attr">LINE</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">footer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">占位标签解析：</span><br><span class="line"><span class="section">type:代表某次提交的类型，比如是修复一个bug还是增加一个新的feature。所有的type类型如下：</span></span><br><span class="line"><span class="section">scope:scope说明commit影响的范围。scope依据项目而定，</span></span><br><span class="line">		例如在业务项目中可以依据菜单或者功能模块划分，</span><br><span class="line">		如果是组件库开发，则可以依据组件划分。</span><br><span class="line"><span class="section">subject:是commit的简短描述</span></span><br><span class="line"><span class="section">body:提交代码的详细描述</span></span><br><span class="line"><span class="section">footer:如果代码的提交是不兼容变更或关闭缺陷，则Footer必需，否则可以省略。</span></span><br><span class="line"></span><br><span class="line"><span class="section">feat[特性]:新增feature </span></span><br><span class="line"><span class="section">fix[修复]: 修复bug     </span></span><br><span class="line"><span class="section">docs[文档]: 仅仅修改了文档，比如README, CHANGELOG, CONTRIBUTE等等</span></span><br><span class="line"><span class="section">style[格式]: 仅仅修改了空格、格式缩进、都好等等，不改变代码逻辑</span></span><br><span class="line"><span class="section">refactor[重构]: 代码重构，没有加新功能或者修复bug</span></span><br><span class="line"><span class="section">perf[优化]: 优化相关，比如提升性能、体验</span></span><br><span class="line"><span class="section">test[测试]: 测试用例，包括单元测试、集成测试等</span></span><br><span class="line"><span class="section">chore[工具]: 改变构建流程、或者增加依赖库、工具等</span></span><br><span class="line"><span class="section">revert[回滚]: 回滚到上一个版本</span></span><br></pre></td></tr></table></figure>
+<p><strong>示例：</strong></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">特性:添加头像功能</span></span><br><span class="line"><span class="section">特性:添加收藏功能</span></span><br><span class="line"><span class="section">修复:在android机器上传崩溃问题解决</span></span><br><span class="line"><span class="section">文档:修改README,增加了使用说明</span></span><br><span class="line"><span class="section">优化:首页图片加载缓慢优化</span></span><br><span class="line"><span class="section">重构:对头像功能进行封装重构</span></span><br></pre></td></tr></table></figure>
+<h2 id="Git标签打包规范"><a href="#Git标签打包规范" class="headerlink" title="Git标签打包规范"></a>Git标签打包规范</h2><p><strong>Tag版本号：</strong>Tag包括3位版本，前缀使用v。比如v1.2.31。Tag命名规范：</p>
+<p>1.新功能开发使用第2位版本号，bug修复使用第3位版本号</p>
+<p>2.首版本号是全新的功能类，功能模块上线才做的调整</p>
+<p><strong>标题格式：项目名-日期内容格式：&lt;分类&gt;—&lt;内容&gt;&lt;分类&gt;：</strong><br>新功能、bug修复、优化、依赖升级、重构、漏洞&amp;补丁</p>
+<p><strong>示例：</strong><br>此图片引用自:<a href="https://juejin.cn/post/6844903619662200839" target="_blank" rel="noopener">我们的GIT工作流</a></p>
+<h2 id="Git-Commit格式校验"><a href="#Git-Commit格式校验" class="headerlink" title="Git Commit格式校验"></a>Git Commit格式校验</h2><ul>
+<li>准备commitlint/cli用于格式校验</li>
+<li>准备husky用于git提交代码时触发校验</li>
+</ul>
+<p>全局安装commitlint/cli</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">npm</span> install -g @commitlint/cli @commitlint/config-conventional</span><br></pre></td></tr></table></figure>
+<p>2.在项目根目录创建配置文件commitlint.config.js，可以使用以下命令创建</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="string">"module.exports = &#123;extends: ['@commitlint/config-conventional']&#125;"</span> &gt; commitlint<span class="selector-class">.config</span><span class="selector-class">.js</span></span><br></pre></td></tr></table></figure>
+<p>3.在配置文件中定义提交规范，可使用以下配置：</p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"module.exports = &#123;extends: ['@commitlint/config-conventional']&#125;"</span></span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  extends: [<span class="string">'@commitlint/config-conventional'</span>],</span><br><span class="line">  rules: &#123;</span><br><span class="line">    <span class="string">'type-enum'</span>: [<span class="number">2</span>, <span class="string">'always'</span>, [</span><br><span class="line">      <span class="string">"feat"</span>, <span class="string">"fix"</span>, <span class="string">"docs"</span>, <span class="string">"style"</span>, <span class="string">"refactor"</span>, <span class="string">"test"</span>, <span class="string">"chore"</span>, <span class="string">"revert"</span></span><br><span class="line">    ]],</span><br><span class="line">    <span class="string">'subject-full-stop'</span>: [<span class="number">0</span>, <span class="string">'never'</span>],</span><br><span class="line">    <span class="string">'subject-case'</span>: [<span class="number">0</span>, <span class="string">'never'</span>]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>4.项目添加husky，进行git提交触发校验，安装如下：</p>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install husky --<span class="built_in">save</span>-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure>
+<p>5.安装完成后在package.json中配置如下信息</p>
+<figure class="highlight xquery"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"commitmsg"</span>: <span class="string">"commitlint -e $GIT_PARAMS"</span>,</span><br><span class="line"> &#125;,</span><br><span class="line"> <span class="string">"config"</span>: &#123;</span><br><span class="line">    <span class="string">"commitizen"</span>: &#123;</span><br><span class="line">      <span class="string">"path"</span>: <span class="string">"cz-customizable"</span></span><br><span class="line">    &#125;</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
+<p>6.经过以上步骤，git commit的规范校验已经完成。可以进行代码提交了。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">不规范提交&gt;git commit -m <span class="string">"添加新功能"</span></span><br><span class="line">提示：</span><br><span class="line">⧗   input: 添加新功能</span><br><span class="line">✖   subject may <span class="keyword">not</span> be empty [subject-empty]</span><br><span class="line">✖  <span class="built_in"> type </span>may <span class="keyword">not</span> be empty [type-empty]</span><br><span class="line"></span><br><span class="line">规范提交&gt;git commit -m <span class="string">"feat: 添加新功能"</span></span><br></pre></td></tr></table></figure>
+<p>汉化与自定义校验规则<br>1.当前项目安装commitlint-config-cz，如下</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install commitlint-<span class="built_in">config</span>-cz <span class="comment">--save-dev</span></span><br></pre></td></tr></table></figure>
+<p>2.commitlint校验规则配置添加如下设置：</p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span>.exports = &#123;</span><br><span class="line">  <span class="keyword">extends</span>: [</span><br><span class="line">    <span class="string">'cz'</span></span><br><span class="line">  ]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>3.下载官方配置文件进行修改。官方配置文件cz-config-EXAMPLE.js。修改示例如下：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">'use strict'</span>;</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line"></span><br><span class="line"><span class="symbol">  types:</span> [</span><br><span class="line">    &#123;<span class="string">value:</span> <span class="string">'特性'</span>,<span class="string">name:</span> <span class="string">'特性:    一个新的特性'</span>&#125;,</span><br><span class="line">    &#123;<span class="string">value:</span> <span class="string">'修复'</span>,<span class="string">name:</span> <span class="string">'修复:    修复一个Bug'</span>&#125;,</span><br><span class="line">    &#123;<span class="string">value:</span> <span class="string">'文档'</span>,<span class="string">name:</span> <span class="string">'文档:    变更的只有文档'</span>&#125;,</span><br><span class="line">    &#123;<span class="string">value:</span> <span class="string">'格式'</span>,<span class="string">name:</span> <span class="string">'格式:    空格, 分号等格式修复'</span>&#125;,</span><br><span class="line">    &#123;<span class="string">value:</span> <span class="string">'重构'</span>,<span class="string">name:</span> <span class="string">'重构:    代码重构，注意和特性、修复区分开'</span>&#125;,</span><br><span class="line">    &#123;<span class="string">value:</span> <span class="string">'性能'</span>,<span class="string">name:</span> <span class="string">'性能:    提升性能'</span>&#125;,</span><br><span class="line">    &#123;<span class="string">value:</span> <span class="string">'测试'</span>,<span class="string">name:</span> <span class="string">'测试:    添加一个测试'</span>&#125;,</span><br><span class="line">    &#123;<span class="string">value:</span> <span class="string">'工具'</span>,<span class="string">name:</span> <span class="string">'工具:    开发工具变动(构建、脚手架工具等)'</span>&#125;,</span><br><span class="line">    &#123;<span class="string">value:</span> <span class="string">'回滚'</span>,<span class="string">name:</span> <span class="string">'回滚:    代码回退'</span>&#125;</span><br><span class="line">  ],</span><br><span class="line"></span><br><span class="line"><span class="symbol">  scopes:</span> [</span><br><span class="line">    &#123;<span class="string">name:</span> <span class="string">'用户模块'</span>&#125;,</span><br><span class="line">    &#123;<span class="string">name:</span> <span class="string">'订单模块'</span>&#125;,</span><br><span class="line">    &#123;<span class="string">name:</span> <span class="string">'社区模块'</span>&#125;,</span><br><span class="line">    &#123;<span class="string">name:</span> <span class="string">'商品模块'</span>&#125;</span><br><span class="line">  ],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// it needs to match the value for field type. Eg.: 'fix'</span></span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">  scopeOverrides: &#123;</span></span><br><span class="line"><span class="comment">    fix: [</span></span><br><span class="line"><span class="comment">      &#123;name: 'merge'&#125;,</span></span><br><span class="line"><span class="comment">      &#123;name: 'style'&#125;,</span></span><br><span class="line"><span class="comment">      &#123;name: 'e2eTest'&#125;,</span></span><br><span class="line"><span class="comment">      &#123;name: 'unitTest'&#125;</span></span><br><span class="line"><span class="comment">    ]</span></span><br><span class="line"><span class="comment">  &#125;,</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">  <span class="comment">// override the messages, defaults are as follows</span></span><br><span class="line"><span class="symbol">  messages:</span> &#123;</span><br><span class="line"><span class="symbol">    type:</span> <span class="string">'选择一种你的提交类型:'</span>,</span><br><span class="line"><span class="symbol">    scope:</span> <span class="string">'选择一个scope (可选):'</span>,</span><br><span class="line">    <span class="comment">// used if allowCustomScopes is true</span></span><br><span class="line"><span class="symbol">    customScope:</span> <span class="string">'Denote the SCOPE of this change:'</span>,</span><br><span class="line"><span class="symbol">    subject:</span> <span class="string">'简要说明:\n'</span>,</span><br><span class="line"><span class="symbol">    body:</span> <span class="string">'详细说明，使用"|"换行(可选)：\n'</span>,</span><br><span class="line"><span class="symbol">    breaking:</span> <span class="string">'非兼容性说明 (可选):\n'</span>,</span><br><span class="line"><span class="symbol">    footer:</span> <span class="string">'关联关闭的issue，例如：#31, #34(可选):\n'</span>,</span><br><span class="line"><span class="symbol">    confirmCommit:</span> <span class="string">'确定提交?'</span></span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line"><span class="symbol">  allowCustomScopes:</span> <span class="literal">true</span>,</span><br><span class="line"><span class="symbol">  allowBreakingChanges:</span> [<span class="string">'特性'</span>, <span class="string">'修复'</span>],</span><br><span class="line"></span><br><span class="line">  <span class="comment">// limit subject length</span></span><br><span class="line"><span class="symbol">  subjectLimit:</span> <span class="number">100</span></span><br><span class="line"></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="生成changelog"><a href="#生成changelog" class="headerlink" title="生成changelog"></a>生成changelog</h2><p>1.安装conventional-changelog，可以快速生成提交日志</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> -g conventional-changelog-cli</span><br><span class="line">npm <span class="keyword">install</span> -g cz-conventional-changelog</span><br></pre></td></tr></table></figure>
+<p>2.项目根目录下添加 .czrc 配置文件,文件内容如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">"path"</span>: <span class="string">"cz-conventional-changelog"</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>3.在package.json中的scripts项增加如下指令</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"version"</span>: <span class="string">"conventional-changelog -p angular -i CHANGELOG.md -s -r 0 &amp;&amp; git add CHANGELOG.md"</span></span><br></pre></td></tr></table></figure>
+<p>4.执行npm run version即可在当前目录生成changelog日志了。</p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://juejin.cn/post/6844903831893966856" target="_blank" rel="noopener">Cz工具集使用介绍 - 规范Git提交说明</a><br><a href="https://juejin.cn/post/6844903831893966856" target="_blank" rel="noopener">git工作流程</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a cup of coffee,thanks!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="andy Wong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="andy Wong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag"><i class="fa fa-tag"></i> Git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/07/20/HTTP/输入URL请求过程，http版本对比/" rel="next" title="输入URL请求过程，http版本对比">
+                <i class="fa fa-chevron-left"></i> 输入URL请求过程，http版本对比
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/07/20/Git/分支使用规范/" rel="prev" title="分支使用规范">
+                分支使用规范 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/doggy.jpg"
+                alt="andy Wong" />
+            
+              <p class="site-author-name" itemprop="name">andy Wong</p>
+              <p class="site-description motion-element" itemprop="description">前端渣渣辉</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/chongdee" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.cn/" title="掘金" target="_blank">掘金</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://segmentfault.com/" title="segmentfault" target="_blank">segmentfault</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://docschina.org/" title="印记中文" target="_blank">印记中文</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com/" title="阮一峰ES6书籍" target="_blank">阮一峰ES6书籍</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div> 
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x76EE;&#x7684;" class="headerlink" title="&#x76EE;&#x7684;"></a>&#x76EE;&#x7684;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git工作流"><span class="nav-number">2.</span> <span class="nav-text"><a href="#git&#x5DE5;&#x4F5C;&#x6D41;" class="headerlink" title="git&#x5DE5;&#x4F5C;&#x6D41;"></a>git&#x5DE5;&#x4F5C;&#x6D41;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-commit规范"><span class="nav-number">3.</span> <span class="nav-text"><a href="#git-commit&#x89C4;&#x8303;" class="headerlink" title="git commit&#x89C4;&#x8303;"></a>git commit&#x89C4;&#x8303;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git标签打包规范"><span class="nav-number">4.</span> <span class="nav-text"><a href="#Git&#x6807;&#x7B7E;&#x6253;&#x5305;&#x89C4;&#x8303;" class="headerlink" title="Git&#x6807;&#x7B7E;&#x6253;&#x5305;&#x89C4;&#x8303;"></a>Git&#x6807;&#x7B7E;&#x6253;&#x5305;&#x89C4;&#x8303;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-Commit格式校验"><span class="nav-number">5.</span> <span class="nav-text"><a href="#Git-Commit&#x683C;&#x5F0F;&#x6821;&#x9A8C;" class="headerlink" title="Git Commit&#x683C;&#x5F0F;&#x6821;&#x9A8C;"></a>Git Commit&#x683C;&#x5F0F;&#x6821;&#x9A8C;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成changelog"><span class="nav-number">6.</span> <span class="nav-text"><a href="#&#x751F;&#x6210;changelog" class="headerlink" title="&#x751F;&#x6210;changelog"></a>&#x751F;&#x6210;changelog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考："><span class="nav-number">7.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;&#xFF1A;" class="headerlink" title="&#x53C2;&#x8003;&#xFF1A;"></a>&#x53C2;&#x8003;&#xFF1A;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; 2015 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span>Powered By -</span>
+  <span class="author" itemprop="copyrightHolder">andy Wong</span>
+
+  
+</div>
+
+
+  <div>Theme by &copy;next</div>
+
+
+<div>Hosted by <strong><a href="https://github.com/">Github Pages</a></strong></div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":true,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"left","width":145,"height":315},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script>
+</body>
+</html>

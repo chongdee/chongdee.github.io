@@ -269,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/13/JavaScript/JavaScript之原型与原型链/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/18/JavaScript/观察者模式VS发布-订阅模式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -288,7 +288,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/13/JavaScript/JavaScript之原型与原型链/" itemprop="url">JavaScript之原型与原型链</a></h1>
+                <a class="post-title-link" href="/2018/10/18/JavaScript/观察者模式VS发布-订阅模式/" itemprop="url">观察者模式VS发布/订阅模式</a></h1>
         
 
         <div class="post-meta">
@@ -300,8 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-13T08:26:09+08:00">
-                2018-07-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-18T12:45:26+08:00">
+                2018-10-18
               </time>
             
 
@@ -361,11 +361,15 @@
 
       
         
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>对于很多前端开发者而言，JavaScript的原型实在是很让人头疼。<br>说起原型，那就不得不说prototype、__proto__、constructor三者的关系，其中比较麻烦的就是容易将prototype和__proto__混淆，这也是因为它们之间的指向确实有些复杂。</p>
-<h2 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h2><div class="note info"><p>每个函数都有一个原型prototype属性，每一个实例对象都会从原型”继承”属性。</p></div>
+          <h2 id="观察者设计模式"><a href="#观察者设计模式" class="headerlink" title="观察者设计模式"></a>观察者设计模式</h2><p>一个目标对象维持着一系列依赖于它的对象，将有关状态的任何变更自动通知观察者们。在观察者模式中，观察者需要直接订阅目标对象，观察者与目标对象之间有一定的依赖关系。<br>有4个重要的概念</p>
+<ol>
+<li>目标对象（被观察者）：维护一组观察患者，提供管理观察者的方法。</li>
+<li>观察者： 提供一个更新接口，用于收到通知时，进行更新</li>
+<li>具体目标对象：代表具体的目标对象</li>
+<li>具体观察者：代表具体的观察者
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/13/JavaScript/JavaScript之原型与原型链/#more" rel="contents">
+            <a class="btn" href="/2018/10/18/JavaScript/观察者模式VS发布-订阅模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -416,7 +420,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/13/JavaScript/JavaScript之继承（包含ES6）/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/17/字符串方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -435,7 +439,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/13/JavaScript/JavaScript之继承（包含ES6）/" itemprop="url">JavaScript之继承（包含ES6）</a></h1>
+                <a class="post-title-link" href="/2018/10/17/字符串方法/" itemprop="url">字符串方法</a></h1>
         
 
         <div class="post-meta">
@@ -447,8 +451,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-13T08:12:50+08:00">
-                2018-07-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-17T09:07:58+08:00">
+                2018-10-17
               </time>
             
 
@@ -508,10 +512,11 @@
 
       
         
-          <h2 id="原型链继承"><a href="#原型链继承" class="headerlink" title="原型链继承"></a>原型链继承</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Parent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.names = [<span class="string">'foo'</span>, <span class="string">'bar'</span>];</span><br><span class="line">    <span class="keyword">this</span>.age = <span class="number">60</span>;</span><br><span class="line">&#125;</span><br><span class="line">Parent.prototype.greeting = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"hello!"</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Child</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Child.prototype = <span class="keyword">new</span> Parent();  <span class="comment">//将父类实例作为子类原型</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> child1 = <span class="keyword">new</span> Child();</span><br><span class="line"></span><br><span class="line">child1.names.push(<span class="string">'baz'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(child1.names); <span class="comment">// ["foo", "bar", "baz"]</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> child2 = <span class="keyword">new</span> Child();</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(child2.names); <span class="comment">// ["foo", "bar", "baz"] </span></span><br><span class="line"></span><br><span class="line">child1.greeting()  <span class="comment">//  hello!</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> age1 = child1.age = <span class="number">5</span></span><br><span class="line"><span class="built_in">console</span>.log(age1)   <span class="comment">//5</span></span><br><span class="line"><span class="built_in">console</span>.log(child2.age)   <span class="comment">//60  依旧继承父类基本类属性</span></span><br><span class="line"><span class="comment">//修改其中一个实例子类基本类型属性不会影响其他子类基本类型属性</span></span><br></pre></td></tr></table></figure>
+          <h2 id="charAt"><a href="#charAt" class="headerlink" title="charAt()"></a>charAt()</h2><p>str.charAt(n)<br>返回字符串的第 n 个字符，如果不在 0~str.length-1之间，则返回一个空字符串。<br><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var <span class="keyword">str</span> = <span class="string">"javascript"</span>;</span><br><span class="line"><span class="keyword">str</span>.charAt(<span class="number">2</span>); <span class="comment">//'v'</span></span><br><span class="line"><span class="keyword">str</span>.charAt(<span class="number">12</span>); <span class="comment">//''</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="indexOf"><a href="#indexOf" class="headerlink" title="indexOf()"></a>indexOf()</h2><p>indexOf(substr[,start])<br>返回 substr 在字符串 str 中首次出现的位置,从 start 位置开始查找，如果不存在，则返回 -1。<br>start可以是任意整数，默认值为 0。如果 start &lt; 0 则查找整个字符串（如同传进了 0）。如果 start &gt;= str.length，则该方法返回 -1，除非被查找的字符串是一个空字符串，此时返回 str.length.<br><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var <span class="keyword">str</span> = <span class="string">"javascript"</span>;</span><br><span class="line"><span class="keyword">str</span>.indexOf(<span class="string">'s'</span>);   <span class="comment">// 1</span></span><br><span class="line"><span class="keyword">str</span>.indexOf(<span class="string">'s'</span>,<span class="number">6</span>); <span class="comment">// -1</span></span><br><span class="line"><span class="keyword">str</span>.indexOf(<span class="string">''</span>,<span class="number">11</span>);  <span class="comment">// 10</span></span><br><span class="line"><span class="keyword">str</span>.indexOf(<span class="string">''</span>,<span class="number">8</span>);   <span class="comment">// 8</span></span><br></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/13/JavaScript/JavaScript之继承（包含ES6）/#more" rel="contents">
+            <a class="btn" href="/2018/10/17/字符串方法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -562,7 +567,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/12/JavaScript/JavaScript之作用域（Scope）作用域链（Scope chain）/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/15/JavaScript/es5、es6数组API总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -581,7 +586,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/12/JavaScript/JavaScript之作用域（Scope）作用域链（Scope chain）/" itemprop="url">JavaScript之作用域（Scope）,作用域链（Scope Chain）</a></h1>
+                <a class="post-title-link" href="/2018/10/15/JavaScript/es5、es6数组API总结/" itemprop="url">es5、es6数组API总结</a></h1>
         
 
         <div class="post-meta">
@@ -593,8 +598,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T18:17:35+08:00">
-                2018-07-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-15T18:20:32+08:00">
+                2018-10-15
               </time>
             
 
@@ -654,11 +659,23 @@
 
       
         
-          <h2 id="官方概念"><a href="#官方概念" class="headerlink" title="官方概念"></a>官方概念</h2><h3 id="作用域-Scope"><a href="#作用域-Scope" class="headerlink" title="作用域(Scope):"></a>作用域(Scope):</h3><div class="note info"><p>javaScript中没有块级作用域、取而代之的使用了函数作用域、即变量在声明它们的函数以及这个函数体嵌套的任意函数体内都是有定义的 –《javaScript权威指南》</p></div>
-<h3 id="作用域链-Scope-Chain"><a href="#作用域链-Scope-Chain" class="headerlink" title="作用域链(Scope Chain):"></a>作用域链(Scope Chain):</h3><div class="note info"><p>当函数创建时会创建一个包含其父函数变量、父函数的父函数的变量对象、直至全局变量对象的一个作用域链，这个作用域被保存在函数内部的[[scope]]属性中，由于函数本身即是对象，可以理解[[scope]]是后台可以访问的一个属性，不可再JavaScript代码中访问，当函数调用时，会创建一个自己的活动对象、作为变量对象，被推入到执行环境作用域链的最前端，此时这个[[scope]]属性相当于一个变量对象的集合，并有访问的优先级。作用域链并不保存实际的变量对象，它是一个指针，指向内存中的变量对象列表。</p></div>
+          <h2 id="ES5数组方法"><a href="#ES5数组方法" class="headerlink" title="ES5数组方法"></a>ES5数组方法</h2><ol>
+<li>转换方法—toLocaleString()方法、toString()方法、valueOf()方法</li>
+<li>栈方法——push()方法、pop()方法</li>
+<li>队列方法——shift()方法、unshift()方法</li>
+<li>重排序方法——reverse()方法、sort()方法</li>
+<li>操作方法——concat()方法、slice()方法、splice()方法</li>
+<li>位置方法——indexOf()方法、lastIndexOf()方法</li>
+<li>迭代方法——every()方法、filter()方法、forEach()方法、map()方法、some()方法</li>
+<li>归并方法——reduce()方法、reduceRight()方法</li>
+</ol>
+<h3 id="转换方法"><a href="#转换方法" class="headerlink" title="转换方法"></a>转换方法</h3><ol>
+<li>toString()方法返回由数组中每个值的字符串形式拼接并且以逗号相隔的字符串</li>
+<li>valueOf()方法返回的还是数组</li>
+<li>toLocaleString()方法也会返回一个数组值以逗号相隔的字符串，但与toString()方法不同的是在返回日期对象时格式不同。
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/12/JavaScript/JavaScript之作用域（Scope）作用域链（Scope chain）/#more" rel="contents">
+            <a class="btn" href="/2018/10/15/JavaScript/es5、es6数组API总结/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -709,7 +726,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/12/JavaScript/JavaScript之this/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/15/CSS/css三栏、两栏自适应/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -728,7 +745,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/12/JavaScript/JavaScript之this/" itemprop="url">JavaScript之this</a></h1>
+                <a class="post-title-link" href="/2018/10/15/CSS/css三栏、两栏自适应/" itemprop="url">css三栏、两栏自适应</a></h1>
         
 
         <div class="post-meta">
@@ -740,8 +757,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-12T01:26:37+08:00">
-                2018-07-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-15T15:40:25+08:00">
+                2018-10-15
               </time>
             
 
@@ -763,8 +780,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
                   </a>
                 </span>
 
@@ -801,11 +818,10 @@
 
       
         
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><div class="note info"><p>与我们常见的很多语言不同，JavaScript 函数中的 this 指向并不是在函数定义的时候确定的，而是在调用的时候确定的。换句话说，函数的调用方式决定了 this 指向。</p>
-<p>JavaScript 中，普通的函数调用方式有三种：直接调用、方法调用和 new 调用。除此之外，还有一些特殊的调用方式，比如通过 bind() 将函数绑定到对象之后再进行调用、通过 call()、apply() 进行调用等。而 es6 引入了箭头函数之后，箭头函数调用时，其 this 指向又有所不同。下面就来分析这些情况下的 this 指向。</p></div>
+          <h2 id="三栏自适应布局-左右两侧300px-中间宽度自适应"><a href="#三栏自适应布局-左右两侧300px-中间宽度自适应" class="headerlink" title="三栏自适应布局,左右两侧300px,中间宽度自适应"></a>三栏自适应布局,左右两侧300px,中间宽度自适应</h2><h3 id="float-左右浮动-中间不用给宽-设置margin左右留出位置"><a href="#float-左右浮动-中间不用给宽-设置margin左右留出位置" class="headerlink" title="float (左右浮动,中间不用给宽,设置margin左右留出位置)"></a>float (左右浮动,中间不用给宽,设置margin左右留出位置)</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.wrapper</span> &#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.left</span> &#123;</span><br><span class="line">    <span class="attribute">float</span>: left;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">background</span>: red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.right</span> &#123;</span><br><span class="line">    <span class="attribute">float</span>: right;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">300px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">background</span>: yellow;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.content</span> &#123;</span><br><span class="line">    <span class="attribute">background</span>: skyblue;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">margin</span>: <span class="number">0</span> <span class="number">300px</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//html部分,center放到后面</span></span><br><span class="line">&lt;<span class="selector-tag">div</span> class=<span class="string">"wrapper"</span>&gt;</span><br><span class="line">    &lt;<span class="selector-tag">div</span> class=<span class="string">"left"</span>&gt;<span class="attribute">left</span>&lt;/div&gt;</span><br><span class="line">    &lt;<span class="selector-tag">div</span> class=<span class="string">"right"</span>&gt;<span class="attribute">right</span>&lt;/div&gt;</span><br><span class="line">    &lt;<span class="selector-tag">div</span> class=<span class="string">"content"</span>&gt;<span class="attribute">content</span>&lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/12/JavaScript/JavaScript之this/#more" rel="contents">
+            <a class="btn" href="/2018/10/15/CSS/css三栏、两栏自适应/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -856,7 +872,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/11/JavaScript/JavaScript之声明提升（Hoisting）/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/15/CSS/css水平垂直居中/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -875,7 +891,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/11/JavaScript/JavaScript之声明提升（Hoisting）/" itemprop="url">JavaScript之声明提升（Hoisting）</a></h1>
+                <a class="post-title-link" href="/2018/10/15/CSS/css水平垂直居中/" itemprop="url">css水平垂直居中</a></h1>
         
 
         <div class="post-meta">
@@ -887,8 +903,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-11T06:58:07+08:00">
-                2018-07-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-15T12:18:26+08:00">
+                2018-10-15
               </time>
             
 
@@ -910,8 +926,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/css/" itemprop="url" rel="index">
+                    <span itemprop="name">css</span>
                   </a>
                 </span>
 
@@ -948,10 +964,10 @@
 
       
         
-          <h2 id="浏览器解析JS脚本执行顺序问题"><a href="#浏览器解析JS脚本执行顺序问题" class="headerlink" title="浏览器解析JS脚本执行顺序问题"></a>浏览器解析JS脚本执行顺序问题</h2><p>有些朋友可能会觉得JavaScript的代码是从上到下，一行一行的解释执行的。如果按照这样的思路，在有些情况下阅读代码会得到错误的结果，考虑以下代码：<br><figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">a</span> = <span class="number">2</span><span class="comment">;</span></span><br><span class="line">var a<span class="comment">;</span></span><br><span class="line">console.log(a)<span class="comment">;</span></span><br></pre></td></tr></table></figure></p>
+          <h2 id="水平居中Horizontally"><a href="#水平居中Horizontally" class="headerlink" title="水平居中Horizontally"></a>水平居中Horizontally</h2><h3 id="inline或inline-元素水平居中"><a href="#inline或inline-元素水平居中" class="headerlink" title="inline或inline-*元素水平居中"></a>inline或inline-*元素水平居中</h3><p>你可以轻松的在一个 block 元素中水平居中一个 inline 元素，以下代码对 inline，inline-block，inline-table 和 inline-flex 等有效<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">.parent &#123;</span><br><span class="line">  text-align: center;</span><br><span class="line">&#125;</span><br><span class="line">.child &#123;</span><br><span class="line">    inline;</span><br><span class="line">    <span class="comment">//inline-block;</span></span><br><span class="line">    <span class="comment">//inline-table;</span></span><br><span class="line">    <span class="comment">//inline-flex</span></span><br><span class="line">&#125;</span><br><span class="line">&lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"parent"</span>&gt;</span><br><span class="line">    &lt;div <span class="class"><span class="keyword">class</span></span>=<span class="string">"child"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">&lt;<span class="regexp">/div&gt;</span></span><br></pre></td></tr></table></figure></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/11/JavaScript/JavaScript之声明提升（Hoisting）/#more" rel="contents">
+            <a class="btn" href="/2018/10/15/CSS/css水平垂直居中/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1002,7 +1018,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/07/11/JavaScript/JavaScript知识思维导图/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/10/13/Vue/vue-路由进阶/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -1021,7 +1037,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/07/11/JavaScript/JavaScript知识思维导图/" itemprop="url">JavaScript知识思维导图</a></h1>
+                <a class="post-title-link" href="/2018/10/13/Vue/vue-路由进阶/" itemprop="url">vue-路由进阶</a></h1>
         
 
         <div class="post-meta">
@@ -1033,8 +1049,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-11T06:56:49+08:00">
-                2018-07-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-13T04:51:48+08:00">
+                2018-10-13
               </time>
             
 
@@ -1056,8 +1072,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
                   </a>
                 </span>
 
@@ -1094,22 +1110,15 @@
 
       
         
-          
-           数据类型
-变量
-运算符
-流程语句
-数组
-函数基础
-字符串函数
-正则表达式
-DOM基础操作
-window对象
-
-          
+          <h2 id="导航守卫"><a href="#导航守卫" class="headerlink" title="导航守卫"></a>导航守卫</h2><p>有的时候，我们需要通过路由来进行一些操作，比如最常见的登录权限验证，当用户满足条件时，才让其进入导航，否则就取消跳转，并跳到登录页面让其登录。<br>为此我们有很多种方法可以植入路由的导航过程：全局的, 单个路由独享的, 或者组件级的,</p>
+<h3 id="全局守卫"><a href="#全局守卫" class="headerlink" title="全局守卫"></a>全局守卫</h3><p>vue-router全局有三个守卫：</p>
+<ol>
+<li>router.beforeEach 全局前置守卫 进入路由之前</li>
+<li>router.beforeResolve 全局解析守卫(2.5.0+) 在beforeRouteEnter调用之后调用</li>
+<li>router.afterEach 全局后置钩子 进入路由之后
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/07/11/JavaScript/JavaScript知识思维导图/#more" rel="contents">
+            <a class="btn" href="/2018/10/13/Vue/vue-路由进阶/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1151,7 +1160,7 @@ window对象
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1201,7 +1210,7 @@ window对象
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">54</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1212,7 +1221,7 @@ window对象
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1223,7 +1232,7 @@ window对象
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
