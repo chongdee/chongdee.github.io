@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="react,redux," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="reduxReact有props和state:  props意味着父级分发下来的属性 state意味着组件内部可以自行管理的状态，并且整个React没有数据向上回溯的能力，这就是react的单向数据流  这就意味着如果是一个数据状态非常复杂的应用，更多的时候发现React根本无法让两个组件互相交流，使用对方的数据，react的通过层级传递数据的这种方法是非常难受的，这个时候，迫切需要一个机制：">
+<meta name="keywords" content="react,redux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redux、react-redux、redux-saga总结">
+<meta property="og:url" content="https://chongdee.github.io/2021/07/28/react/redux/redux、react-redux、redux-saga总结/index.html">
+<meta property="og:site_name" content="andy Wong&#39;s Blog">
+<meta property="og:description" content="reduxReact有props和state:  props意味着父级分发下来的属性 state意味着组件内部可以自行管理的状态，并且整个React没有数据向上回溯的能力，这就是react的单向数据流  这就意味着如果是一个数据状态非常复杂的应用，更多的时候发现React根本无法让两个组件互相交流，使用对方的数据，react的通过层级传递数据的这种方法是非常难受的，这个时候，迫切需要一个机制：">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-07-27T16:09:03.755Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redux、react-redux、redux-saga总结">
+<meta name="twitter:description" content="reduxReact有props和state:  props意味着父级分发下来的属性 state意味着组件内部可以自行管理的状态，并且整个React没有数据向上回溯的能力，这就是react的单向数据流  这就意味着如果是一个数据状态非常复杂的应用，更多的时候发现React根本无法让两个组件互相交流，使用对方的数据，react的通过层级传递数据的这种方法是非常难受的，这个时候，迫切需要一个机制：">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chongdee.github.io/2021/07/28/react/redux/redux、react-redux、redux-saga总结/"/>
+
+
+
+
+
+  <title>redux、react-redux、redux-saga总结 | andy Wong's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?63d30ffc3ac0fa4a98c97c20372430af";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">andy Wong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">知道的越多，不知道的越多</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/28/react/redux/redux、react-redux、redux-saga总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/doggy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">redux、react-redux、redux-saga总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-28T00:06:18+08:00">
+                2021-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/react/" itemprop="url" rel="index">
+                    <span itemprop="name">react</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/react/redux/" itemprop="url" rel="index">
+                    <span itemprop="name">redux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script src="\assets\js\APlayer.min.js"> </script><h2 id="redux"><a href="#redux" class="headerlink" title="redux"></a>redux</h2><p>React有props和state:</p>
+<ol>
+<li>props意味着父级分发下来的属性</li>
+<li>state意味着组件内部可以自行管理的状态，并且整个React没有数据向上回溯的能力，这就是react的单向数据流</li>
+</ol>
+<p>这就意味着如果是一个数据状态非常复杂的应用，更多的时候发<strong>现React根本无法让两个组件互相交流</strong>，使用对方的数据，react的通过层级传递数据的这种方法是非常难受的，这个时候，迫切需要一个机制：</p>
+<p><strong>把所有的state集中到组件顶部，能够灵活的将所有state各取所需的分发给所有的组件，是的，这就是redux</strong></p>
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><ol>
+<li>redux是的诞生是为了给 React 应用提供「可预测化的状态管理」机制。</li>
+<li>Redux会将整个应用状态(其实也就是数据)存储到到一个地方，称为store</li>
+<li>这个store里面保存一棵状态树(state tree)</li>
+<li>组件改变state的唯一方法是通过调用store的dispatch方法，触发一个action，这个action被对应的reducer处理，于是state完成更新</li>
+<li>组件可以派发(dispatch)行为(action)给store,而不是直接通知其它组件</li>
+<li>其它组件可以通过订阅store中的状态(state)来刷新自己的视图</li>
+</ol>
+<h3 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h3><p><strong>1. 创建reducer</strong></p>
+<ul>
+<li>可以使用单独的一个reducer,也可以将多个reducer合并为一个reducer，即：combineReducers()</li>
+<li>action发出命令后将state放入reucer加工函数中，返回新的state,对state进行加工处理</li>
+</ul>
+<p><strong>2. 创建action</strong></p>
+<ul>
+<li>用户是接触不到state的，只能有view触发，所以，这个action可以理解为指令，需要发出多少动作就有多少指令</li>
+<li>action是一个对象，必须有一个叫type的参数，定义action类型</li>
+</ul>
+<p><strong>3. 创建的store，使用createStore方法</strong></p>
+<ul>
+<li>store 可以理解为有多个加工机器的总工厂</li>
+<li>提供subscribe，dispatch，getState这些方法。</li>
+</ul>
+<h3 id="按步骤手把手实战。"><a href="#按步骤手把手实战。" class="headerlink" title="按步骤手把手实战。"></a>按步骤手把手实战。</h3><p>上述步骤，对应的序号，我会在相关代码标出</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">npm install redux -S <span class="comment">// 安装</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">'redux'</span> <span class="comment">// 引入</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> reducer = <span class="function">(<span class="params">state = &#123;count: 0&#125;, action</span>) =&gt;</span> &#123;----------&gt; ⑴</span><br><span class="line">  <span class="keyword">switch</span> (action.type)&#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'INCREASE'</span>: <span class="keyword">return</span> &#123;count: state.count + <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'DECREASE'</span>: <span class="keyword">return</span> &#123;count: state.count - <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">default</span>: <span class="keyword">return</span> state;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> actions = &#123;----------&gt;⑵</span><br><span class="line">  increase: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;<span class="keyword">type</span>: <span class="string">'INCREASE'</span>&#125;),</span><br><span class="line">  decrease: <span class="function"><span class="params">()</span> =&gt;</span> (&#123;<span class="keyword">type</span>: <span class="string">'DECREASE'</span>&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = createStore(reducer);----------&gt;⑶</span><br><span class="line"></span><br><span class="line">store.subscribe(<span class="function"><span class="params">()</span> =&gt;</span></span><br><span class="line">  <span class="built_in">console</span>.log(store.getState())</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">store.dispatch(actions.increase()) <span class="comment">// &#123;count: 1&#125;</span></span><br><span class="line">store.dispatch(actions.increase()) <span class="comment">// &#123;count: 2&#125;</span></span><br><span class="line">store.dispatch(actions.increase()) <span class="comment">// &#123;count: 3&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="react-redux"><a href="#react-redux" class="headerlink" title="react-redux"></a>react-redux</h2><p>刚开始就说了，如果把store直接集成到React应用的顶层props里面，只要各个子组件能访问到顶层props就行了，比如这样：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">顶层组件</span> <span class="attr">store</span>=<span class="string">&#123;store&#125;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">App</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">顶层组件</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>不就ok了吗？这就是 react-redux。Redux 官方提供的 React 绑定库。 具有高效且灵活的特性。</p>
+<h3 id="React-Redux-将组件区分为-容器组件-和-UI-组件"><a href="#React-Redux-将组件区分为-容器组件-和-UI-组件" class="headerlink" title="React Redux 将组件区分为 容器组件 和 UI 组件"></a>React Redux 将组件区分为 容器组件 和 UI 组件</h3><ul>
+<li>前者会处理逻辑</li>
+<li>后者只负责显示和交互，内部不处理逻辑，状态完全由外部掌控</li>
+</ul>
+<h3 id="两个核心"><a href="#两个核心" class="headerlink" title="两个核心"></a>两个核心</h3><h4 id="Provider"><a href="#Provider" class="headerlink" title="Provider"></a>Provider</h4><p>看我上边那个代码的顶层组件4个字。对，你没有猜错。这个顶级组件就是Provider,一般我们都将顶层组件包裹在Provider组件之中，这样的话，所有组件就都可以在react-redux的控制之下了,但是store必须作为参数放到Provider组件中去</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Provider</span> <span class="attr">store</span> = <span class="string">&#123;store&#125;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">App</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">Provider</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong>这个组件的目的是让所有组件都能够访问到Redux中的数据。 </strong></p>
+<h4 id="connect"><a href="#connect" class="headerlink" title="connect"></a>connect</h4><p>这个才是react-redux中比较难的部分，我们详细解释一下</p>
+<p>首先，先记住下边的这行代码：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">connect(<span class="name">mapStateToProps</span>, mapDispatchToProps)(<span class="name">MyComponent</span>)</span><br></pre></td></tr></table></figure>
+<p><strong>mapStateToProps</strong><br>这个单词翻译过来就是<strong>把state映射到props中去</strong>,</p>
+<p>其实也就是<strong>把Redux中的数据映射到React中的props中去。</strong><br>举个栗子：</p>
+<pre><code>const mapStateToProps = (state) =&gt; {
+  return {
+      // prop : state.xxx  | 意思是将state中的某个数据映射到props中
+    foo: state.bar
+  }
+}
+</code></pre><p>然后渲染的时候就可以使用this.props.foo</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    constructor(props)&#123;</span><br><span class="line">        <span class="keyword">super</span>(props);</span><br><span class="line">    &#125;</span><br><span class="line">    render()&#123;</span><br><span class="line">        <span class="keyword">return</span>(</span><br><span class="line">        	<span class="comment">// 这样子渲染的其实就是state.bar的数据了</span></span><br><span class="line">            &lt;div&gt;<span class="keyword">this</span>.props.foo&lt;/div&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">Foo</span> = connect()(<span class="type">Foo</span>);</span><br><span class="line">export <span class="keyword">default</span> <span class="type">Foo</span>;</span><br></pre></td></tr></table></figure>
+<p>然后这样就可以完成渲染了</p>
+<p><strong>mapDispatchToProps</strong></p>
+<p>这个单词翻译过来就是就是把各种dispatch也变成了props让你可以直接使用</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> mapDispatchToProps = <span class="function">(<span class="params">dispatch</span>) =&gt;</span> &#123; <span class="comment">// 默认传递参数就是dispatch</span></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    onClick: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      dispatch(&#123;</span><br><span class="line">        <span class="keyword">type</span>: <span class="string">'increatment'</span></span><br><span class="line">      &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    constructor(props)&#123;</span><br><span class="line">        <span class="keyword">super</span>(props);</span><br><span class="line">    &#125;</span><br><span class="line">    render()&#123;</span><br><span class="line">        <span class="keyword">return</span>(</span><br><span class="line">        	</span><br><span class="line">             &lt;button onClick = &#123;<span class="keyword">this</span>.props.onClick&#125;&gt;点击increase&lt;/button&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">Foo</span> = connect()(<span class="type">Foo</span>);</span><br><span class="line">export <span class="keyword">default</span> <span class="type">Foo</span>;</span><br></pre></td></tr></table></figure>
+<p>组件也就改成了上边这样，可以直接通过this.props.onClick，来调用dispatch,这样子就不需要在代码中来进行store.dispatch了</p>
+<p>react-redux的基本介绍就到这里了</p>
+<h2 id="redux-saga"><a href="#redux-saga" class="headerlink" title="redux-saga"></a>redux-saga</h2><p>如果按照原始的redux工作流程，当组件中产生一个action后会直接触发reducer修改state，reducer又是一个纯函数，也就是不能再reducer中进行异步操作；</p>
+<p><strong>而往往实际中，组件中发生的action后，在进入reducer之前需要完成一个异步任务,比如发送ajax请求后拿到数据后，再进入reducer,显然原生的redux是不支持这种操作的</strong></p>
+<p>这个时候急需一个中间件来处理这种业务场景，目前最优雅的处理方式自然就是redux-saga</p>
+<h3 id="核心讲解"><a href="#核心讲解" class="headerlink" title="核心讲解"></a>核心讲解</h3><h4 id="1、Saga-辅助函数"><a href="#1、Saga-辅助函数" class="headerlink" title="1、Saga 辅助函数"></a>1、Saga 辅助函数</h4><p>redux-saga提供了一些辅助函数，用来在一些特定的action 被发起到Store时派生任务，下面我先来讲解两个辅助函数：takeEvery 和 takeLatest</p>
+<ul>
+<li>takeEvery</li>
+</ul>
+<p><strong>takeEvery就像一个流水线的洗碗工，过来一个脏盘子就直接执行后面的洗碗函数，一旦你请了这个洗碗工他会一直执行这个工作，绝对不会停止接盘子的监听过程和触发洗盘子函数</strong></p>
+<p>例如：每次点击  按钮去Fetch获取数据时时，我们发起一个 FETCH_REQUESTED 的 action。 我们想通过启动一个任务从服务器获取一些数据，来处理这个action，类似于</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventLister(<span class="string">'xxx'</span>,fn)</span><br></pre></td></tr></table></figure>
+<p>当dispatch xxx的时候，就会执行fn方法，<br>首先我们创建一个将执行异步 action 的任务(也就是上边的fn)：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// put：你就认为put就等于 dispatch就可以了；</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// call：可以理解为实行一个异步函数,是阻塞型的，只有运行完后面的函数，才会继续往下；</span></span><br><span class="line"><span class="comment">// 在这里可以片面的理解为async中的await！但写法直观多了！</span></span><br><span class="line"><span class="keyword">import</span> &#123; call, put &#125; <span class="keyword">from</span> <span class="string">'redux-saga/effects'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span>* <span class="title">fetchData</span>(<span class="params">action</span>) </span>&#123;</span><br><span class="line">   <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> apiAjax = <span class="function">(<span class="params">params</span>) =&gt;</span> fetch(url, params);</span><br><span class="line">      <span class="keyword">const</span> data = <span class="keyword">yield</span> call(apiAjax);</span><br><span class="line">      <span class="keyword">yield</span> put(&#123;<span class="keyword">type</span>: <span class="string">"FETCH_SUCCEEDED"</span>, data&#125;);</span><br><span class="line">   &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">      <span class="keyword">yield</span> put(&#123;<span class="keyword">type</span>: <span class="string">"FETCH_FAILED"</span>, error&#125;);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在每次 FETCH_REQUESTED action 被发起时启动上面的任务,也就相当于每次触发一个名字为 FETCH_REQUESTED 的action就会执行上边的任务,代码如下</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; takeEvery &#125; <span class="keyword">from</span> <span class="string">'redux-saga'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">watchFetchData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">yield</span>* takeEvery(<span class="string">"FETCH_REQUESTED"</span>, fetchData)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：上面的 takeEvery 函数可以使用下面的写法替换</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">watchFetchData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  </span><br><span class="line">   <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">     <span class="keyword">yield</span> take(<span class="string">'FETCH_REQUESTED'</span>);</span><br><span class="line">     <span class="keyword">yield</span> fork(fetchData);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>takeLatest</li>
+</ul>
+<p>在上面的例子中，takeEvery 允许多个 fetchData 实例同时启动，在某个特定时刻，我们可以启动一个新的 fetchData 任务， 尽管之前还有一个或多个 fetchData 尚未结束<br>如果我们只想得到最新那个请求的响应（例如，始终显示最新版本的数据），我们可以使用 takeLatest 辅助函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; takeLatest &#125; <span class="keyword">from</span> <span class="string">'redux-saga'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">watchFetchData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">yield</span>* takeLatest(<span class="string">'FETCH_REQUESTED'</span>, fetchData)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>和takeEvery不同，在任何时刻 takeLatest 只允许执行一个 fetchData 任务，并且这个任务是最后被启动的那个，如果之前已经有一个任务在执行，那之前的这个任务会自动被取消</p>
+<h4 id="2、Effect-Creators"><a href="#2、Effect-Creators" class="headerlink" title="2、Effect Creators"></a>2、Effect Creators</h4><p>redux-saga框架提供了很多创建effect的函数，下面我们就来简单的介绍下开发中最常用的几种</p>
+<ul>
+<li>take(pattern)</li>
+<li>put(action)</li>
+<li>call(fn, …args)</li>
+<li>fork(fn, …args)</li>
+<li>select(selector, …args)</li>
+</ul>
+<p><strong>take(pattern)</strong></p>
+<p>take函数可以理解为监听未来的action，它创建了一个命令对象，告诉middleware等待一个特定的action， Generator会暂停，直到一个与pattern匹配的action被发起，才会继续执行下面的语句，也就是说，take是一个阻塞的 effect</p>
+<p>用法：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">watchFetchData</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">   // 监听一个<span class="built_in">type</span>为 <span class="string">'FETCH_REQUESTED'</span> 的action的执行，直到等到这个Action被触发，才会接着执行下面的 		<span class="built_in">yield</span> fork(fetchData)  语句</span><br><span class="line">     <span class="built_in">yield</span> take(<span class="string">'FETCH_REQUESTED'</span>);</span><br><span class="line">     <span class="built_in">yield</span> fork(fetchData);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>put(action)</strong></p>
+<p>put函数是用来发送action的 effect，你可以简单的把它理解成为redux框架中的dispatch函数，当put一个action后，reducer中就会计算新的state并返回，注意： put 也是阻塞 effect</p>
+<p>用法：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">export <span class="function"><span class="keyword">function</span>* <span class="title">toggleItemFlow</span><span class="params">()</span> &#123;</span></span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">list</span> = []</span><br><span class="line">    // 发送一个<span class="built_in">type</span>为 <span class="string">'UPDATE_DATA'</span> 的Action，用来更新数据，参数为 `data：<span class="keyword">list</span>`</span><br><span class="line">    yield <span class="keyword">put</span>(&#123;</span><br><span class="line">      <span class="built_in">type</span>: actionTypes.UPDATE_DATA,</span><br><span class="line">      dat<span class="variable">a:</span> <span class="keyword">list</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>call(fn, …args)</strong></p>
+<p>call函数你可以把它简单的理解为就是可以调用其他函数的函数，它命令 middleware 来调用fn 函数， args为函数的参数，注意：  fn 函数可以是一个 Generator 函数，也可以是一个返回 Promise 的普通函数，call 函数也是阻塞 effect</p>
+<p>用法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> delay = <span class="function"><span class="params">ms</span> =&gt;</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> setTimeout(resolve, ms))</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span>* <span class="title">removeItem</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 这里call 函数就调用了 delay 函数，delay 函数为一个返回promise 的函数</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">yield</span> call(delay, <span class="number">500</span>)</span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    <span class="keyword">yield</span> put(&#123;<span class="attr">type</span>: actionTypes.ERROR&#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>fork(fn, …args)</strong></p>
+<p>fork 函数和 call 函数很像，都是用来调用其他函数的，但是fork函数是非阻塞函数，也就是说，程序执行完 yield fork(fn， args) 这一行代码后，会立即接着执行下一行代码语句，而不会等待fn函数返回结果后，在执行下面的语句</p>
+<p>用法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; fork &#125; <span class="keyword">from</span> <span class="string">'redux-saga/effects'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>* <span class="title">rootSaga</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 下面的四个 Generator 函数会一次执行，不会阻塞执行</span></span><br><span class="line">  <span class="keyword">yield</span> fork(addItemFlow)</span><br><span class="line">  <span class="keyword">yield</span> fork(removeItemFlow)</span><br><span class="line">  <span class="keyword">yield</span> fork(toggleItemFlow)</span><br><span class="line">  <span class="keyword">yield</span> fork(modifyItem)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>select(selector, …args)</strong></p>
+<p>select 函数是用来指示 middleware调用提供的选择器获取Store上的state数据，你也可以简单的把它理解为redux框架中获取store上的 state数据一样的功能 ：store.getState()</p>
+<p>用法：</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">export function* toggleItemFlow() &#123;</span><br><span class="line">     // 通过 select effect 来获取 全局 <span class="keyword">state</span>上的 `getTodoList` 中的 list</span><br><span class="line">     let tempList = yield select(<span class="keyword">state</span> =&gt; <span class="keyword">state</span>.getTodoList.list)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="一个具体的实例"><a href="#一个具体的实例" class="headerlink" title="一个具体的实例"></a>一个具体的实例</h2><p><strong>index.js</strong></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">'react-dom'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;createStore, applyMiddleware&#125; <span class="keyword">from</span> <span class="string">'redux'</span></span><br><span class="line"><span class="keyword">import</span> createSagaMiddleware <span class="keyword">from</span> <span class="string">'redux-saga'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> rootSaga <span class="keyword">from</span> <span class="string">'./sagas'</span></span><br><span class="line"><span class="keyword">import</span> Counter <span class="keyword">from</span> <span class="string">'./Counter'</span></span><br><span class="line"><span class="keyword">import</span> rootReducer <span class="keyword">from</span> <span class="string">'./reducers'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> sagaMiddleware = createSagaMiddleware() <span class="comment">// 创建了一个saga中间件实例</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 下边这句话和下边的两行代码创建store的方式是一样的</span></span><br><span class="line"><span class="comment">// const store = createStore(reducers,applyMiddlecare(middlewares))</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> createStoreWithMiddleware = applyMiddleware(middlewares)(createStore)</span><br><span class="line"><span class="keyword">const</span> store = createStoreWithMiddleware(rootReducer)</span><br><span class="line"></span><br><span class="line">sagaMiddleware.run(rootSaga)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> action = <span class="function"><span class="params">type</span> =&gt;</span> store.dispatch(&#123; <span class="keyword">type</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  ReactDOM.render(</span><br><span class="line">    &lt;Counter</span><br><span class="line">      value=&#123;store.getState()&#125;</span><br><span class="line">      onIncrement=&#123;<span class="function"><span class="params">()</span> =&gt;</span> action(<span class="string">'INCREMENT'</span>)&#125;</span><br><span class="line">      onDecrement=&#123;<span class="function"><span class="params">()</span> =&gt;</span> action(<span class="string">'DECREMENT'</span>)&#125;</span><br><span class="line">      onIncrementAsync=&#123;<span class="function"><span class="params">()</span> =&gt;</span> action(<span class="string">'INCREMENT_ASYNC'</span>)&#125; /&gt;,</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>)</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">render()</span><br><span class="line"></span><br><span class="line">store.subscribe(render)</span><br></pre></td></tr></table></figure>
+<p><strong>sagas.js</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; put, call, take,fork &#125; <span class="keyword">from</span> <span class="string">'redux-saga/effects'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; takeEvery, takeLatest &#125; <span class="keyword">from</span> <span class="string">'redux-saga'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> delay = <span class="function"><span class="params">ms</span> =&gt;</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> setTimeout(resolve, ms));</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>* <span class="title">incrementAsync</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 延迟 1s 在执行 + 1操作</span></span><br><span class="line">  <span class="keyword">yield</span> call(delay, <span class="number">1000</span>);</span><br><span class="line">  <span class="keyword">yield</span> put(&#123; <span class="attr">type</span>: <span class="string">'INCREMENT'</span> &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>* <span class="title">rootSaga</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// while(true)&#123;</span></span><br><span class="line">  <span class="comment">//   yield take('INCREMENT_ASYNC');</span></span><br><span class="line">  <span class="comment">//   yield fork(incrementAsync);</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 下面的写法与上面的写法上等效</span></span><br><span class="line">  <span class="keyword">yield</span>* takeEvery(<span class="string">"INCREMENT_ASYNC"</span>, incrementAsync)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>reducer.js</strong></p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">export <span class="keyword">default</span> function counter(<span class="keyword">state</span> = <span class="number">0</span>, action) &#123;</span><br><span class="line">  switch (action.type) &#123;</span><br><span class="line">    case 'INCREMENT':</span><br><span class="line">      return <span class="keyword">state</span> + <span class="number">1</span></span><br><span class="line">    case 'DECREMENT':</span><br><span class="line">      return <span class="keyword">state</span> - <span class="number">1</span></span><br><span class="line">    case 'INCREMENT_ASYNC':</span><br><span class="line">      return <span class="keyword">state</span></span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      return <span class="keyword">state</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面的代码结构可以看出，redux-saga的使用方式还是比较简单的，相比较之前的redux框架的CounterApp，多了一个sagas的文件，reducers文件还是之前的使用方式</p>
+<h2 id="redux-saga基本用法总结："><a href="#redux-saga基本用法总结：" class="headerlink" title="redux-saga基本用法总结："></a>redux-saga基本用法总结：</h2><ol>
+<li><p>使用 createSagaMiddleware 方法创建 saga 的 Middleware ，然后在创建的 redux 的 store 时，使用 applyMiddleware 函数将创建的 saga Middleware 实例绑定到 store 上，最后可以调用 saga Middleware 的 run 函数来执行某个或者某些 Middleware 。</p>
+</li>
+<li><p>在 saga 的 Middleware 中，可以使用 takeEvery 或者 takeLatest 等 API 来监听某个 action ，当某个 action 触发后， saga 可以使用 call 发起异步操作，操作完成后使用 put 函数触发 action ，同步更新 state ，从而完成整个 State 的更新。</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a cup of coffee,thanks!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="andy Wong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="andy Wong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/react/" rel="tag"><i class="fa fa-tag"></i> react</a>
+          
+            <a href="/tags/redux/" rel="tag"><i class="fa fa-tag"></i> redux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/07/28/react/redux/redux入门（一）/" rel="next" title="redux入门（一）">
+                <i class="fa fa-chevron-left"></i> redux入门（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/07/28/react/redux/redux入门（三）/" rel="prev" title="redux入门（三）">
+                redux入门（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/doggy.jpg"
+                alt="andy Wong" />
+            
+              <p class="site-author-name" itemprop="name">andy Wong</p>
+              <p class="site-description motion-element" itemprop="description">前端渣渣辉</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/chongdee" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.cn/" title="掘金" target="_blank">掘金</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://segmentfault.com/" title="segmentfault" target="_blank">segmentfault</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://docschina.org/" title="印记中文" target="_blank">印记中文</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com/" title="阮一峰ES6书籍" target="_blank">阮一峰ES6书籍</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div> 
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#redux"><span class="nav-number">1.</span> <span class="nav-text"><a href="#redux" class="headerlink" title="redux"></a>redux</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x7B80;&#x4ECB;" class="headerlink" title="&#x7B80;&#x4ECB;"></a>&#x7B80;&#x4ECB;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用步骤"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x4F7F;&#x7528;&#x6B65;&#x9AA4;" class="headerlink" title="&#x4F7F;&#x7528;&#x6B65;&#x9AA4;"></a>&#x4F7F;&#x7528;&#x6B65;&#x9AA4;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按步骤手把手实战。"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#&#x6309;&#x6B65;&#x9AA4;&#x624B;&#x628A;&#x624B;&#x5B9E;&#x6218;&#x3002;" class="headerlink" title="&#x6309;&#x6B65;&#x9AA4;&#x624B;&#x628A;&#x624B;&#x5B9E;&#x6218;&#x3002;"></a>&#x6309;&#x6B65;&#x9AA4;&#x624B;&#x628A;&#x624B;&#x5B9E;&#x6218;&#x3002;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#react-redux"><span class="nav-number">2.</span> <span class="nav-text"><a href="#react-redux" class="headerlink" title="react-redux"></a>react-redux</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#React-Redux-将组件区分为-容器组件-和-UI-组件"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#React-Redux-&#x5C06;&#x7EC4;&#x4EF6;&#x533A;&#x5206;&#x4E3A;-&#x5BB9;&#x5668;&#x7EC4;&#x4EF6;-&#x548C;-UI-&#x7EC4;&#x4EF6;" class="headerlink" title="React Redux &#x5C06;&#x7EC4;&#x4EF6;&#x533A;&#x5206;&#x4E3A; &#x5BB9;&#x5668;&#x7EC4;&#x4EF6; &#x548C; UI &#x7EC4;&#x4EF6;"></a>React Redux &#x5C06;&#x7EC4;&#x4EF6;&#x533A;&#x5206;&#x4E3A; &#x5BB9;&#x5668;&#x7EC4;&#x4EF6; &#x548C; UI &#x7EC4;&#x4EF6;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个核心"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#&#x4E24;&#x4E2A;&#x6838;&#x5FC3;" class="headerlink" title="&#x4E24;&#x4E2A;&#x6838;&#x5FC3;"></a>&#x4E24;&#x4E2A;&#x6838;&#x5FC3;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Provider"><span class="nav-number">2.2.1.</span> <span class="nav-text"><a href="#Provider" class="headerlink" title="Provider"></a>Provider</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#connect"><span class="nav-number">2.2.2.</span> <span class="nav-text"><a href="#connect" class="headerlink" title="connect"></a>connect</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redux-saga"><span class="nav-number">3.</span> <span class="nav-text"><a href="#redux-saga" class="headerlink" title="redux-saga"></a>redux-saga</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#核心讲解"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x6838;&#x5FC3;&#x8BB2;&#x89E3;" class="headerlink" title="&#x6838;&#x5FC3;&#x8BB2;&#x89E3;"></a>&#x6838;&#x5FC3;&#x8BB2;&#x89E3;</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、Saga-辅助函数"><span class="nav-number">3.1.1.</span> <span class="nav-text"><a href="#1&#x3001;Saga-&#x8F85;&#x52A9;&#x51FD;&#x6570;" class="headerlink" title="1&#x3001;Saga &#x8F85;&#x52A9;&#x51FD;&#x6570;"></a>1&#x3001;Saga &#x8F85;&#x52A9;&#x51FD;&#x6570;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、Effect-Creators"><span class="nav-number">3.1.2.</span> <span class="nav-text"><a href="#2&#x3001;Effect-Creators" class="headerlink" title="2&#x3001;Effect Creators"></a>2&#x3001;Effect Creators</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一个具体的实例"><span class="nav-number">4.</span> <span class="nav-text"><a href="#&#x4E00;&#x4E2A;&#x5177;&#x4F53;&#x7684;&#x5B9E;&#x4F8B;" class="headerlink" title="&#x4E00;&#x4E2A;&#x5177;&#x4F53;&#x7684;&#x5B9E;&#x4F8B;"></a>&#x4E00;&#x4E2A;&#x5177;&#x4F53;&#x7684;&#x5B9E;&#x4F8B;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redux-saga基本用法总结："><span class="nav-number">5.</span> <span class="nav-text"><a href="#redux-saga&#x57FA;&#x672C;&#x7528;&#x6CD5;&#x603B;&#x7ED3;&#xFF1A;" class="headerlink" title="redux-saga&#x57FA;&#x672C;&#x7528;&#x6CD5;&#x603B;&#x7ED3;&#xFF1A;"></a>redux-saga&#x57FA;&#x672C;&#x7528;&#x6CD5;&#x603B;&#x7ED3;&#xFF1A;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; 2015 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span>Powered By -</span>
+  <span class="author" itemprop="copyrightHolder">andy Wong</span>
+
+  
+</div>
+
+
+  <div>Theme by &copy;next</div>
+
+
+<div>Hosted by <strong><a href="https://github.com/">Github Pages</a></strong></div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":true,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"left","width":145,"height":315},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script>
+</body>
+</html>

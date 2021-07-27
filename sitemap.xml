@@ -2,6 +2,104 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://chongdee.github.io/2021/07/28/JavaScript/%E9%97%AD%E5%8C%85%E5%9C%BA%E6%99%AF%E5%BA%94%E7%94%A8/</loc>
+    
+    <lastmod>2021-07-27T16:24:17.807Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chongdee.github.io/2021/07/28/react/redux/redux%E3%80%81react-redux%E3%80%81redux-saga%E6%80%BB%E7%BB%93/</loc>
+    
+    <lastmod>2021-07-27T16:09:03.755Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chongdee.github.io/2021/07/28/react/redux/react-redux%E4%B8%80%E7%82%B9%E5%B0%B1%E9%80%8F/</loc>
+    
+    <lastmod>2021-07-27T16:08:17.663Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chongdee.github.io/2021/07/28/react/redux/redux%E5%85%A5%E9%97%A8%EF%BC%88%E4%B8%89%EF%BC%89/</loc>
+    
+    <lastmod>2021-07-27T16:07:52.561Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chongdee.github.io/2021/07/28/react/redux/redux%E5%85%A5%E9%97%A8%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
+    
+    <lastmod>2021-07-27T16:07:36.306Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chongdee.github.io/2021/07/28/react/redux/redux%E5%85%A5%E9%97%A8%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
+    
+    <lastmod>2021-07-27T16:07:19.013Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chongdee.github.io/2021/07/27/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/%E6%9F%AF%E9%87%8C%E5%8C%96/</loc>
+    
+    <lastmod>2021-07-27T15:57:33.112Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chongdee.github.io/2021/07/27/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/</loc>
+    
+    <lastmod>2021-07-27T15:53:01.933Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chongdee.github.io/2021/07/21/react/react%20hooks%20%E5%B8%B8%E7%94%A8%E5%9C%BA%E6%99%AF/</loc>
+    
+    <lastmod>2021-07-20T17:38:52.969Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chongdee.github.io/2021/07/21/react/react%E5%BC%80%E5%8F%9134%E4%B8%AA%E6%8A%80%E5%B7%A7/</loc>
+    
+    <lastmod>2021-07-20T17:37:46.303Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chongdee.github.io/2021/07/21/wxmini/wx%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92/</loc>
+    
+    <lastmod>2021-07-20T16:44:33.831Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chongdee.github.io/2021/07/21/wxmini/%E8%B7%A8%E9%A1%B5%E9%9D%A2%E9%80%9A%E4%BF%A1/</loc>
+    
+    <lastmod>2021-07-20T16:39:28.555Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chongdee.github.io/2021/07/21/wxmini/%E5%BE%AE%E4%BF%A1%E6%94%AF%E4%BB%98%EF%BC%8Ch5%E6%94%AF%E4%BB%98%EF%BC%8Cjsapi%E6%94%AF%E4%BB%98/</loc>
+    
+    <lastmod>2021-07-20T16:18:59.850Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://chongdee.github.io/2021/07/21/wxmini/uniapp%E5%BC%80%E5%8F%91%E6%80%BB%E7%BB%93/</loc>
+    
+    <lastmod>2021-07-20T16:18:22.468Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://chongdee.github.io/2021/07/20/JavaScript/reduce_25%E7%A7%8D%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</loc>
     
     <lastmod>2021-07-20T15:41:38.251Z</lastmod>
@@ -275,14 +373,14 @@
   </url>
   
   <url>
-    <loc>https://chongdee.github.io/2018/07/23/vue/vuex/</loc>
+    <loc>https://chongdee.github.io/2018/07/20/vue/vue2.0-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
     
     <lastmod>2018-11-11T21:26:45.753Z</lastmod>
     
   </url>
   
   <url>
-    <loc>https://chongdee.github.io/2018/07/20/vue/vue2.0-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/</loc>
+    <loc>https://chongdee.github.io/2018/07/23/vue/vuex/</loc>
     
     <lastmod>2018-11-11T21:26:45.753Z</lastmod>
     
@@ -401,6 +499,13 @@
   </url>
   
   <url>
+    <loc>https://chongdee.github.io/2018/10/31/JavaScript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/</loc>
+    
+    <lastmod>2018-11-11T20:42:32.259Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://chongdee.github.io/2018/10/31/JavaScript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F/</loc>
     
     <lastmod>2018-11-11T20:42:32.259Z</lastmod>
@@ -408,9 +513,9 @@
   </url>
   
   <url>
-    <loc>https://chongdee.github.io/2018/10/31/JavaScript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%A4%87%E5%BF%98%E5%BD%95%E6%A8%A1%E5%BC%8F/</loc>
+    <loc>https://chongdee.github.io/2018/10/31/JavaScript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/</loc>
     
-    <lastmod>2018-11-11T20:42:32.259Z</lastmod>
+    <lastmod>2018-11-11T20:38:23.718Z</lastmod>
     
   </url>
   
@@ -423,13 +528,6 @@
   
   <url>
     <loc>https://chongdee.github.io/2018/10/31/JavaScript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</loc>
-    
-    <lastmod>2018-11-11T20:38:23.718Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://chongdee.github.io/2018/10/31/JavaScript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/js%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E4%BA%AB%E5%85%83%E6%A8%A1%E5%BC%8F/</loc>
     
     <lastmod>2018-11-11T20:38:23.718Z</lastmod>
     

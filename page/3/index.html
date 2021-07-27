@@ -269,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/webpack/webpack 中最易混淆的 5 个知识点/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/21/react/react开发34个技巧/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -288,7 +288,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/07/20/webpack/webpack 中最易混淆的 5 个知识点/" itemprop="url">webpack中最易混淆的5个知识点</a></h1>
+                <a class="post-title-link" href="/2021/07/21/react/react开发34个技巧/" itemprop="url">react开发34个技巧</a></h1>
         
 
         <div class="post-meta">
@@ -300,7 +300,307 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T15:39:47+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-21T02:29:28+08:00">
+                2021-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/react/" itemprop="url" rel="index">
+                    <span itemprop="name">react</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+           前言1 组件通讯1.1 props子组件
+12345678910111213141516171819202122232425import React from "react";import PropTypes from "prop-types";import &#123; Button &#125; from "antd";export default class EightteenChildOne extends React.Component &#123;  static propTypes = &#123; //propTypes校验传入类型,详情在技巧11    name: Prop
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/07/21/react/react开发34个技巧/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/21/react/react hooks 常用场景/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/doggy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/07/21/react/react hooks 常用场景/" itemprop="url">React Hooks 常用场景</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-21T02:29:28+08:00">
+                2021-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/react/" itemprop="url" rel="index">
+                    <span itemprop="name">react</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+           前言React 在 v16.8 的版本中推出了 React Hooks 新特性。在我看来，使用 React Hooks 相比于从前的类组件有以下几点好处：
+代码可读性更强，原本同一块功能的代码逻辑被拆分在了不同的生命周期函数中，容易使开发者不利于维护和迭代，通过 React Hooks 可以将功能代码聚合，方便阅读维护；
+组件树层级变浅，在原本的代码中，我们经常使用 HOC/render props 等方式来复用组件的状态，增强功能等，无疑增加了组件树层数及渲染，而在 React Hooks 中，这些功能都可以通过强大的自定义的 Hooks 来实现；
+关于这方面的文章，我们根据使用场景分别进
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/07/21/react/react hooks 常用场景/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/JavaScript/reduce_25种高级用法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/doggy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/07/20/JavaScript/reduce_25种高级用法/" itemprop="url">reduce_25种高级用法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T23:40:35+08:00">
                 2021-07-20
               </time>
             
@@ -323,8 +623,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/webpack/" itemprop="url" rel="index">
-                    <span itemprop="name">webpack</span>
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/es6/" itemprop="url" rel="index">
+                    <span itemprop="name">es6</span>
                   </a>
                 </span>
 
@@ -362,14 +673,19 @@
       
         
           
-           1.webpack 中，module，chunk 和 bundle 的区别是什么？说实话我刚开始看 webpack 文档的时候，对这 3 个名词云里雾里的，感觉他们都在说打包文件，但是一会儿 chunk 一会儿 bundle 的，逐渐就迷失在细节里了，所以我们要跳出来，从宏观的角度来看这几个名词。
-webpack 官网对 chunk 和 bundle 做出了解释[3]，说实话太抽象了，我这里举个例子，给大家形象化的解释一下。
-首先我们在 src 目录下写我们的业务代码，引入 index.js、utils.js、common.js 和 index.css 这 4 个文件，目录结构如下：
-123
+           前言reduce作为ES5新增的常规数组方法之一，对比forEach、filter和map，在实际使用上好像有些被忽略，发现身边的人极少使用它，导致这个如此强大的方法被逐渐埋没。如果经常使用reduce，怎么可能放过如此好用的它呢！我还是得把他从尘土中取出来擦干净，奉上它的高级用法给大家。一个如此好用的方法不应该被大众埋没。
+下面对reduce的语法进行简单说明
+
+定义：对数组中的每个元素执行一个自定义的累计器，将其结果汇总为单个返回值
+形式：array.reduce((t, v, i, a) =&gt; {}, initValue)
+参数
+
+callback：回调函数(必选)
+initVa
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/07/20/webpack/webpack 中最易混淆的 5 个知识点/#more" rel="contents">
+            <a class="btn" href="/2021/07/20/JavaScript/reduce_25种高级用法/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -420,7 +736,7 @@ webpack 官网对 chunk 和 bundle 做出了解释[3]，说实话太抽象了，
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/JavaScript/条件语句优雅写法/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/vue/路由权限,大文件下载等问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -439,7 +755,7 @@ webpack 官网对 chunk 和 bundle 做出了解释[3]，说实话太抽象了，
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/05/09/JavaScript/条件语句优雅写法/" itemprop="url">条件语句优雅写法</a></h1>
+                <a class="post-title-link" href="/2021/07/20/vue/路由权限,大文件下载等问题/" itemprop="url">路由权限,大文件下载等问题</a></h1>
         
 
         <div class="post-meta">
@@ -451,8 +767,8 @@ webpack 官网对 chunk 和 bundle 做出了解释[3]，说实话太抽象了，
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T03:32:15+08:00">
-                2021-05-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T18:56:22+08:00">
+                2021-07-20
               </time>
             
 
@@ -474,322 +790,7 @@ webpack 官网对 chunk 和 bundle 做出了解释[3]，说实话太抽象了，
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在任何编程语言中，代码需要根据不同的条件在给定的输入中做不同的决定和执行相应的动作。</p>
-<p>例如，在一个游戏中，如果玩家生命点为0，游戏结束。在天气应用中，如果在早上被查看，显示一个日出图片，如果是晚上，则显示星星和月亮。在这篇文章中，我们将探索JavaScript中所谓的条件语句如何工作。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/05/09/JavaScript/条件语句优雅写法/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/promise/手写Promise讲解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="andy Wong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/doggy.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="andy Wong's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/05/09/promise/手写Promise讲解/" itemprop="url">手写Promise讲解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T03:24:00+08:00">
-                2021-05-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
-                    <span itemprop="name">JavaScript</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JavaScript/promise/" itemprop="url" rel="index">
-                    <span itemprop="name">promise</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="整体结构"><a href="#整体结构" class="headerlink" title="整体结构"></a>整体结构</h2><figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="type">MyPromise</span> &#123;</span></span><br><span class="line"><span class="class">    constructor(<span class="title">fn</span>)&#123;</span></span><br><span class="line"><span class="class">        </span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    resolve()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    then()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    reject()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">    catch()&#123;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    &#125;</span></span><br><span class="line"><span class="class">&#125;</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/05/09/promise/手写Promise讲解/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/webpack/vue-cli4+webpack4移动端框架/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="andy Wong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/doggy.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="andy Wong's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/05/09/webpack/vue-cli4+webpack4移动端框架/" itemprop="url">vue-cli4+webpack4移动端框架</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T01:16:10+08:00">
-                2021-05-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/webpack/" itemprop="url" rel="index">
-                    <span itemprop="name">webpack</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/webpack/vue/" itemprop="url" rel="index">
+                  <a href="/categories/vue/" itemprop="url" rel="index">
                     <span itemprop="name">vue</span>
                   </a>
                 </span>
@@ -827,13 +828,12 @@ webpack 官网对 chunk 和 bundle 做出了解释[3]，说实话太抽象了，
 
       
         
-          <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>这是基于 vue-cli4 实现的移动端框架，其中包含项目常用的配置，组件封装及webpack优化方法，可供快速开发使用。</p>
-<p>技术栈：vue-cli4 + webpack4 + vant + axios + less + postcss-px2rem</p>
-<p>源码 <a href="https://github.com/Michael-lzg/vue-cli4-vant" target="_blank" rel="noopener">https://github.com/Michael-lzg/vue-cli4-vant</a></p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment">// 本地启动</span></span><br><span class="line">npm run dev</span><br><span class="line"></span><br><span class="line"><span class="comment">// 生产打包</span></span><br><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+          <p>有一些问题不限于 Vue，还适应于其他类型的 SPA 项目。</p>
+<h2 id="1-页面权限控制和登陆验证"><a href="#1-页面权限控制和登陆验证" class="headerlink" title="1. 页面权限控制和登陆验证"></a>1. 页面权限控制和登陆验证</h2><h3 id="页面权限控制"><a href="#页面权限控制" class="headerlink" title="页面权限控制"></a>页面权限控制</h3><p>页面权限控制是什么意思呢？</p>
+<p>就是一个网站有不同的角色，比如管理员和普通用户，要求不同的角色能访问的页面是不一样的。如果一个页面，有角色越权访问，这时就得做出限制了。<br>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/05/09/webpack/vue-cli4+webpack4移动端框架/#more" rel="contents">
+            <a class="btn" href="/2021/07/20/vue/路由权限,大文件下载等问题/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -884,7 +884,7 @@ webpack 官网对 chunk 和 bundle 做出了解释[3]，说实话太抽象了，
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/05/09/webpack/react-webpack4配置与优化/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/vue/vue3新特性/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -903,7 +903,7 @@ webpack 官网对 chunk 和 bundle 做出了解释[3]，说实话太抽象了，
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/05/09/webpack/react-webpack4配置与优化/" itemprop="url">react-webpack4配置与优化</a></h1>
+                <a class="post-title-link" href="/2021/07/20/vue/vue3新特性/" itemprop="url">vue3新特性</a></h1>
         
 
         <div class="post-meta">
@@ -915,8 +915,8 @@ webpack 官网对 chunk 和 bundle 做出了解释[3]，说实话太抽象了，
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-05-09T01:08:22+08:00">
-                2021-05-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T18:56:22+08:00">
+                2021-07-20
               </time>
             
 
@@ -938,155 +938,8 @@ webpack 官网对 chunk 和 bundle 做出了解释[3]，说实话太抽象了，
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/webpack/" itemprop="url" rel="index">
-                    <span itemprop="name">webpack</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一篇文章不写前言总感觉不太正式，大概介绍下我是怎么完成一个总的知识点的概括的把。其实很多人都有一看就会,一做就废的特点(当然也包括我在内),这个时候，你需要制定一个略微详细的计划，就比如我这篇会首先列出知识点，列出大的方向，制定思维导图，然后根据思维导图编写代码，计划明确，就会事半功倍，因此，希望你可以跟着本篇循序渐进的跟着代码走一遍，不管是真实开发，还是面试，都有的扯。好了，不扯了，可以先看下目录。现在开始</p>
-<h2 id="一、基础配置"><a href="#一、基础配置" class="headerlink" title="一、基础配置"></a>一、基础配置</h2><h3 id="1、init项目"><a href="#1、init项目" class="headerlink" title="1、init项目"></a>1、init项目</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mkdir</span> react-webpack4-cook</span><br><span class="line"><span class="keyword">cd</span> react-webpack4-cook</span><br><span class="line"><span class="keyword">mkdir</span> src</span><br><span class="line"><span class="keyword">mkdir</span> dist</span><br><span class="line">npm init -<span class="built_in">y</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/05/09/webpack/react-webpack4配置与优化/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2018/11/04/Less/Less-编码规范/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="andy Wong">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/doggy.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="andy Wong's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/11/04/Less/Less-编码规范/" itemprop="url">Less 编码规范</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-04T15:38:00+08:00">
-                2018-11-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/css/" itemprop="url" rel="index">
-                    <span itemprop="name">css</span>
+                  <a href="/categories/vue3/" itemprop="url" rel="index">
+                    <span itemprop="name">vue3</span>
                   </a>
                 </span>
 
@@ -1124,19 +977,163 @@ webpack 官网对 chunk 和 bundle 做出了解释[3]，说实话太抽象了，
       
         
           
-           代码组织代码必须（MUST）按如下形式按顺序组织：
+           前言Vue3.0 在去年 9 月正式发布了，看大家都有在热情的拥抱 Vue3.0。今年初新项目也开始使用 Vue3.0 来开发，这篇文章就是在使用后的一个总结， 包含 Vue3 新特性的使用以及一些使用经验分享。
 
-@import
-变量声明
-样式声明123456789// ✓@import "est/all.less";@default-text-color: #333;.page &#123;    width: 960px;    margin: 0 auto;&#125;
-
-
-@import 语句@import 语句引用的文件必须（MUST）写在一对引号内，.less 后缀不得（MUST NOT）省略（与引入 CSS 文件时的路径格式一致）。引号使用 ‘ 和 “ 均可，但在同一项目内必须（MUST）统一。
-1234567// ✗@import 
+为什么要升级 Vue3使用 Vue2.x 的小伙伴都熟悉，Vue2.x 中所有数据都是定义在data中，方法定义在methods中的，并且使用this来调用对应的数据和方法。那 Vue3.x 中就可以不这么玩了， 具体怎么玩我们后续再说， 先说一下 Vue2.x 版本这么写有什么缺陷，所有才会进行升级变更的。
+回顾 Vue2.x 实现加减123456789101112131415
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/11/04/Less/Less-编码规范/#more" rel="contents">
+            <a class="btn" href="/2021/07/20/vue/vue3新特性/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/vue/Vue2.x脱坑-解决方法总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/doggy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/07/20/vue/Vue2.x脱坑-解决方法总结/" itemprop="url">Vue2.x脱坑-解决方法总结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T18:56:22+08:00">
+                2021-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/vue/" itemprop="url" rel="index">
+                    <span itemprop="name">vue</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>文章内容覆盖范围,芝麻绿豆的破问题都有,不止于vue;<br>给出的是方案,而非手把手一字一句的给你说十万个为什么!</p>
+<h2 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h2><h3 id="Q-安装超时-install-timeout"><a href="#Q-安装超时-install-timeout" class="headerlink" title="Q:安装超时(install timeout)"></a>Q:安装超时(install timeout)</h3><p>方案有这么些:</p>
+<ul>
+<li><p>cnpm : 国内对npm的镜像版本</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/07/20/vue/Vue2.x脱坑-解决方法总结/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1178,7 +1175,7 @@ webpack 官网对 chunk 和 bundle 做出了解释[3]，说实话太抽象了，
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1228,7 +1225,7 @@ webpack 官网对 chunk 和 bundle 做出了解释[3]，说实话太抽象了，
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">77</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1239,7 +1236,7 @@ webpack 官网对 chunk 和 bundle 做出了解释[3]，说实话太抽象了，
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1250,7 +1247,7 @@ webpack 官网对 chunk 和 bundle 做出了解释[3]，说实话太抽象了，
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

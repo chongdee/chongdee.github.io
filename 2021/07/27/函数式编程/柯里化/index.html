@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="理解JavaScript的柯里化函数式编程是一种编程风格，它可以将函数作为参数传递，并返回没有副作用（改变程序状态）的函数 许多计算机语言都采用了这种编程风格。在这些语言中，JavaScript、Haskell、Clojure、Erlang 和 Scala 是最流行的几种。 由于这种风格具有传递和返回函数的能力，它带来了许多概念：  纯函数 柯里化 高阶函数  我们接下来要谈到的概念就是这其中的">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="柯里化">
+<meta property="og:url" content="https://chongdee.github.io/2021/07/27/函数式编程/柯里化/index.html">
+<meta property="og:site_name" content="andy Wong&#39;s Blog">
+<meta property="og:description" content="理解JavaScript的柯里化函数式编程是一种编程风格，它可以将函数作为参数传递，并返回没有副作用（改变程序状态）的函数 许多计算机语言都采用了这种编程风格。在这些语言中，JavaScript、Haskell、Clojure、Erlang 和 Scala 是最流行的几种。 由于这种风格具有传递和返回函数的能力，它带来了许多概念：  纯函数 柯里化 高阶函数  我们接下来要谈到的概念就是这其中的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-07-27T15:57:33.112Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="柯里化">
+<meta name="twitter:description" content="理解JavaScript的柯里化函数式编程是一种编程风格，它可以将函数作为参数传递，并返回没有副作用（改变程序状态）的函数 许多计算机语言都采用了这种编程风格。在这些语言中，JavaScript、Haskell、Clojure、Erlang 和 Scala 是最流行的几种。 由于这种风格具有传递和返回函数的能力，它带来了许多概念：  纯函数 柯里化 高阶函数  我们接下来要谈到的概念就是这其中的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chongdee.github.io/2021/07/27/函数式编程/柯里化/"/>
+
+
+
+
+
+  <title>柯里化 | andy Wong's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?63d30ffc3ac0fa4a98c97c20372430af";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">andy Wong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">知道的越多，不知道的越多</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/27/函数式编程/柯里化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/doggy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">柯里化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-27T23:55:18+08:00">
+                2021-07-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script src="\assets\js\APlayer.min.js"> </script><h1 id="理解JavaScript的柯里化"><a href="#理解JavaScript的柯里化" class="headerlink" title="理解JavaScript的柯里化"></a>理解JavaScript的柯里化</h1><p>函数式编程是一种编程风格，它可以将函数作为参数传递，并返回没有副作用（改变程序状态）的函数</p>
+<p>许多计算机语言都采用了这种编程风格。在这些语言中，JavaScript、Haskell、Clojure、Erlang 和 Scala 是最流行的几种。</p>
+<p>由于这种风格具有传递和返回函数的能力，它带来了许多概念：</p>
+<ul>
+<li>纯函数</li>
+<li>柯里化</li>
+<li>高阶函数</li>
+</ul>
+<p>我们接下来要谈到的概念就是这其中的<strong>柯里化</strong>。</p>
+<p>在这篇文章📄中，我们会看到柯里化如何工作以及它是如何被软件开发者运用到实践中的。</p>
+<p><strong>提示</strong>：除了复制粘贴，你可以使用 <a href="https://bitsrc.io/" target="_blank" rel="noopener">Bit</a> 把可复用的 JavaScript 功能转换为组件，这样可以快速地和你的团队在项目之间共享。</p>
+<h2 id="什么是柯里化？"><a href="#什么是柯里化？" class="headerlink" title="什么是柯里化？"></a>什么是柯里化？</h2><p>柯里化其实是函数式编程的一个过程，在这个过程中我们能把一个带有多个参数的函数转换成一系列的嵌套函数。它返回一个新函数，这个新函数期望传入下一个参数。</p>
+<p>它不断地返回新函数（像我们之前讲的，这个新函数期望当前的参数），直到所有的参数都被使用。参数会一直保持 <code>alive</code> （通过闭包），当柯里化函数链中最后一个函数被返回和调用的时候，它们会用于执行。</p>
+<blockquote>
+<p>柯里化是一个把具有较多 arity 的函数转换成具有较少 arity 函数的过程 – Kristina Brainwave</p>
+</blockquote>
+<p><strong>注意</strong>：上面的术语 arity ，指的是函数的参数数量。举个例子，</p>
+<figure class="highlight scilab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fn</span><span class="params">(a, b)</span></span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">_fn</span><span class="params">(a, b, c)</span> &#123;</span></span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>函数<code>fn</code>接受两个参数（2-arity函数），<code>_fn</code>接受3个参数（3-arity函数）</p>
+<p>所以，柯里化把一个多参数函数转换为一系列只带<strong>单个参数</strong>的函数。</p>
+<p>让我们来看一个简单的示例：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title">multiply</span>(a, b, c) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">a</span> * b * c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个函数接受3个数字，将数字相乘并返回结果。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">multiply(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>); <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+<p>你看，我们如何调用这个具有完整参数的乘法函数。让我们创建一个柯里化后的版本，然后看看在一系列的调用中我们如何调用相同的函数（并且得到相同的结果）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">multiply</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">b</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function">(<span class="params">c</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> a * b * c</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">log(multiply(<span class="number">1</span>)(<span class="number">2</span>)(<span class="number">3</span>)) <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+<p>我们已经将 <code>multiply(1,2,3)</code> 函数调用转换为多个 <code>multiply(1)(2)(3)</code> 的多个函数调用。</p>
+<p>一个独立的函数已经被转换为一系列函数。为了得到<code>1</code>, <code>2</code> 和 <code>3</code>三个数字想成的结果，这些参数一个接一个传递，每个数字都预先传递给下一个函数以便在内部调用。</p>
+<p>我们可以拆分 <code>multiply(1)(2)(3)</code> 以便更好的理解它：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const <span class="keyword">mul1 </span>= <span class="keyword">multiply(1);</span></span><br><span class="line"><span class="keyword">const </span><span class="keyword">mul2 </span>= <span class="keyword">mul1(2);</span></span><br><span class="line"><span class="keyword">const </span>result = <span class="keyword">mul2(3);</span></span><br><span class="line">log(result); // 6</span><br></pre></td></tr></table></figure>
+<p>让我们依次调用他们。我们传递了<code>1</code>给<code>multiply</code>函数：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="attr">mul1</span> = multiply(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<p>它返回这个函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="function">(<span class="params">b</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function">(<span class="params">c</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> a * b * c</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>现在，<code>mul1</code>持有上面这个函数定义，它接受一个参数<code>b</code>。</p>
+<p>我们调用<code>mul1</code>函数，传递<code>2</code>：</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let <span class="keyword">mul</span><span class="number">2</span> = <span class="keyword">mul</span><span class="number">1</span>(<span class="number">2</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>num1会返回第三个参数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> <span class="function">(<span class="params">c</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> a * b * c</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回的参数现在存储在变量<code>mul2</code>。</p>
+<p><code>mul2</code>会变成：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">mul2</span> = <span class="params">(c)</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> a * b * c</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当传递参数<code>3</code>给函数<code>mul2</code>并调用它，</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">const result</span> = mul2(3);</span><br></pre></td></tr></table></figure>
+<p>它和之前传递进来的参数：<code>a = 1</code>, <code>b = 2</code>做了计算，返回了<code>6</code>。</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">log</span>(<span class="built_in">result</span>);<span class="comment"> // 6</span></span><br></pre></td></tr></table></figure>
+<p>作为嵌套函数，<code>mul2</code>可以访问外部函数的变量作用域。</p>
+<p>这就是<code>mul2</code>能够使用在已经退出的函数中定义的变量做加法运算的原因。尽管这些函数很早就返回了，并且从内存进行了垃圾回收，但是它们的变量仍然保持 <code>alive</code>。</p>
+<p>你会看到，三个数字一个接一个地应用于函数调用，并且每次都返回一个新函数，直到所有数字都被应用。</p>
+<p>让我们看另一个示例：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">volume</span><span class="params">(l,w,h)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> l * w * h;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> aCylinder = volume(<span class="number">100</span>,<span class="number">20</span>,<span class="number">90</span>) <span class="comment">// 180000</span></span><br></pre></td></tr></table></figure>
+<p>我们有一个函数<code>volume</code>来计算任何一个固体形状的体积。</p>
+<p>被柯里化的版本将接受一个参数并且返回一个函数，这个新函数依然会接受一个参数并且返回一个新函数。这个过程会一直持续，直到最后一个参数到达并且返回最后一个函数，最后返回的函数会使用之前接受的参数和最后一个参数进行乘法运算。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">volume</span>(<span class="params">l</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">w</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function">(<span class="params">h</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> l * w * h</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> aCylinder = volume(<span class="number">100</span>)(<span class="number">20</span>)(<span class="number">90</span>) <span class="comment">// 180000</span></span><br></pre></td></tr></table></figure>
+<p>像我们在函数<code>multiply</code>一样，最后一个函数只接受参数<code>h</code>，但是会使用早已返回的其它作用域的变量来进行运算。由于<strong>闭包</strong>的原因，它们仍然可以工作。</p>
+<p>柯里化背后的想法是，接受一个函数并且得到一个函数，这个函数返回<strong>专用</strong>的函数。</p>
+<h2 id="数学中的柯里化"><a href="#数学中的柯里化" class="headerlink" title="数学中的柯里化"></a>数学中的柯里化</h2><p>我比较喜欢数学插图👉<a href="https://en.m.wikipedia.org/wiki/Currying" target="_blank" rel="noopener">Wikipedia</a>，它进一步演示了柯里化的概念。让我们看看我们自己的示例。</p>
+<p>假设我们有一个方程式：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">f</span><span class="params">(x,y)</span></span> = x^<span class="number">2</span> + y = z</span><br></pre></td></tr></table></figure>
+<p>这里有两个变量 x 和 y 。如果这两个变量被赋值，<code>x=3</code>、<code>y=4</code>，最后得到 <code>z</code> 的值。</p>
+<p>:如果我们在方法<code>f(z,y)</code>中，给<code>y</code> 赋值<code>4</code>，给<code>x</code>赋值<code>3</code>，</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f(x,y) = f(<span class="number">3</span>,<span class="number">4</span>) = x^<span class="number">2</span> + y = <span class="number">3</span>^<span class="number">2</span> + <span class="number">4</span> = <span class="number">13</span> = z</span><br></pre></td></tr></table></figure>
+<p>我们会的到结果，<code>13</code>。</p>
+<p>我们可以柯里化<code>f(x,y)</code>，分离成一系列函数：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">h = x^<span class="number">2</span> + y = f(x,y)</span><br><span class="line"><span class="function"><span class="title">hy</span><span class="params">(x)</span></span> = x^<span class="number">2</span> + y = hx(y) = x^<span class="number">2</span> + y</span><br><span class="line">[hx =&gt; w<span class="selector-class">.r</span><span class="selector-class">.t</span> x] and [hy =&gt; w<span class="selector-class">.r</span><span class="selector-class">.t</span> y]</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：<strong>hx</strong>，<strong>x</strong>是 <strong>h</strong> 的下标；<strong>hy</strong>，<strong>y</strong> 是 <strong>h</strong> 的下标。</p>
+<p>如果我们在方程式 <code>hx(y) = x^2 + y</code> 中设置 <code>x=3</code>，它会返回一个新的方程式，这个方程式有一个变量<code>y</code>：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">h3</span><span class="params">(y)</span></span> = <span class="number">3</span>^<span class="number">2</span> + y = <span class="number">9</span> + y</span><br><span class="line">Note: <span class="selector-tag">h3</span> is h subscript <span class="number">3</span></span><br></pre></td></tr></table></figure>
+<p>它和下面是一样的：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">h3(y) = h(<span class="number">3</span>)(y) = f(<span class="number">3</span>,y) = <span class="number">3</span>^<span class="number">2</span> + y = <span class="number">9</span> + y</span><br></pre></td></tr></table></figure>
+<p>这个值并没有被求出来，它返回了一个新的方程式<code>9 + y</code>，这个方程式接受另一个变量, <code>y</code>。</p>
+<p>接下来，我们设置<code>y=4</code>：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">h3(<span class="number">4</span>) = h(<span class="number">3</span>)(<span class="number">4</span>) = f(<span class="number">3</span>,<span class="number">4</span>) = <span class="number">9</span> + <span class="number">4</span> = <span class="number">13</span></span><br></pre></td></tr></table></figure>
+<p><code>y</code>是这条链中的最后一个变量，加法操作会对它和依然存在的之前的变量<code>x = 3</code>做运算并得出结果，<code>13</code>。</p>
+<p>基本上，我们柯里化这个方程式，将<code>f(x,y) = 3^2 + y</code>划分成了一个方程组：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3</span>^<span class="number">2</span> + y -&gt; <span class="number">9</span> + y</span><br><span class="line">f(<span class="number">3</span>,y) = h3(y) = <span class="number">3</span>^<span class="number">2</span> + y = <span class="number">9</span> + y</span><br><span class="line">f(<span class="number">3</span>,y) = <span class="number">9</span> + y</span><br><span class="line">f(<span class="number">3</span>,<span class="number">4</span>) = h3(<span class="number">4</span>) = <span class="number">9</span> + <span class="number">4</span> = <span class="number">13</span></span><br></pre></td></tr></table></figure>
+<p>在最后得到结果之前。</p>
+<p>Wow！！这是一些数学问题，如果你觉得不够清晰😕。可以在<a href="https://en.m.wikipedia.org/wiki/Currying" target="_blank" rel="noopener">Wikipedia</a>查看📖完整的细节。 </p>
+<h2 id="柯里化和部分函数应用"><a href="#柯里化和部分函数应用" class="headerlink" title="柯里化和部分函数应用"></a>柯里化和部分函数应用</h2><p>现在，有些人可能开始认为，被柯里化的函数所具有的嵌套函数数量取决于它所依赖的参数个数。是的，这是决定它成为<strong>柯里化</strong>的原因。</p>
+<p>我设计了一个被柯里化的求体积的函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">volume</span>(<span class="params">l</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">w, h</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> l * w * h</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以如下调用L：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const hCy = volume(<span class="number">70</span>);</span><br><span class="line">hCy(<span class="number">203</span>,<span class="number">142</span>);</span><br><span class="line">hCy(<span class="number">220</span>,<span class="number">122</span>);</span><br><span class="line">hCy(<span class="number">120</span>,<span class="number">123</span>);</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">volume(<span class="number">70</span>)(<span class="number">90</span>,<span class="number">30</span>);</span><br><span class="line">volume(<span class="number">70</span>)(<span class="number">390</span>,<span class="number">320</span>);</span><br><span class="line">volume(<span class="number">70</span>)(<span class="number">940</span>,<span class="number">340</span>);</span><br></pre></td></tr></table></figure>
+<p>我们定义了一个用于专门计算任何长度的圆柱体体积（<code>l</code>）的函数，<code>70</code>。</p>
+<p>它有3个参数和2个嵌套函数。不像我们之前的版本，有3个参数和3个嵌套函数。</p>
+<p>这不是一个柯里化的版本。我们只是做了体积计算函数的部分应用。</p>
+<p>柯里化和部分应用是相似的，但是它们是不同的概念。</p>
+<p>部分应用将一个函数转换为另一个较小的函数。</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title">acidityRatio</span>(x, y, z) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">performOp(x,y,z)</span></span><br><span class="line">&#125;</span><br><span class="line">|</span><br><span class="line">V</span><br><span class="line"><span class="keyword">function</span> <span class="title">acidityRatio</span>(x) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">(y,z)</span> =&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> performOp(x,y,z)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：我故意忽略了<code>performOp</code>函数的实现。在这里，它不是必要的。你只需要知道柯里化和部分应用背后的概念。</p>
+<p>这是 acidityRatio 函数的部分应用。这里面不涉及到柯里化。acidityRatio被部分应用化，它期望接受比原始函数更少的参数。</p>
+<p>让它变成柯里化，会是这样：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title">acidityRatio</span>(x) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">(y)</span> = &gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> (z) = &gt; &#123;</span><br><span class="line">            <span class="keyword">return</span> performOp(x,y,z)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>柯里化根据函数的参数数量创建嵌套函数。每个函数接受一个参数。如果没有参数，那就不是柯里化。</p>
+<blockquote>
+<p>柯里化在具有两个参数以上的函数工作 -  <a href="https://en.m.wikipedia.org/wiki/Currying" target="_blank" rel="noopener">Wikipedia</a></p>
+<p>柯里化将一个函数转换为一系列只接受单个参数的函数。、</p>
+</blockquote>
+<p>这里有一个柯里化和部分应用相同的例子。假设我们有一个函数：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title">div</span>(x,y) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">x/y</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果我们部分应用化这个函数。会得到：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">div</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">y</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> x/y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而且，柯里化会得出相同的结果：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">div</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">y</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> x/y;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>尽管柯里化和部分应用得出了相同的结果，但是它们是两个完全不同的概念。</p>
+<p>像我们之前说的，柯里化和部分应用是相似的，但是实际上定义却不同。它们之间的相同点就是依赖闭包。</p>
+<h2 id="柯里化有用吗"><a href="#柯里化有用吗" class="headerlink" title="柯里化有用吗?"></a>柯里化有用吗?</h2><p>当然，只要你想，柯里化就信手拈来：</p>
+<p><strong>1、编写小模块的代码，可以更轻松的重用和配置，就行 npm 做的那样：</strong></p>
+<p>举个例子，你有一个商店🏠，你想给你的顾客 10% 的折扣：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title">discount</span>(price, discount) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">price</span> * discount</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当一个有价值的客户买了一件$500的商品，你会给他：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const price = discount(<span class="number">500</span>,<span class="number">0.10</span>); <span class="regexp">//</span> <span class="variable">$50</span> </span><br><span class="line"><span class="regexp">//</span> <span class="variable">$500</span>  - <span class="variable">$50</span> = <span class="variable">$450</span></span><br></pre></td></tr></table></figure>
+<p>你会发现从长远来看，我们每天都自己计算10%的折扣。</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">const price = discount(<span class="number">1500</span>,<span class="number">0.10</span>); <span class="regexp">//</span> <span class="variable">$150</span></span><br><span class="line"><span class="regexp">//</span> <span class="variable">$1</span>,<span class="number">500</span> - <span class="variable">$150</span> = <span class="variable">$1</span>,<span class="number">350</span></span><br><span class="line">const price = discount(<span class="number">2000</span>,<span class="number">0.10</span>); <span class="regexp">//</span> <span class="variable">$200</span></span><br><span class="line"><span class="regexp">//</span> <span class="variable">$2</span>,<span class="number">000</span> - <span class="variable">$200</span> = <span class="variable">$1</span>,<span class="number">800</span></span><br><span class="line">const price = discount(<span class="number">50</span>,<span class="number">0.10</span>); <span class="regexp">//</span> <span class="variable">$5</span></span><br><span class="line"><span class="regexp">//</span> <span class="variable">$50</span> - <span class="variable">$5</span> = <span class="variable">$45</span></span><br><span class="line">const price = discount(<span class="number">5000</span>,<span class="number">0.10</span>); <span class="regexp">//</span> <span class="variable">$500</span></span><br><span class="line"><span class="regexp">//</span> <span class="variable">$5</span>,<span class="number">000</span> - <span class="variable">$500</span> = <span class="variable">$4</span>,<span class="number">500</span></span><br><span class="line">const price = discount(<span class="number">300</span>,<span class="number">0.10</span>); <span class="regexp">//</span> <span class="variable">$30</span></span><br><span class="line"><span class="regexp">//</span> <span class="variable">$300</span> - <span class="variable">$30</span> = <span class="variable">$270</span></span><br></pre></td></tr></table></figure>
+<p>我们可以柯里化这个折扣函数，这样就不需要每天都添加0.10这个折扣值：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">discount</span>(<span class="params">discount</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">price</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> price * discount;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> tenPercentDiscount = discount(<span class="number">0.1</span>);</span><br></pre></td></tr></table></figure>
+<p>现在，我们可以只用你有价值的客户购买的商品价格来进行计算了：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tenPercentDiscount(<span class="number">500</span>); <span class="regexp">//</span> <span class="variable">$50</span></span><br><span class="line"><span class="regexp">//</span> <span class="variable">$500</span> - <span class="variable">$50</span> = <span class="variable">$450</span></span><br></pre></td></tr></table></figure>
+<p>再一次，发生了这样的情况，有一些有价值的客户比另一些有价值的客户更重要 – 我们叫他们超级价值客户。并且我们想给超级价值客户20%的折扣。</p>
+<p>我们使用被柯里化的折扣函数：</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">const twentyPercentDiscount</span> = discount(0.2);</span><br></pre></td></tr></table></figure>
+<p>我们为超级价值客户设置了一个新函数，这个新函数调用了接受折扣值为0.2的柯里化函数。</p>
+<p>返回的函数<code>twentyPercentDiscount</code>将被用于计算超级价值客户的折扣：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">twentyPercentDiscount(<span class="number">500</span>); <span class="regexp">//</span> <span class="number">100</span></span><br><span class="line"><span class="regexp">//</span> <span class="variable">$500</span> - <span class="variable">$100</span> = <span class="variable">$400</span></span><br><span class="line">twentyPercentDiscount(<span class="number">5000</span>); <span class="regexp">//</span> <span class="number">1000</span></span><br><span class="line"><span class="regexp">//</span> <span class="variable">$5</span>,<span class="number">000</span> - <span class="variable">$1</span>,<span class="number">000</span> = <span class="variable">$4</span>,<span class="number">000</span></span><br><span class="line">twentyPercentDiscount(<span class="number">1000000</span>); <span class="regexp">//</span> <span class="number">200000</span></span><br><span class="line"><span class="regexp">//</span> <span class="variable">$1</span>,<span class="number">000</span>,<span class="number">000</span> - <span class="variable">$200</span>,<span class="number">000</span> = <span class="variable">$600</span>,<span class="number">000</span></span><br></pre></td></tr></table></figure>
+<p><strong>2、避免频繁调用具有相同参数的函数：</strong></p>
+<p>举个例子，我们有一个函数来计算圆柱体的体积：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title">volume</span>(l, w, h) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">l</span> * w * h;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>碰巧，你的仓库所有的圆柱体高度都是 100m。你会发现你会重复调用接受高度为 100 的参数的函数：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">volume(<span class="number">200</span>,<span class="number">30</span>,<span class="number">100</span>) <span class="comment">// 2003000l</span></span><br><span class="line">volume(<span class="number">32</span>,<span class="number">45</span>,<span class="number">100</span>); <span class="comment">//144000l</span></span><br><span class="line">volume(<span class="number">2322</span>,<span class="number">232</span>,<span class="number">100</span>) <span class="comment">// 53870400l</span></span><br></pre></td></tr></table></figure>
+<p>为了解决这个问题，需要柯里化这个计算体积的函数（像我们之前做的一样）：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">volume</span>(<span class="params">h</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function">(<span class="params">w</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="function">(<span class="params">l</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> l * w * h</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们可以定义一个特定的函数，这个函数用于计算特定的圆柱体高度：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const hCylinderHeight = volume(<span class="number">100</span>);</span><br><span class="line">hCylinderHeight(<span class="number">200</span>)(<span class="number">30</span>); <span class="comment">// 600,000l</span></span><br><span class="line">hCylinderHeight(<span class="number">2322</span>)(<span class="number">232</span>); <span class="comment">// 53,870,400l</span></span><br></pre></td></tr></table></figure>
+<h2 id="通用的柯里化函数"><a href="#通用的柯里化函数" class="headerlink" title="通用的柯里化函数"></a>通用的柯里化函数</h2><p>让我们开发一个函数，它能接受任何函数并返回一个柯里化版本的函数。</p>
+<p>为了做到这一点，我们需要这个（尽管你自己使用的方法和我的不同）：</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">curry</span><span class="params">(fn, <span class="rest_arg">...args</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (..._arg) =&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> fn(...args, ..._arg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们在这里做了什么呢？我们的柯里化函数接受一个我们希望柯里化的函数（fn），还有一系列的参数（…args）。扩展运算符是用来收集<code>fn</code>后面的参数到<code>...args</code>中。</p>
+<p>接下来，我们返回一个函数，这个函数同样将剩余的参数收集为<code>..._args</code>。这个函数将<code>...args</code>传入原始函数<code>fn</code>并调用它，通过使用扩展运算符将<code>..._args</code>也作为参数传入，然后，得到的值会返回给用户。</p>
+<p>现在我们可以使用我们自己的<code>curry</code>函数来创造专用的函数了。</p>
+<p>让我们使用自己的柯里化函数来创建更多的专用函数（其中一个就是专门用来计算高度为100m的圆柱体体积的方法）</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">volume</span><span class="params">(l,h,w)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> l * h * w</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> hCy = curry(volume,<span class="number">100</span>);</span><br><span class="line">hCy(<span class="number">200</span>,<span class="number">900</span>); <span class="comment">// 18000000l</span></span><br><span class="line">hCy(<span class="number">70</span>,<span class="number">60</span>); <span class="comment">// 420000l</span></span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>闭包使柯里化在JavaScript中得以实现。它保持着已经执行过的函数的状态，使我们能够创建工厂函数 - 一种我们能够添加特定参数的函数。</p>
+<p>要想将你的头脑充满着柯里化、闭包和函数式编程是非常困难的。但我向你保证，花时间并且在日常应用，你会掌握它的诀窍并看到价值😘。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>👉<a href="https://en.m.wikipedia.org/wiki/Currying" target="_blank" rel="noopener">Currying — Wikipedia</a><br>👉<a href="https://en.m.wikipedia.org/wiki/Partial_application" target="_blank" rel="noopener">Partial Application Function — Wikipedia</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a cup of coffee,thanks!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="andy Wong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="andy Wong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/07/27/函数式编程/函数式编程/" rel="next" title="函数式编程">
+                <i class="fa fa-chevron-left"></i> 函数式编程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/07/28/react/redux/redux入门（一）/" rel="prev" title="redux入门（一）">
+                redux入门（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/doggy.jpg"
+                alt="andy Wong" />
+            
+              <p class="site-author-name" itemprop="name">andy Wong</p>
+              <p class="site-description motion-element" itemprop="description">前端渣渣辉</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/chongdee" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.cn/" title="掘金" target="_blank">掘金</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://segmentfault.com/" title="segmentfault" target="_blank">segmentfault</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://docschina.org/" title="印记中文" target="_blank">印记中文</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com/" title="阮一峰ES6书籍" target="_blank">阮一峰ES6书籍</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div> 
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#理解JavaScript的柯里化"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x7406;&#x89E3;JavaScript&#x7684;&#x67EF;&#x91CC;&#x5316;" class="headerlink" title="&#x7406;&#x89E3;JavaScript&#x7684;&#x67EF;&#x91CC;&#x5316;"></a>&#x7406;&#x89E3;JavaScript&#x7684;&#x67EF;&#x91CC;&#x5316;</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是柯里化？"><span class="nav-number">1.1.</span> <span class="nav-text"><a href="#&#x4EC0;&#x4E48;&#x662F;&#x67EF;&#x91CC;&#x5316;&#xFF1F;" class="headerlink" title="&#x4EC0;&#x4E48;&#x662F;&#x67EF;&#x91CC;&#x5316;&#xFF1F;"></a>&#x4EC0;&#x4E48;&#x662F;&#x67EF;&#x91CC;&#x5316;&#xFF1F;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数学中的柯里化"><span class="nav-number">1.2.</span> <span class="nav-text"><a href="#&#x6570;&#x5B66;&#x4E2D;&#x7684;&#x67EF;&#x91CC;&#x5316;" class="headerlink" title="&#x6570;&#x5B66;&#x4E2D;&#x7684;&#x67EF;&#x91CC;&#x5316;"></a>&#x6570;&#x5B66;&#x4E2D;&#x7684;&#x67EF;&#x91CC;&#x5316;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#柯里化和部分函数应用"><span class="nav-number">1.3.</span> <span class="nav-text"><a href="#&#x67EF;&#x91CC;&#x5316;&#x548C;&#x90E8;&#x5206;&#x51FD;&#x6570;&#x5E94;&#x7528;" class="headerlink" title="&#x67EF;&#x91CC;&#x5316;&#x548C;&#x90E8;&#x5206;&#x51FD;&#x6570;&#x5E94;&#x7528;"></a>&#x67EF;&#x91CC;&#x5316;&#x548C;&#x90E8;&#x5206;&#x51FD;&#x6570;&#x5E94;&#x7528;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#柯里化有用吗"><span class="nav-number">1.4.</span> <span class="nav-text"><a href="#&#x67EF;&#x91CC;&#x5316;&#x6709;&#x7528;&#x5417;" class="headerlink" title="&#x67EF;&#x91CC;&#x5316;&#x6709;&#x7528;&#x5417;?"></a>&#x67EF;&#x91CC;&#x5316;&#x6709;&#x7528;&#x5417;?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通用的柯里化函数"><span class="nav-number">1.5.</span> <span class="nav-text"><a href="#&#x901A;&#x7528;&#x7684;&#x67EF;&#x91CC;&#x5316;&#x51FD;&#x6570;" class="headerlink" title="&#x901A;&#x7528;&#x7684;&#x67EF;&#x91CC;&#x5316;&#x51FD;&#x6570;"></a>&#x901A;&#x7528;&#x7684;&#x67EF;&#x91CC;&#x5316;&#x51FD;&#x6570;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.6.</span> <span class="nav-text"><a href="#&#x603B;&#x7ED3;" class="headerlink" title="&#x603B;&#x7ED3;"></a>&#x603B;&#x7ED3;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考"><span class="nav-number">1.7.</span> <span class="nav-text"><a href="#&#x53C2;&#x8003;" class="headerlink" title="&#x53C2;&#x8003;"></a>&#x53C2;&#x8003;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; 2015 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span>Powered By -</span>
+  <span class="author" itemprop="copyrightHolder">andy Wong</span>
+
+  
+</div>
+
+
+  <div>Theme by &copy;next</div>
+
+
+<div>Hosted by <strong><a href="https://github.com/">Github Pages</a></strong></div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":true,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"left","width":145,"height":315},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script>
+</body>
+</html>

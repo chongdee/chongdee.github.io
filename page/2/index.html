@@ -269,7 +269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/HTTP/输入URL请求过程，http版本对比/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/27/函数式编程/柯里化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -288,7 +288,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/07/20/HTTP/输入URL请求过程，http版本对比/" itemprop="url">输入URL请求过程，http版本对比</a></h1>
+                <a class="post-title-link" href="/2021/07/27/函数式编程/柯里化/" itemprop="url">柯里化</a></h1>
         
 
         <div class="post-meta">
@@ -300,8 +300,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T16:37:01+08:00">
-                2021-07-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-27T23:55:18+08:00">
+                2021-07-27
               </time>
             
 
@@ -323,8 +323,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/HTTP/" itemprop="url" rel="index">
-                    <span itemprop="name">HTTP</span>
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -362,22 +362,21 @@
       
         
           
-           浏览器输入 URL 发生了什么
-输入网址并DNS域名解析
-TCP/IP连接：三次握手
-HTTP请求
-服务器处理请求并返回 HTTP 报文
-断开连接：TCP 四次挥手
-浏览器渲染页面
+           理解JavaScript的柯里化函数式编程是一种编程风格，它可以将函数作为参数传递，并返回没有副作用（改变程序状态）的函数
+许多计算机语言都采用了这种编程风格。在这些语言中，JavaScript、Haskell、Clojure、Erlang 和 Scala 是最流行的几种。
+由于这种风格具有传递和返回函数的能力，它带来了许多概念：
 
-当我们在浏览器中键入 URL：https://www.google.com/ 时，浏览器会先去寻找该域名所对应的 IP 地址，毕竟最终通信我们还是得用 IP 才能找到对方的地址，域名只是方便用户记忆的别名。
-那么如何找到域名所对应的 IP 地址呢？接下来让笔者先来给大家介绍我们遇到的第一块内容：DNS。
-DNSDNS 的作用就是通过域名查询到具体的 IP。
-因为 IP 存在数字和英文的组合（IPv6），很不利于
+纯函数
+柯里化
+高阶函数
+
+我们接下来要谈到的概念就是这其中的柯里化。
+在这篇文章📄中，我们会看到柯里化如何工作以及它是如何被软件开发者运用到实践中的。
+提示：除了复制粘贴，你可以使用 Bit 把可复用的 JavaScript 功能转换为组件，这样可以快速地和
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/07/20/HTTP/输入URL请求过程，http版本对比/#more" rel="contents">
+            <a class="btn" href="/2021/07/27/函数式编程/柯里化/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -428,7 +427,7 @@ DNSDNS 的作用就是通过域名查询到具体的 IP。
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/HTTP/cors跨域详解/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/27/函数式编程/函数式编程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -447,7 +446,7 @@ DNSDNS 的作用就是通过域名查询到具体的 IP。
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/07/20/HTTP/cors跨域详解/" itemprop="url">cors跨域详解</a></h1>
+                <a class="post-title-link" href="/2021/07/27/函数式编程/函数式编程/" itemprop="url">函数式编程</a></h1>
         
 
         <div class="post-meta">
@@ -459,8 +458,8 @@ DNSDNS 的作用就是通过域名查询到具体的 IP。
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T16:31:36+08:00">
-                2021-07-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-27T23:50:52+08:00">
+                2021-07-27
               </time>
             
 
@@ -482,8 +481,8 @@ DNSDNS 的作用就是通过域名查询到具体的 IP。
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/HTTP/" itemprop="url" rel="index">
-                    <span itemprop="name">HTTP</span>
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
                   </a>
                 </span>
 
@@ -521,15 +520,16 @@ DNSDNS 的作用就是通过域名查询到具体的 IP。
       
         
           
-           CORSCORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。
-它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。
-本文详细介绍CORS的内部机制。
-一、简介CORS需要浏览器和服务器同时支持。目前，所有浏览器都支持该功能，IE浏览器不能低于IE10。
-整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感
+           本文较长，总共分为三大部分：(对于函数式编程以及其优点有一定理解的童鞋，可以直接从  第二部分 开始阅读)
+第一部分：首先会通过实际代码介绍一下什么是函数式编程以及使用它的意义。
+第二部分：我会着重介绍一下函数式编程中最重要的两个方法：柯里化和函数组合，以及他们的使用方法和实践经验。
+第三部分：实战篇，主要是通过一个实战让大家对这种编程范式有一个更深刻的理解。最后会总结一下函数式编程的优点和局限，并给出一些建议。
+什么是函数式编程早在 1950 年代，随着 Lisp 语言的创建，函数式编程（ Functional Programming，简称 FP）就已经开始出现在大家视野。
+而直到近些年，
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/07/20/HTTP/cors跨域详解/#more" rel="contents">
+            <a class="btn" href="/2021/07/27/函数式编程/函数式编程/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -580,7 +580,7 @@ DNSDNS 的作用就是通过域名查询到具体的 IP。
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/HTTP/cookie、session、token 的区别/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/21/wxmini/跨页面通信/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -599,7 +599,7 @@ DNSDNS 的作用就是通过域名查询到具体的 IP。
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/07/20/HTTP/cookie、session、token 的区别/" itemprop="url">cookie、session、token 的区别</a></h1>
+                <a class="post-title-link" href="/2021/07/21/wxmini/跨页面通信/" itemprop="url">跨页面通信</a></h1>
         
 
         <div class="post-meta">
@@ -611,8 +611,8 @@ DNSDNS 的作用就是通过域名查询到具体的 IP。
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T16:30:52+08:00">
-                2021-07-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-21T02:30:20+08:00">
+                2021-07-21
               </time>
             
 
@@ -634,8 +634,8 @@ DNSDNS 的作用就是通过域名查询到具体的 IP。
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/HTTP/" itemprop="url" rel="index">
-                    <span itemprop="name">HTTP</span>
+                  <a href="/categories/wxmini/" itemprop="url" rel="index">
+                    <span itemprop="name">wxmini</span>
                   </a>
                 </span>
 
@@ -673,15 +673,21 @@ DNSDNS 的作用就是通过域名查询到具体的 IP。
       
         
           
-           Cookie众所周知，http 是无状态协议，浏览器和服务器不可能凭协议的实现辨别请求的上下文。
-于是 cookie 登场，既然协议本身不能分辨链接，那就在请求头部手动带着上下文信息吧。
-举个例子，以前去旅游的时候，到了景区可能会需要存放行李，被大包小包压着，旅游也不开心啦。在存放行李后，服务员会给你一个牌子，上面写着你的行李放在哪个格子，离开时，你就能凭这个牌子和上面的数字成功取回行李。
-cookie 做的正是这么一件事，旅客就像客户端，寄存处就像服务器，凭着写着数字的牌子，寄存处（服务器）就能分辨出不同旅客（客户端）。
-你会不会想到，如果牌子被偷了怎么办，cookie 也会被偷吗？确实会
+           1.直接通过跳转二级时候加上参名和参值比如我跳转url给的是:rich/rich?url=https://xxxx
+然后在二级用
+onLoad: function (options) {}
+读取，其中options就是传过来的值，验证很简单，你直接console看一下就好
+上面案例就能看到键名为url的键的键值是https://xxxx
+2.设定一个全局，然后读取全局就OK在app.js里面设置为:
+this.globalData.变量名 = xxxx;
+其他页面设置为:
+app.globalData.变量名 = xxxx;
+读取的话。。。
+var xxx = getApp().global
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/07/20/HTTP/cookie、session、token 的区别/#more" rel="contents">
+            <a class="btn" href="/2021/07/21/wxmini/跨页面通信/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -732,7 +738,7 @@ cookie 做的正是这么一件事，旅客就像客户端，寄存处就像服�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/webpack/总结18个webpack插件/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/21/wxmini/微信支付，h5支付，jsapi支付/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -751,7 +757,7 @@ cookie 做的正是这么一件事，旅客就像客户端，寄存处就像服�
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/07/20/webpack/总结18个webpack插件/" itemprop="url">总结18个webpack插件</a></h1>
+                <a class="post-title-link" href="/2021/07/21/wxmini/微信支付，h5支付，jsapi支付/" itemprop="url">微信支付，h5支付，jsapi支付</a></h1>
         
 
         <div class="post-meta">
@@ -763,8 +769,8 @@ cookie 做的正是这么一件事，旅客就像客户端，寄存处就像服�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T15:51:02+08:00">
-                2021-07-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-21T02:30:20+08:00">
+                2021-07-21
               </time>
             
 
@@ -786,8 +792,8 @@ cookie 做的正是这么一件事，旅客就像客户端，寄存处就像服�
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/webpack/" itemprop="url" rel="index">
-                    <span itemprop="name">webpack</span>
+                  <a href="/categories/wxmini/" itemprop="url" rel="index">
+                    <span itemprop="name">wxmini</span>
                   </a>
                 </span>
 
@@ -825,16 +831,28 @@ cookie 做的正是这么一件事，旅客就像客户端，寄存处就像服�
       
         
           
-           Plugin何为插件(Plugin)？专注处理 webpack 在编译过程中的某个特定的任务的功能模块，可以称为插件。plugin 是一个扩展器，它丰富了 webpack 本身，针对是 loader 结束后，webpack 打包的整个过程，它并不直接操作文件，而是基于事件机制工作，会监听 webpack 打包过程中的某些节点，执行广泛的任务。
-Plugin 的特点
+           因业务需要，开发微信支付功能，涉及三种支付方式：
 
-是一个独立的模块
-模块对外暴露一个 js 函数
-函数的原型 (prototype) 上定义了一个注入 compiler 对象的 apply方法 apply 函数中需要有通过 compiler 对象挂载的 webpack 事件钩子
+JSAPI 支付：微信内网页支付，需要开通微信服务号
+小程序支付：在小程序中支付，需要开通小程序
+H5 支付：在手机浏览器（出微信内网爷）中网页支付
+
+使用微信支付的前提必开通微信商户号，要使用到那种的支付方式要前需在商户平台开通（要审核）。
+支付的钱最终都会到商户号里（一般由公司财务开通）。
+开发微信支付的过程中大大小小坑还是踩了不少，终于做完了，整理下开发流程。
+参考：
+
+微信支付-接入指引
+微信支付-开发文档
+
+小程序支付开发流程
+
+小程序端请求创建订单接口，后端统一下单获取 orderId 并返回
+小程序端获取通过wx.login(
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/07/20/webpack/总结18个webpack插件/#more" rel="contents">
+            <a class="btn" href="/2021/07/21/wxmini/微信支付，h5支付，jsapi支付/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -885,7 +903,7 @@ Plugin 的特点
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/webpack/从零构建到优化一个类似vue-cli的脚手架/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/21/wxmini/wx页面跳转数据传递/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -904,7 +922,7 @@ Plugin 的特点
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/07/20/webpack/从零构建到优化一个类似vue-cli的脚手架/" itemprop="url">从零构建到优化一个类似vue-cli的脚手架</a></h1>
+                <a class="post-title-link" href="/2021/07/21/wxmini/wx页面跳转数据传递/" itemprop="url">wx页面跳转数据传递</a></h1>
         
 
         <div class="post-meta">
@@ -916,8 +934,8 @@ Plugin 的特点
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T15:49:22+08:00">
-                2021-07-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-21T02:30:20+08:00">
+                2021-07-21
               </time>
             
 
@@ -939,8 +957,8 @@ Plugin 的特点
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/webpack/" itemprop="url" rel="index">
-                    <span itemprop="name">webpack</span>
+                  <a href="/categories/wxmini/" itemprop="url" rel="index">
+                    <span itemprop="name">wxmini</span>
                   </a>
                 </span>
 
@@ -978,16 +996,25 @@ Plugin 的特点
       
         
           
-           前言想必大多数人在开发 vue 等 SPA 项目都时候都会直接用 vue-cli 等脚手架开发，一是方便省去了好多配置上的功夫，二是 vue-cli 毕竟是久经考验较为成熟的东西，遇到问题也能在网上找到相应解决方案。
-但是，如果我们要更好地理解脚手架的配置及其构建打包的机制，我们就有必要从零开始，依葫芦画瓢自己配置一个类似于 vue-cli 这样的项目了。在此，我做了以下简单配置，请各位大佬批评指正，并诚心希望能得到大佬的指点，解决文章最后关于 Tree Shaking 导致打包缺失 css 的问题。
-本文主要包括如下配置：
+           前言我们在写小程序的时候经常会遇到子页面向主页面回传数据或者普通页面跳转到tabBar 页面携带数据
 
-区分环境变量及合并配置
-webpack-dev-server 本
+下面写了四种方法大家根据自己的实际场景来选择使用哪种
+
+wx.navigateTo(OBJECT)
+可以传递参数
+会存入页面路径栈(目前页面路径最多只能十层)
+可以通过 navigateBack 返回
+不能跳转到带 tabBar 页面
+
+123wx.navigateTo(&#123;  url: 'test?key=value&amp;key2=value2'&#125;)
+wx.redirectTo(OBJECT)
+可以传递参数
+不会存入页面路径栈
+不能通过 navigateBack 返
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/07/20/webpack/从零构建到优化一个类似vue-cli的脚手架/#more" rel="contents">
+            <a class="btn" href="/2021/07/21/wxmini/wx页面跳转数据传递/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1038,7 +1065,7 @@ webpack-dev-server 本
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/20/webpack/从零构建一个wbpack项目/">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/21/wxmini/uniapp开发总结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="andy Wong">
@@ -1057,7 +1084,7 @@ webpack-dev-server 本
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/07/20/webpack/从零构建一个wbpack项目/" itemprop="url">从零构建一个wbpack项目</a></h1>
+                <a class="post-title-link" href="/2021/07/21/wxmini/uniapp开发总结/" itemprop="url">uniapp开发总结</a></h1>
         
 
         <div class="post-meta">
@@ -1069,8 +1096,8 @@ webpack-dev-server 本
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-20T15:46:45+08:00">
-                2021-07-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-21T02:30:20+08:00">
+                2021-07-21
               </time>
             
 
@@ -1092,8 +1119,8 @@ webpack-dev-server 本
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/webpack/" itemprop="url" rel="index">
-                    <span itemprop="name">webpack</span>
+                  <a href="/categories/wxmini/" itemprop="url" rel="index">
+                    <span itemprop="name">wxmini</span>
                   </a>
                 </span>
 
@@ -1131,13 +1158,18 @@ webpack-dev-server 本
       
         
           
-           从零构建一个wbpack项目1、新建项目新建一个空文件夹，用于创建项目，使用 npm init 命令创建一个 package.json 文件。输入这个命令后，终端会问你一系列诸如项目名称，项目描述，作者等信息，也可以使用 npm init -y 这个命令来一次生成 package.json 文件，这样终端不会询问你问题。
-2、安装 webpack安装 webapck 时把 webpack-cli 也装上是因为在 webpack4.x 版本后 webpack 模块把一些功能分到了 webpack-cli 模块，所以两者都需要安装，安装方法如下：
-12npm install webpack we
+           我认为的坑？其实我觉得自己的水平不能够去评价一款框架的好坏，只是简单的说一下开发体验，我认为坑大概分三种。
+
+该框架确实没有的功能，存在不能实现的东西。
+明显的bug，导致程序出现问题，影响开发进度和结果
+在开发过程中，自己凭借直觉和经验在开发，结果和预期不同，阅读文档过后才发现和之前经验积累的写法不一样，会不由自主的说一句真坑，或者说在不同端有的不同写法，但自己没有做好兼容，就出现了不同端效果不一致，当再次阅读文档找到问题后也会来一句真坑。
+
+总的来讲，这次Uni-app的开发之旅还是比较通畅的。
+踩坑之旅像素单位使用upx/rpx 而不是 px修改内容（评论区大佬的订正）： 1px = 
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/07/20/webpack/从零构建一个wbpack项目/#more" rel="contents">
+            <a class="btn" href="/2021/07/21/wxmini/uniapp开发总结/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1179,7 +1211,7 @@ webpack-dev-server 本
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1229,7 +1261,7 @@ webpack-dev-server 本
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">77</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1240,7 +1272,7 @@ webpack-dev-server 本
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1251,7 +1283,7 @@ webpack-dev-server 本
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

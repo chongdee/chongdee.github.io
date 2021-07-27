@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="wxmini," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="因业务需要，开发微信支付功能，涉及三种支付方式：  JSAPI 支付：微信内网页支付，需要开通微信服务号 小程序支付：在小程序中支付，需要开通小程序 H5 支付：在手机浏览器（出微信内网爷）中网页支付  使用微信支付的前提必开通微信商户号，要使用到那种的支付方式要前需在商户平台开通（要审核）。 支付的钱最终都会到商户号里（一般由公司财务开通）。 开发微信支付的过程中大大小小坑还是踩了不少，终于做">
+<meta name="keywords" content="wxmini">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信支付，h5支付，jsapi支付">
+<meta property="og:url" content="https://chongdee.github.io/2021/07/21/wxmini/微信支付，h5支付，jsapi支付/index.html">
+<meta property="og:site_name" content="andy Wong&#39;s Blog">
+<meta property="og:description" content="因业务需要，开发微信支付功能，涉及三种支付方式：  JSAPI 支付：微信内网页支付，需要开通微信服务号 小程序支付：在小程序中支付，需要开通小程序 H5 支付：在手机浏览器（出微信内网爷）中网页支付  使用微信支付的前提必开通微信商户号，要使用到那种的支付方式要前需在商户平台开通（要审核）。 支付的钱最终都会到商户号里（一般由公司财务开通）。 开发微信支付的过程中大大小小坑还是踩了不少，终于做">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-07-20T16:18:59.850Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信支付，h5支付，jsapi支付">
+<meta name="twitter:description" content="因业务需要，开发微信支付功能，涉及三种支付方式：  JSAPI 支付：微信内网页支付，需要开通微信服务号 小程序支付：在小程序中支付，需要开通小程序 H5 支付：在手机浏览器（出微信内网爷）中网页支付  使用微信支付的前提必开通微信商户号，要使用到那种的支付方式要前需在商户平台开通（要审核）。 支付的钱最终都会到商户号里（一般由公司财务开通）。 开发微信支付的过程中大大小小坑还是踩了不少，终于做">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chongdee.github.io/2021/07/21/wxmini/微信支付，h5支付，jsapi支付/"/>
+
+
+
+
+
+  <title>微信支付，h5支付，jsapi支付 | andy Wong's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?63d30ffc3ac0fa4a98c97c20372430af";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">andy Wong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">知道的越多，不知道的越多</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/21/wxmini/微信支付，h5支付，jsapi支付/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/doggy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">微信支付，h5支付，jsapi支付</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-21T02:30:20+08:00">
+                2021-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/wxmini/" itemprop="url" rel="index">
+                    <span itemprop="name">wxmini</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script src="\assets\js\APlayer.min.js"> </script><p>因业务需要，开发微信支付功能，涉及三种支付方式：</p>
+<ul>
+<li>JSAPI 支付：微信内网页支付，需要开通微信服务号</li>
+<li>小程序支付：在小程序中支付，需要开通小程序</li>
+<li>H5 支付：在手机浏览器（出微信内网爷）中网页支付</li>
+</ul>
+<p>使用微信支付的前提必开通微信商户号，要使用到那种的支付方式要前需在商户平台开通（要审核）。</p>
+<p>支付的钱最终都会到商户号里（一般由公司财务开通）。</p>
+<p>开发微信支付的过程中大大小小坑还是踩了不少，终于做完了，整理下开发流程。</p>
+<p>参考：</p>
+<ul>
+<li>微信支付-接入指引</li>
+<li>微信支付-开发文档</li>
+</ul>
+<h2 id="小程序支付"><a href="#小程序支付" class="headerlink" title="小程序支付"></a>小程序支付</h2><p>开发流程</p>
+<ul>
+<li>小程序端请求创建订单接口，后端统一下单获取 orderId 并返回</li>
+<li>小程序端获取通过wx.login()获取code</li>
+<li>小程序端拿这code和orderId请求后端接口，获取支付所需数据</li>
+<li>获取支付所需数据之后，小程序端调用wx.requestPayment()接口，直接调用起支付页面</li>
+<li>判断是否支付成功后的逻辑</li>
+</ul>
+<p>伪代码</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">wxPay</span>(<span class="params">goodId</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 1. 创建订单 获取orderId</span></span><br><span class="line">  <span class="keyword">let</span> orderId = <span class="keyword">await</span> ajax(<span class="string">"POST"</span>, <span class="string">"/api/OrderProgram/CreateTheOrder"</span>, &#123;</span><br><span class="line">    goodId, <span class="comment">// 商品id</span></span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 2. 获得 code</span></span><br><span class="line">  <span class="keyword">let</span> code = <span class="keyword">await</span> wxlogin(); <span class="comment">// 基于pr封装的wx.login()方法</span></span><br><span class="line">  <span class="comment">// 3. 获取支付的数据</span></span><br><span class="line">  <span class="keyword">let</span> payData = <span class="keyword">await</span> ajax(<span class="string">"POST"</span>, <span class="string">"/api/OrderProgram/WxXcxPay"</span>, &#123;</span><br><span class="line">    orderId,</span><br><span class="line">    code,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 4. 发起支付</span></span><br><span class="line">  <span class="keyword">let</span> res = <span class="keyword">await</span> payment(payData); <span class="comment">// 基于pr封装的wx.requestPayment()方法</span></span><br><span class="line">  <span class="comment">// 5. 判断是否支付成功</span></span><br><span class="line">  <span class="keyword">let</span> payResult = res.errMsg;</span><br><span class="line">  <span class="keyword">if</span> (payResult == <span class="string">"requestPayment:ok"</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"支付成功"</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (payResult == <span class="string">"requestPayment:fail cancel"</span>) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"用户取消支付"</span>);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"支付失败"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意事项</p>
+<ol>
+<li>申请微信小程序账号</li>
+</ol>
+<p>申请成功可拿到 AppID（小程序 id）和 AppSecret（小程序密钥）<br>申请类型为企业性质，否则无法接入微信支付</p>
+<ol>
+<li>微信小程序认证</li>
+</ol>
+<p>通过认证的小程序才能接入微信支付和绑定商户平台</p>
+<ol>
+<li>申请商户平台账号</li>
+</ol>
+<p>需要第一步申请的 AppID<br>申请成功可拿到 MchID（商户 id）和 MchKey（商户密钥）</p>
+<ol>
+<li>信小程序关联商户号</li>
+</ol>
+<p>微信和商户都认证成功后，在微信后台微信支付菜单中进行关联</p>
+<ol>
+<li><p>接入微信支付</p>
+<p>在微信后台微信支付菜单中进行接入</p>
+</li>
+</ol>
+<p>参考</p>
+<ul>
+<li>小程序支付文档</li>
+<li>小程序开发文档<h2 id="H5-支付"><a href="#H5-支付" class="headerlink" title="H5 支付"></a>H5 支付</h2>开发流程</li>
+</ul>
+<ol>
+<li>前端端请求创建订单接口，后端统一下单获取 orderId 并返回</li>
+<li>前端带着 orderId 请求支付接口，获得 mweb_url，</li>
+<li>然后跳转 mweb_url 会跳转微信自动调用微信支付</li>
+<li><p>支付后返回支付页，判断是否支付成功（需发送请求后端查询）</p>
+<p> 刷新页面，获取最新的支付（订单）状态。</p>
+<p> 设置一个的按钮”我已支付”，让用户点击自动查询状态。<br>伪代码</p>
+</li>
+</ol>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">async function wxH5Pay(goodId) &#123;</span><br><span class="line">  // <span class="number">1</span>. 创建订单 获取orderId</span><br><span class="line">  let orderId = await ajax(<span class="string">"<span class="keyword">POST</span>"</span>, <span class="string">"/api/OrderProgram/CreateTheOrder"</span>, &#123;</span><br><span class="line">    goodId, // 商品id</span><br><span class="line">  &#125;);</span><br><span class="line">  // <span class="number">2</span>. 获取支付跳转的URL</span><br><span class="line">  let mweb_url = await ajax(<span class="string">"<span class="keyword">POST</span>"</span>, <span class="string">"/api/OrderProgram/WxH5Pay"</span>, &#123; orderId &#125;);</span><br><span class="line">  // <span class="number">3</span>. 跳转URL去微信支付</span><br><span class="line">  if (mweb_url) &#123;</span><br><span class="line">    location.href = mweb_url;</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    console.log(<span class="string">"回调地址出错"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  // <span class="number">4</span>. 支付后返回支付页，判断是否支付成功</span><br><span class="line">  // <span class="number">4</span>.<span class="number">1</span> 刷新页面，获取最新的订单(商品)状态。</span><br><span class="line">  // <span class="number">4</span>.<span class="number">2</span> 设置一个<span class="string">"我已支付"</span>的按钮，让用户点击之后查询状态。</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意事项</p>
+<ul>
+<li>在商户平台设置正确的支付域名</li>
+<li>调试需要在线上，如果嫌麻烦可以使用内网穿透（Ngrok 或花生壳）</li>
+<li>需对redirect_url进行urlencode处理</li>
+<li><p>H5 支付不能直接在微信客户端内调起，请在外部浏览器调起。<br>参考</p>
+</li>
+<li><p>微信支付-H5 支付-开发步骤</p>
+<h2 id="JSAPI-支付（微信内网页支付）"><a href="#JSAPI-支付（微信内网页支付）" class="headerlink" title="JSAPI 支付（微信内网页支付）"></a>JSAPI 支付（微信内网页支付）</h2><p>开发流程</p>
+</li>
+</ul>
+<h3 id="商品页"><a href="#商品页" class="headerlink" title="商品页"></a>商品页</h3><ol>
+<li>前端商品页创建订单，在后端统一下单后获取 orderId</li>
+<li>前端带着 orderId 跳转到支付页，<h3 id="支付页"><a href="#支付页" class="headerlink" title="支付页"></a>支付页</h3></li>
+<li>获取 code</li>
+</ol>
+<ul>
+<li>第一次进入页面，判断是否路径中有 code</li>
+<li>没有 code，请求数据跳转授权页面，code 会通过回调地址一起返回回来</li>
+<li>拿到 code，发送给后端，后端解析到 openid，保存好。</li>
+</ul>
+<ol>
+<li><p>点击确定支付按钮，触发 wxPay() 方法</p>
+</li>
+<li><p>发送 orderId 给后端，获取 wxData</p>
+</li>
+<li>wxData 中包含 wx.config 和 wx.chooseWXPay 两个接口的数据。</li>
+<li><p>先调用 wx.config()然后在调用 wx.chooseWXPay()，如果一切正常，支付页面就会弹出。</p>
+</li>
+<li><p>支付状态通过后端去查询<br>伪代码</p>
+</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line">商品页</span><br><span class="line"><span class="comment">// 1. 创建订单 获取orderId</span></span><br><span class="line"><span class="keyword">let</span> orderId = <span class="keyword">await</span> ajax(<span class="string">"POST"</span>, <span class="string">"/api/OrderProgram/CreateTheOrder"</span>, &#123;</span><br><span class="line">  goodId, <span class="comment">// 商品id</span></span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// 2. 携带id 跳转到支付页</span></span><br><span class="line"><span class="keyword">this</span>.$router.push(&#123; name: <span class="string">"wx_pay_page"</span>, params: &#123; orderId: id &#125; &#125;);</span><br><span class="line">入口文件(main.js)</span><br><span class="line"><span class="comment">// main.js 引入 js-sdk</span></span><br><span class="line"><span class="keyword">import</span> wx <span class="keyword">from</span> <span class="string">"weixin-js-sdk"</span>;</span><br><span class="line">支付页 HTML</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;button <span class="meta">@click</span>=<span class="string">"wxPay"</span>&gt;点击支付button&gt;</span><br><span class="line">  div&gt;</span><br><span class="line">template&gt;</span><br><span class="line">支付页 JS</span><br><span class="line"></span><br><span class="line"><span class="comment">// Vue</span></span><br><span class="line">data()&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        orderId: <span class="keyword">this</span>.$route.params.orderId, <span class="comment">// 订单id</span></span><br><span class="line">        url: <span class="string">''</span>,<span class="comment">// 获取code的url</span></span><br><span class="line">        wxData: <span class="literal">null</span>,<span class="comment">// js-sdk接口所需的数据</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br><span class="line">mounted()&#123;</span><br><span class="line">    <span class="comment">// 判断是否有code</span></span><br><span class="line">    <span class="keyword">this</span>.getCode()</span><br><span class="line">&#125;</span><br><span class="line">methods: &#123;</span><br><span class="line">    getCode() &#123;</span><br><span class="line">        <span class="keyword">var</span> code = <span class="keyword">this</span>.getUrlPram(<span class="string">"code"</span>);</span><br><span class="line">        <span class="keyword">if</span> (code != <span class="literal">null</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.code = code;</span><br><span class="line">            <span class="comment">// 拿到 code 发给 后端</span></span><br><span class="line">            <span class="keyword">this</span>.sendCode(code);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 去拿code</span></span><br><span class="line">            <span class="keyword">this</span>.getUrl();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    getUrl() &#123;</span><br><span class="line">        <span class="comment">// 请求后端拿到url所需数据，然后跳转页面在通过回调地址返回，获取code.</span></span><br><span class="line">        <span class="keyword">this</span>.axios</span><br><span class="line">            .post(<span class="string">"/api/OrderProgram/GetOpenidAndAccessToken"</span>, &#123;</span><br><span class="line">                orderId: <span class="keyword">this</span>.orderId,</span><br><span class="line">            &#125;)</span><br><span class="line">            .then(<span class="function">(<span class="params">data</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">this</span>.url = <span class="string">`https://open.weixin.qq.com/connect/oauth2/authorize?appid=<span class="subst">$&#123;data.appId&#125;</span>&amp;redirect_uri=<span class="subst">$&#123;data.redirect_uri&#125;</span>&amp;response_type=<span class="subst">$&#123;data.response_type&#125;</span>&amp;scope=<span class="subst">$&#123;data.scope&#125;</span>&amp;state=<span class="subst">$&#123;data.state&#125;</span>`</span>;</span><br><span class="line">                <span class="built_in">window</span>.location.href = <span class="keyword">this</span>.url;</span><br><span class="line">            &#125;)</span><br><span class="line">            .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(err);</span><br><span class="line">            &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">    sendCode(code) &#123;</span><br><span class="line">        <span class="comment">// 发送code给后端 后端解析出openid</span></span><br><span class="line">        <span class="keyword">this</span>.axios</span><br><span class="line">            .post(<span class="string">"/api/OrderProgram/GetOpenidAndAccessTokenFromCode"</span>, &#123;</span><br><span class="line">                code: code,</span><br><span class="line">            &#125;)</span><br><span class="line">            .then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(res);</span><br><span class="line">            &#125;)</span><br><span class="line">            .catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="built_in">console</span>.log(err);</span><br><span class="line">            &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">    wxPay: <span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">// 发送orderid，获取wx.chooseWXPay和wx.config所需的参数</span></span><br><span class="line">        <span class="keyword">this</span>.wxData = <span class="keyword">await</span> <span class="keyword">this</span>.axios.post(</span><br><span class="line">            <span class="string">"/api/OrderProgram/WxJSAPIPay"</span>,</span><br><span class="line">            &#123; orderId: <span class="keyword">this</span>.orderId &#125;</span><br><span class="line">        );</span><br><span class="line">        <span class="keyword">let</span> wxConfigData = <span class="keyword">this</span>.wxData.wxConfigData <span class="comment">// 获取wx.chooseWXPay()所需数据</span></span><br><span class="line">        <span class="keyword">let</span> wxPayData = <span class="keyword">this</span>.wxData.wxPayData;<span class="comment">// 获取wx.config()所需数据</span></span><br><span class="line">        <span class="keyword">this</span>.$wx.config(&#123;</span><br><span class="line">            debug: <span class="literal">false</span>, <span class="comment">// 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。</span></span><br><span class="line">            appId: wxConfigData.appId, <span class="comment">// 必填，公众号的唯一标识</span></span><br><span class="line">            timestamp: wxConfigData.timeStamp, <span class="comment">// 必填，生成签名的时间戳</span></span><br><span class="line">            nonceStr: wxConfigData.nonceStr, <span class="comment">// 必填，生成签名的随机串</span></span><br><span class="line">            signature: wxConfigData.paySign, <span class="comment">// 必填，签名</span></span><br><span class="line">            jsApiList: [</span><br><span class="line">                <span class="string">"chooseWXPay"</span>,</span><br><span class="line">            ],</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 执行支付</span></span><br><span class="line">        <span class="keyword">this</span>.$wx.chooseWXPay(&#123;</span><br><span class="line">            timestamp: wxPayData.timeStamp, <span class="comment">// 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符</span></span><br><span class="line">            nonceStr: wxPayData.nonceStr, <span class="comment">// 支付签名随机串，不长于 32 位</span></span><br><span class="line">            package: wxPayData.package, <span class="comment">// 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）</span></span><br><span class="line">            signType: wxPayData.signType, <span class="comment">// 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'</span></span><br><span class="line">            paySign: wxPayData.paySign, <span class="comment">// 支付签名</span></span><br><span class="line">            success: <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">this</span>.$toast(<span class="string">"支付成功"</span>);</span><br><span class="line">            &#125;,</span><br><span class="line">            fail: <span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">this</span>.$toast(<span class="string">"支付失败"</span>);</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同时支持 H5 支付和 JSAPI 支付</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在创建订单之后，就判断环境使用哪种方法支付。</span></span><br><span class="line"><span class="keyword">if</span> (isWx()) &#123;</span><br><span class="line">  <span class="keyword">this</span>.WXPay(orderId); <span class="comment">// 带着orderId跳转到支付页逻辑</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="keyword">this</span>.H5Pay(orderId); <span class="comment">// 执行上面H5支付中的创建订单之后的逻辑</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 判断是否是微信浏览器</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isWx</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> uAgent = navigator.userAgent.toLowerCase();</span><br><span class="line">  reutrn(<span class="regexp">/micromessenger/</span>.test(uAgent)) ? <span class="literal">true</span> : <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意事项<br>开通微信商户号 - 设置支付目录（如果是 Vue 这类 SPA 页面，到根目录即可，也就是#号之前的地址）</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a cup of coffee,thanks!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="andy Wong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="andy Wong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/wxmini/" rel="tag"><i class="fa fa-tag"></i> wxmini</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/07/21/wxmini/wx页面跳转数据传递/" rel="next" title="wx页面跳转数据传递">
+                <i class="fa fa-chevron-left"></i> wx页面跳转数据传递
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/07/21/wxmini/跨页面通信/" rel="prev" title="跨页面通信">
+                跨页面通信 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/doggy.jpg"
+                alt="andy Wong" />
+            
+              <p class="site-author-name" itemprop="name">andy Wong</p>
+              <p class="site-description motion-element" itemprop="description">前端渣渣辉</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/chongdee" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.cn/" title="掘金" target="_blank">掘金</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://segmentfault.com/" title="segmentfault" target="_blank">segmentfault</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://docschina.org/" title="印记中文" target="_blank">印记中文</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com/" title="阮一峰ES6书籍" target="_blank">阮一峰ES6书籍</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div> 
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#小程序支付"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x5C0F;&#x7A0B;&#x5E8F;&#x652F;&#x4ED8;" class="headerlink" title="&#x5C0F;&#x7A0B;&#x5E8F;&#x652F;&#x4ED8;"></a>&#x5C0F;&#x7A0B;&#x5E8F;&#x652F;&#x4ED8;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#H5-支付"><span class="nav-number">2.</span> <span class="nav-text"><a href="#H5-&#x652F;&#x4ED8;" class="headerlink" title="H5 &#x652F;&#x4ED8;"></a>H5 &#x652F;&#x4ED8;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JSAPI-支付（微信内网页支付）"><span class="nav-number">3.</span> <span class="nav-text"><a href="#JSAPI-&#x652F;&#x4ED8;&#xFF08;&#x5FAE;&#x4FE1;&#x5185;&#x7F51;&#x9875;&#x652F;&#x4ED8;&#xFF09;" class="headerlink" title="JSAPI &#x652F;&#x4ED8;&#xFF08;&#x5FAE;&#x4FE1;&#x5185;&#x7F51;&#x9875;&#x652F;&#x4ED8;&#xFF09;"></a>JSAPI &#x652F;&#x4ED8;&#xFF08;&#x5FAE;&#x4FE1;&#x5185;&#x7F51;&#x9875;&#x652F;&#x4ED8;&#xFF09;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#商品页"><span class="nav-number">3.1.</span> <span class="nav-text"><a href="#&#x5546;&#x54C1;&#x9875;" class="headerlink" title="&#x5546;&#x54C1;&#x9875;"></a>&#x5546;&#x54C1;&#x9875;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#支付页"><span class="nav-number">3.2.</span> <span class="nav-text"><a href="#&#x652F;&#x4ED8;&#x9875;" class="headerlink" title="&#x652F;&#x4ED8;&#x9875;"></a>&#x652F;&#x4ED8;&#x9875;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; 2015 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span>Powered By -</span>
+  <span class="author" itemprop="copyrightHolder">andy Wong</span>
+
+  
+</div>
+
+
+  <div>Theme by &copy;next</div>
+
+
+<div>Hosted by <strong><a href="https://github.com/">Github Pages</a></strong></div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":true,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"left","width":145,"height":315},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script>
+</body>
+</html>

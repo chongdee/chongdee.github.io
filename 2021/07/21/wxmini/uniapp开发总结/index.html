@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+
+
+
+
+<html class="theme-next gemini" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="wxmini," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="我认为的坑？其实我觉得自己的水平不能够去评价一款框架的好坏，只是简单的说一下开发体验，我认为坑大概分三种。  该框架确实没有的功能，存在不能实现的东西。 明显的bug，导致程序出现问题，影响开发进度和结果 在开发过程中，自己凭借直觉和经验在开发，结果和预期不同，阅读文档过后才发现和之前经验积累的写法不一样，会不由自主的说一句真坑，或者说在不同端有的不同写法，但自己没有做好兼容，就出现了不同端效果">
+<meta name="keywords" content="wxmini">
+<meta property="og:type" content="article">
+<meta property="og:title" content="uniapp开发总结">
+<meta property="og:url" content="https://chongdee.github.io/2021/07/21/wxmini/uniapp开发总结/index.html">
+<meta property="og:site_name" content="andy Wong&#39;s Blog">
+<meta property="og:description" content="我认为的坑？其实我觉得自己的水平不能够去评价一款框架的好坏，只是简单的说一下开发体验，我认为坑大概分三种。  该框架确实没有的功能，存在不能实现的东西。 明显的bug，导致程序出现问题，影响开发进度和结果 在开发过程中，自己凭借直觉和经验在开发，结果和预期不同，阅读文档过后才发现和之前经验积累的写法不一样，会不由自主的说一句真坑，或者说在不同端有的不同写法，但自己没有做好兼容，就出现了不同端效果">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2021-07-20T16:18:22.468Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="uniapp开发总结">
+<meta name="twitter:description" content="我认为的坑？其实我觉得自己的水平不能够去评价一款框架的好坏，只是简单的说一下开发体验，我认为坑大概分三种。  该框架确实没有的功能，存在不能实现的东西。 明显的bug，导致程序出现问题，影响开发进度和结果 在开发过程中，自己凭借直觉和经验在开发，结果和预期不同，阅读文档过后才发现和之前经验积累的写法不一样，会不由自主的说一句真坑，或者说在不同端有的不同写法，但自己没有做好兼容，就出现了不同端效果">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chongdee.github.io/2021/07/21/wxmini/uniapp开发总结/"/>
+
+
+
+
+
+  <title>uniapp开发总结 | andy Wong's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?63d30ffc3ac0fa4a98c97c20372430af";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">andy Wong's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">知道的越多，不知道的越多</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chongdee.github.io/2021/07/21/wxmini/uniapp开发总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="andy Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/doggy.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="andy Wong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">uniapp开发总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-21T02:30:20+08:00">
+                2021-07-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/wxmini/" itemprop="url" rel="index">
+                    <span itemprop="name">wxmini</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <script src="\assets\js\APlayer.min.js"> </script><h2 id="我认为的坑？"><a href="#我认为的坑？" class="headerlink" title="我认为的坑？"></a>我认为的坑？</h2><p>其实我觉得自己的水平不能够去评价一款框架的好坏，只是简单的说一下开发体验，我认为坑大概分三种。</p>
+<ol>
+<li>该框架确实没有的功能，存在不能实现的东西。</li>
+<li>明显的bug，导致程序出现问题，影响开发进度和结果</li>
+<li>在开发过程中，自己凭借直觉和经验在开发，结果和预期不同，阅读文档过后才发现和之前经验积累的写法不一样，会不由自主的说一句真坑，或者说在不同端有的不同写法，但自己没有做好兼容，就出现了不同端效果不一致，当再次阅读文档找到问题后也会来一句真坑。</li>
+</ol>
+<p>总的来讲，这次Uni-app的开发之旅还是比较通畅的。</p>
+<h2 id="踩坑之旅"><a href="#踩坑之旅" class="headerlink" title="踩坑之旅"></a>踩坑之旅</h2><h3 id="像素单位"><a href="#像素单位" class="headerlink" title="像素单位"></a>像素单位</h3><p>使用upx/rpx 而不是 px<br>修改内容（评论区大佬的订正）： 1px = 2upx是不准确的，upx和rpx是响应式单位，以750px为基准宽度，根据设备屏幕宽度自动调整</p>
+<h3 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h3><p>uni-app的路由全部配置在page.json这个文件中，问题就在于多人开发的时候，路由无法拆分，如果处理的不好，经常发生冲突。至于其中的一些配置项，就请见官方文档。<br>在页面中没有专门的  $route 和 $router对象 仅能在页面的生命周期里面接受路由传参，详情见文档。</p>
+<blockquote>
+<p><a href="https://uniapp.dcloud.io/frame?id=%E8%B7%AF%E7%94%B1%E8%B7%B3%E8%BD%AC" target="_blank" rel="noopener">uniapp.dcloud.io/frame?id=路由…</a></p>
+</blockquote>
+<p>路由传参方式</p>
+<figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="built_in">url</span> = <span class="string">`/pages/shopManagement/sonPage/billDetails?StoreID=<span class="subst">$&#123;StoreID&#125;</span>`</span></span><br></pre></td></tr></table></figure>
+<p>路由接参方式：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">onLoad</span><span class="params">(route)</span></span>&#123;</span><br><span class="line">	this<span class="selector-class">.getData</span><span class="selector-class">.StoreID</span>=route.StoreID</span><br><span class="line">	this.getCurryInfo()</span><br><span class="line">&#125;,</span><br><span class="line">onLoad接收到一个参数对象</span><br></pre></td></tr></table></figure>
+<h3 id="DOM操作"><a href="#DOM操作" class="headerlink" title="DOM操作"></a>DOM操作</h3><p>如果你的项目仅是h5,那可以放心大胆的使用dom操作，但如果要在小程序和app跑，就不要做dom操作了，不生效。<br>不过ref还是可以用的，一样可以获取到这个节点，该干啥干啥。</p>
+<p>生命周期<br>说到ref我就要提一下生命周期<br>具体的生命周期在文档中可以看详情</p>
+<blockquote>
+<p><a href="https://uniapp.dcloud.io/frame?id=%E5%BA%94%E7%94%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F" target="_blank" rel="noopener">uniapp.dcloud.io/frame?id=应用…</a></p>
+</blockquote>
+<p>大致上和vue的差不多，分成页面生命周期和应用生命周期，页面生命周期就是针对单页面的，应用生命周期就是针对整个小程序/app的，不过我提出在开发时的一些情况</p>
+<p>在组件中，没有生命周期，对，你没看错！比如页面a引用了组件b 在组件b中，onLoad，onShow，onReady全部失效，不过用created和mounted是生效的，但是我在开发的时候还是没有用created和mounted，毕竟文档明确写到</p>
+<ul>
+<li>建议使用uni-app 的 onReady 代替 vue 的 mounted</li>
+<li>建议使用uni-app 的 onLoad 代替 vue 的 created</li>
+</ul>
+<p>所以我在组件中规避使用原vue的生命周期，另外，在上面说了ref，如果要在初始化使用ref要注意生命周期，在onload和show的钩子中，内部如果是同步操作是用不了的，拿不到$refs，我不知道怎么解释这个问题，在vue中很好解释，在created拿不到ref是因为dom还没有渲染出来，只有在mounted时dom渲染出来了才能拿到ref，但是uniapp中不是没得dom嘛。。。。。我也没深究过，如果要用，只能异步，可以加setTimeout 或者 放在某个请求后用，这个时候是可以拿到ref的</p>
+<p>其实在非页面组件里面使用vue自带的生命周期是可行的，之前我没有尝试过，所以一直规避了这种用法，把很多东西都放在页面的生命周期里面搞。</p>
+<h3 id="关于请求"><a href="#关于请求" class="headerlink" title="关于请求"></a>关于请求</h3><p>我们最开始的时候是自己简单的封装了一下发送的请求</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> HttpRequest_ =  &#123;</span><br><span class="line">	config: <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">var</span> info = <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">if</span> (name) &#123;</span><br><span class="line">			<span class="keyword">var</span> name2 = name.split(<span class="string">"."</span>); <span class="comment">//字符分割</span></span><br><span class="line">			<span class="keyword">if</span> (name2.length &gt; <span class="number">1</span>) &#123;</span><br><span class="line">				info = configdata[name2[<span class="number">0</span>]][name2[<span class="number">1</span>]] || <span class="literal">null</span>;</span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">				info = configdata[name] || <span class="literal">null</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (info == <span class="literal">null</span>) &#123;</span><br><span class="line">				<span class="keyword">let</span> web_config = cache.get(<span class="string">"web_config"</span>);</span><br><span class="line">				<span class="keyword">if</span> (web_config) &#123;</span><br><span class="line">					<span class="keyword">if</span> (name2.length &gt; <span class="number">1</span>) &#123;</span><br><span class="line">						info = web_config[name2[<span class="number">0</span>]][name2[<span class="number">1</span>]] || <span class="literal">null</span>;</span><br><span class="line">					&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">						info = web_config[name] || <span class="literal">null</span>;</span><br><span class="line">					&#125;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> info;</span><br><span class="line">	&#125;,</span><br><span class="line">	post: <span class="function"><span class="keyword">function</span>(<span class="params">url, data, header</span>) </span>&#123;</span><br><span class="line">		header = header || <span class="string">"application/x-www-form-urlencoded"</span>;</span><br><span class="line">		<span class="comment">//url = this.config("APIHOST")+url;</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">succ, error</span>) =&gt;</span> &#123;</span><br><span class="line">			showLoading_()</span><br><span class="line">			uni.request(&#123;</span><br><span class="line">				url: url,</span><br><span class="line">				data: data,</span><br><span class="line">				method: <span class="string">"POST"</span>,</span><br><span class="line">				header: &#123;</span><br><span class="line">					<span class="string">"content-type"</span>: header</span><br><span class="line">				&#125;,</span><br><span class="line">				success: <span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</span><br><span class="line">					hidLoading_()</span><br><span class="line">					succ.call(self, result.data)</span><br><span class="line">				&#125;,</span><br><span class="line">				fail: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">					hidLoading_()</span><br><span class="line">					error.call(self, e)</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">				<span class="built_in">console</span>.log(res)</span><br><span class="line">				<span class="keyword">return</span> res</span><br><span class="line">			&#125;,err=&gt;&#123;</span><br><span class="line">				<span class="built_in">console</span>.log(<span class="string">'err：'</span>,err)</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;,</span><br><span class="line">	get: <span class="function"><span class="keyword">function</span>(<span class="params">url, data, header</span>) </span>&#123;</span><br><span class="line">		header = header || <span class="string">"application/x-www-form-urlencoded"</span>;</span><br><span class="line">		<span class="comment">//url = this.config("APIHOST")+url;</span></span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">succ, error</span>) =&gt;</span> &#123;</span><br><span class="line">			showLoading_()<span class="comment">// 加载中</span></span><br><span class="line">			uni.request(&#123;</span><br><span class="line">				url: url,</span><br><span class="line">				data: data,</span><br><span class="line">				method: <span class="string">"GET"</span>,</span><br><span class="line">				header: &#123;</span><br><span class="line">					<span class="string">"content-type"</span>: header</span><br><span class="line">				&#125;,</span><br><span class="line">				success: <span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</span><br><span class="line">					hidLoading_() <span class="comment">//关闭加载中</span></span><br><span class="line">					succ.call(self, result.data)</span><br><span class="line">				&#125;,</span><br><span class="line">				fail: <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">					hidLoading_() <span class="comment">//关闭加载中</span></span><br><span class="line">					error.call(self, e)</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;)</span><br><span class="line">		&#125;).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">			<span class="built_in">console</span>.log(res)</span><br><span class="line">			<span class="keyword">return</span> res</span><br><span class="line">		&#125;,err=&gt;&#123;</span><br><span class="line">			uni.showToast(&#123;</span><br><span class="line">				duration:<span class="number">2000</span>,</span><br><span class="line">				title:<span class="string">'数据异常，请稍后再试'</span>,</span><br><span class="line">				icon:<span class="string">'none'</span></span><br><span class="line">			&#125;)</span><br><span class="line">			<span class="built_in">console</span>.log(<span class="string">'err：'</span>,err)</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>之前我以为在Uniapp中发送请求只能用他们请求方法，后来同事说也可以用其他的。<br>我们便引入其他的库。这是uniapp插件市场别人封装好的，用起来还是比较舒服</p>
+<blockquote>
+<p><a href="https://ext.dcloud.net.cn/plugin?id=561" target="_blank" rel="noopener">ext.dcloud.net.cn/plugin?id=5…</a></p>
+</blockquote>
+<h3 id="导航栏"><a href="#导航栏" class="headerlink" title="导航栏"></a>导航栏</h3><p>导航栏注意的一个问题就是不同端的不同展示形式，所以需要处理兼容问题。</p>
+<p>导航栏，可以用自定义的，可以用框架提供的，也有一些插件，都还是可以用的，就是注意显示的区别，如果有多端需求，一定要在不同端跑一下看看效果，不然到时候会很烦。我们一直用的colorUi的导航栏，自己稍微改动了一下</p>
+<p>在支付宝小程序中，原生的导航栏是取消不了，所以不能用自定义的插件，就需要在page.json中配置原生的导航栏</p>
+<p>随便找了一个页面，我们的头部导航是条件编译的:</p>
+<h3 id="动态的class-style"><a href="#动态的class-style" class="headerlink" title="动态的class style"></a>动态的class style</h3><p>具体的文档在这里：</p>
+<p><a href="https://uniapp.dcloud.io/use" target="_blank" rel="noopener">uniapp.dcloud.io/use</a></p>
+<p>我一开始是没有注意到这一点，按照我的一些常规习惯写并且一直在用h5调试，没有任何问题，后来上真机和小程序开发工具之后才发现全部失效。</p>
+<h3 id="打开第三方的网址或app"><a href="#打开第三方的网址或app" class="headerlink" title="打开第三方的网址或app"></a>打开第三方的网址或app</h3><p>在app端想要打开第三方的网址或者程序，一定要区分ios和安卓端。<br>首先，ios和安卓唤起第三方app的地址是不一样的。</p>
+<p>不管是在调试还是打包，要唤起第三方程序，在ios端要配置白名单</p>
+<h3 id="三方登录"><a href="#三方登录" class="headerlink" title="三方登录"></a>三方登录</h3><p>以微信登录位例：</p>
+<p>在app端，uni-app集成的几个方法，可以很顺利的拿到unionId，<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">openid等一些列信息</span><br><span class="line">    uni.getProvider(&#123;<span class="comment">//获取uniapp支持的第三方数据</span></span><br><span class="line">      service:<span class="string">'oauth'</span></span><br><span class="line">    &#125;).then(<span class="function"><span class="params">data</span>=&gt;</span>&#123;</span><br><span class="line">      <span class="keyword">var</span> [err,res] = data</span><br><span class="line">      <span class="keyword">var</span> providers=res.provider<span class="comment">//类型（微信，新浪，小米，qq）</span></span><br><span class="line">      <span class="keyword">var</span> flagIndex=providers.indexOf(provider)</span><br><span class="line">      <span class="keyword">if</span>(flagIndex&gt;<span class="number">-1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> providers[flagIndex] /</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> uni.login(&#123;<span class="comment">//登陆接口（可以获取用户信息）</span></span><br><span class="line">        provider:res,</span><br><span class="line">        scopes:<span class="string">'auth_base'</span>,</span><br><span class="line">        timeout:<span class="number">20000</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;).then(<span class="function"><span class="params">data</span>=&gt;</span>&#123;<span class="comment">//返回一系列登陆信息</span></span><br><span class="line">        <span class="keyword">var</span> [err,res] = data</span><br><span class="line">        <span class="keyword">if</span>(res.errMsg===<span class="string">"login:ok"</span>)&#123;</span><br><span class="line">          self.authResult=res.authResult</span><br><span class="line">          <span class="keyword">return</span> res.authResult</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;<span class="comment">//获取用户的信息 头像，地址，等等等</span></span><br><span class="line">      <span class="keyword">return</span> uni.getUserInfo(&#123;</span><br><span class="line">        provider:provider,</span><br><span class="line">        timeout:<span class="number">20000</span>,</span><br><span class="line">        withCredentials:<span class="literal">true</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;).then(<span class="function"><span class="params">data</span>=&gt;</span>&#123;<span class="comment">//得到一些列用户信息</span></span><br><span class="line">      <span class="keyword">var</span> [err,res] = data </span><br><span class="line">      <span class="built_in">console</span>.log(res)</span><br><span class="line">      <span class="keyword">if</span>(res.errMsg===<span class="string">"getUserInfo:ok"</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> res</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure></p>
+<p>但是如果在小程序端，很多方法就失效了，因为小程序有一套自己的三方登录交互策略。</p>
+<blockquote>
+<p><a href="https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/login.html" target="_blank" rel="noopener">developers.weixin.qq.com/miniprogram…</a></p>
+</blockquote>
+<p>还记得当时刚在app上测成功微信三方登陆后，领导过来看进度，问小程序怎么样，我给他放了个体验版，让他看看，他问我这个微信登录也可以吗？我拍拍胸脯说没得问题，随便登，结果。。。。。。。。。。。。。。。脸疼</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">uni.login(&#123;<span class="comment">//登陆接口</span></span><br><span class="line">      provider:<span class="string">'weixin'</span>,</span><br><span class="line">      scopes:<span class="string">'auth_base'</span>,</span><br><span class="line">      timeout:<span class="number">20000</span>,</span><br><span class="line">    &#125;).then(data=&gt;&#123;<span class="comment">//返回一系列登陆信息</span></span><br><span class="line">        let [err,res] = data</span><br><span class="line">        <span class="keyword">if</span>(res.code)&#123;</span><br><span class="line">          let data =&#123;<span class="comment">//这个code很重要，需要拿到code向后台去换unionid等</span></span><br><span class="line">            js_code: res.code</span><br><span class="line">          &#125;</span><br><span class="line">      return this.<span class="variable">$Request</span>.get(this.<span class="variable">$store</span><span class="selector-class">.state</span><span class="selector-class">.getopenidUrl</span>,data)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">      setTimeout(()=&gt;&#123;</span><br><span class="line">        this.<span class="variable">$api</span>.msg(<span class="string">'数据异常'</span>)</span><br><span class="line">      &#125;,<span class="number">500</span>)</span><br><span class="line">      uni.switchTab(&#123;</span><br><span class="line">        url:<span class="string">'/pages/index/index'</span></span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;).then(res=&gt;&#123;</span><br><span class="line">        let res_ = JSON.parse(res.Data)</span><br><span class="line">        <span class="keyword">if</span>(<span class="string">'unionid'</span> <span class="keyword">in</span> res_)&#123;</span><br><span class="line">          this<span class="selector-class">.getIsBindData</span><span class="selector-class">.openid</span>=res_.unionid</span><br><span class="line">          this<span class="selector-class">.getDataWX</span><span class="selector-class">.openid</span> = res_.unionid</span><br><span class="line">          this<span class="selector-class">.getDataWX</span><span class="selector-class">.unionid</span> = res_.openid</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">          this<span class="selector-class">.getIsBindData</span><span class="selector-class">.openid</span>=res_.openid</span><br><span class="line">          this<span class="selector-class">.getDataWX</span><span class="selector-class">.openid</span> = res_.openid</span><br><span class="line">          this<span class="selector-class">.getDataWX</span><span class="selector-class">.unionid</span> = res_.openid</span><br><span class="line">        &#125;</span><br><span class="line">        return this.WXuserInfo</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+<p>其他的三方登录我没有试过，但是一定要注意各端之间的差异性</p>
+<p>另外，支付宝三方登录uni-app没有集成，要是自己想做，就用原生来写，理论上是可以做的。由于我们团队没有会原生的，我们试过用webview做支付宝的三方登录，最后还是卡在了授权这一块，不得而终，遂阉了该需求。</p>
+<p>在插件市场已经有了安卓端和ios端授权登录的插件（是付费插件）详情：</p>
+<blockquote>
+<p><a href="https://ext.dcloud.net.cn/plugin?id=654" target="_blank" rel="noopener">ext.dcloud.net.cn/plugin?id=6…</a></p>
+</blockquote>
+<h3 id="canvas"><a href="#canvas" class="headerlink" title="canvas"></a>canvas</h3><p>写成组件在小程序上失效，仅能在index页面上使用。在h5生效，封装成组件也可以，渲染效果也不是太好，app端没有试过，因为后来看效果不好就暂时搁置这个需求了。<br>评论区朋友的订正：</p>
+<p>canvas在组件中使用时，记得传递第二个参数组件实例对象：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uni.createCanvasContext(canvasId, <span class="keyword">this</span>)</span><br></pre></td></tr></table></figure></p>
+<p>我试过了，封装成组件的情况下，传入this，在小程序是生效的.之前是没有传入的</p>
+<h3 id="注意权限模块与sdk的配置"><a href="#注意权限模块与sdk的配置" class="headerlink" title="注意权限模块与sdk的配置"></a>注意权限模块与sdk的配置</h3><p>我之前从未写过app和小程序，对一些东西不够敏感</p>
+<p>在我调试地图，导航等功能的时候用的很顺畅，后来打包就失效了，就是因为没配好，原来在我们调试的时候用的是Uniapp的。</p>
+<p>另外需要用到一些权限的时候记得也要去manifest.json中去配置，总的来讲，图形化界面配置还是比较友好，源码配置也没有那么复杂，基本上都能查到</p>
+<p>个人建议只要是真机调试就用自定义基座，尽量不要用uniapp给的基座，这样可以避免一些干扰，在标准基座没问题，一打包就出问题，用自定义基座会好一些。</p>
+<h3 id="nvue"><a href="#nvue" class="headerlink" title="nvue"></a>nvue</h3><p>weex魔幻的东西太多了，我就不一一列举了</p>
+<p>比如weex中自带flex布局，但是排布顺序是竖着的，你说这个是不是头疼。</p>
+<p>我用原生插件拼样式的时候真滴是痛苦，好几处觉得分分钟能解决的东西，半天搞不定，我当时还在想不会是记忆出错了？不是这么用的，还查了半天，结果依旧不生效，突然反应过来，别在weex里面就不是这么用，一看文档，果然如此！</p>
+<p>个人建议先把weex的文档通读一下，或者用某个东西之前先去查查看怎么用。别一根筋去根据自己脑海里的css知识来对抗另一套标准的css，这样永远都对不准。</p>
+<blockquote>
+<p><a href="https://weex.apache.org/zh/docs/styles/common-styles.html#%E7%9B%92%E6%A8%A1%E5%9E%8B" target="_blank" rel="noopener">weex.apache.org/zh/docs/sty…</a></p>
+</blockquote>
+<h3 id="开屏引导"><a href="#开屏引导" class="headerlink" title="开屏引导"></a>开屏引导</h3><p>uni-app没得开屏这个配置项，只能用一些策略来做。</p>
+<blockquote>
+<p><a href="https://note.youdao.com/" target="_blank" rel="noopener">ext.dcloud.net.cn/plugin?id=1…</a></p>
+</blockquote>
+<p>实质上是是用swiper组件+本地缓存做的模拟开屏引导，注意的是，如果产品一开始就定位了要做引导页，那就考虑好index的怎么写，我们是后期才打算加的，如果要把index改掉成本有点大，所以用了另一种策略，但如果在性能不好的手机上会出现尴尬的事情，就不细说怎么尴尬了，如果用上面的策略，再尴尬也不过是白屏，在上面的demo中，index仅是一个中转页面，什么都没有写。所以个人建议还是用以上的策略。</p>
+<h3 id="路径别名"><a href="#路径别名" class="headerlink" title="路径别名"></a>路径别名</h3><p>至今我没有我没有找到如何配置路径别名的文件或者方法。</p>
+<p>在uniapp中 @ 是表示根路径，不过整个文件结构还是很清晰的，没有那么多的配置文件，整个根文件很像常规的src目录，用@基本上也很舒服。</p>
+<h3 id="插件市场和生态"><a href="#插件市场和生态" class="headerlink" title="插件市场和生态"></a>插件市场和生态</h3><p>总的来讲，Uniapp的插件市场还是不错的，大多数能用到的插件都可以找到，找不到的也可以从个别相似的插件中找到灵感，自己再魔改一下，论坛也还行，基本上自己遇到的问题都能找到答案，但是也有找不到的或者有人提出却无人回答的,官方qq群也还是比较热闹，有些东西自己没遇见的看看别人的问题和解决方案也算是一种成长，自己遇见过的给别人解答，换来一声谢谢也是很开心的。</p>
+<h3 id="压缩图片"><a href="#压缩图片" class="headerlink" title="压缩图片"></a>压缩图片</h3><p>文档：</p>
+<blockquote>
+<p><a href="https://uniapp.dcloud.io/api/media/image?id=compressimage" target="_blank" rel="noopener">uniapp.dcloud.io/api/media/i…</a></p>
+</blockquote>
+<p>我不知道为什么 uni.compressImage(OBJECT) 这个接口在app端失效微信小程序生效，报错信息也很简单，就是说压缩失败，没有其他的提示，我在官方群问了一圈没人给我回答，看了下社区也没有太有价值的回答。</p>
+<p>后来自己慢慢琢磨了一下，也参考了这位老哥的文章(文章中也包含了转换base64的方法)，简单的封装了个函数。</p>
+<p>参考文章：</p>
+<blockquote>
+<p><a href="https://github.com/SilurianYang/uni-app-tools/blob/master/uni-app-customImg/custom-picture.js" target="_blank" rel="noopener">github.com/SilurianYan…</a></p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">src:图片的本地路径</span></span><br><span class="line"><span class="comment">quality：压缩范围 0-100</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"> <span class="function"><span class="keyword">function</span> <span class="title">zipImage</span>(<span class="params">src,quality=30</span>)</span>&#123;</span><br><span class="line">	<span class="comment">// #ifdef APP-PLUS app</span></span><br><span class="line">	<span class="keyword">let</span> index = src.lastIndexOf(<span class="string">"."</span>)</span><br><span class="line">	<span class="keyword">let</span> imgDirname = src.substring(<span class="number">0</span>,index)<span class="comment">//图片的原始地址</span></span><br><span class="line">	<span class="keyword">let</span> imgName = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();<span class="comment">//压缩后的文件</span></span><br><span class="line">	<span class="keyword">let</span> imgType  = src.substring(index+<span class="number">1</span>,src.length);<span class="comment">//图片的类型</span></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,rej</span>)=&gt;</span>&#123;</span><br><span class="line">		plus.zip.compressImage(&#123;</span><br><span class="line">			src,</span><br><span class="line">			dst: imgDirname+imgName+<span class="string">'.'</span>+imgType,</span><br><span class="line">			quality,</span><br><span class="line">		&#125;, <span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">			resolve(res.target)</span><br><span class="line">		&#125;, <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">			<span class="built_in">console</span>.log(err);</span><br><span class="line">			rej(err)</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="comment">// #endif</span></span><br><span class="line">	<span class="comment">// #ifdef MP-WEIXIN   微信小程序</span></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,rej</span>)=&gt;</span>&#123;</span><br><span class="line">		uni.compressImage(&#123;</span><br><span class="line">		  src,</span><br><span class="line">		  success:<span class="function">(<span class="params">res</span>)=&gt;</span>&#123;</span><br><span class="line">		  	<span class="built_in">console</span>.log(res,<span class="number">1</span>)</span><br><span class="line">			<span class="keyword">let</span> path = res.tempFilePath</span><br><span class="line">			resolve(path)</span><br><span class="line">			<span class="comment">// this.imgList.push(path)</span></span><br><span class="line">		  	<span class="comment">// this.imgList.push</span></span><br><span class="line">		  &#125;,</span><br><span class="line">		  fail:<span class="function">(<span class="params">e</span>)=&gt;</span>&#123;</span><br><span class="line">			uni.showToast(&#123;</span><br><span class="line">				title:<span class="string">'上传失败，请重新上传'</span>,</span><br><span class="line">				duration:<span class="number">2000</span></span><br><span class="line">			&#125;)</span><br><span class="line">		  &#125;,</span><br><span class="line">		  complete:<span class="function">(<span class="params">val</span>)=&gt;</span>&#123;</span><br><span class="line">		  	<span class="built_in">console</span>.log(val,<span class="number">3</span>)</span><br><span class="line">		  &#125;</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;)</span><br><span class="line">	<span class="comment">// #endif</span></span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用的时候，直接会吐出来压缩后的图片路径</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">uni</span><span class="selector-class">.chooseImage</span>(&#123;</span><br><span class="line">	<span class="attribute">success</span>:(res)=&gt;&#123;</span><br><span class="line">	    res.tempFiles.<span class="built_in">forEach</span>(async (it)=&gt;&#123;</span><br><span class="line">			let localPath =it.path	</span><br><span class="line">			localPath = await this.$api.<span class="built_in">zipImage</span>(localPath) //await一下就可以接住了</span><br><span class="line">			this.imageList.<span class="built_in">push</span>(&#123;</span><br><span class="line">				value:localPath</span><br><span class="line">			&#125;)	</span><br><span class="line">							</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>最近又写了两个uniapp的项目 基本上没踩什么坑<br>倒是加入了几个新功能，在这里稍微总结一下<br>第一个是app推送 第二个是语音播报 第三个是直播</p>
+<h3 id="app推送"><a href="#app推送" class="headerlink" title="app推送"></a>app推送</h3><blockquote>
+<p><a href="https://ask.dcloud.net.cn/article/35622" target="_blank" rel="noopener">ask.dcloud.net.cn/article/356…</a></p>
+</blockquote>
+<p>这是官方的说明 按照配置配置结束以后 就可以开始测试了，但是测试之前需要拿到一个cid 拿cid的函数就是这个</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const clientInfo = plus.push.getClientInfo()</span><br><span class="line">    let pushInfo = &#123;</span><br><span class="line"><span class="symbol">		clientid:</span> clientInfo.clientid,</span><br><span class="line"><span class="symbol">		appid:</span> clientInfo.appid,</span><br><span class="line"><span class="symbol">		appkey:</span> clientInfo.appkey   </span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="comment">//这端代码可以拿到需要的一些信息，包括cid</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">//拿到cid就可以开始发送测试的推送了</span></span><br></pre></td></tr></table></figure>
+<p>至于透传和通知栏信息的区别是什么，在百度或者谷歌一搜会有</p>
+<p>很多讲的详细的文章，比我这个前端菜鸡说的仔细的多，所以我就不多加赘述了。</p>
+<p>在收到推送之前，也可以检测一下用户是否看起了推送权限，直接上代码吧</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">pushPower</span>(<span class="params">phoneType</span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(phoneType===<span class="string">'android'</span>)&#123;<span class="comment">//如果是安卓</span></span><br><span class="line">			<span class="built_in">console</span>.log(<span class="string">'安卓'</span>)</span><br><span class="line">			<span class="keyword">let</span> main = plus.android.runtimeMainActivity();</span><br><span class="line">			<span class="keyword">let</span> pkName = main.getPackageName();  </span><br><span class="line">			<span class="keyword">let</span> NotificationManagerCompat plus.android.importClass(<span class="string">"android.support.v4.app.NotificationManagerCompat"</span>);  </span><br><span class="line">			<span class="keyword">let</span> packageNames = NotificationManagerCompat.from(main);  </span><br><span class="line">			<span class="comment">// console.log(JSON.stringify(packageNames));  </span></span><br><span class="line">			<span class="keyword">if</span> (packageNames.areNotificationsEnabled()) &#123;  </span><br><span class="line">					  <span class="built_in">console</span>.log(<span class="string">'已开启通知权限'</span>);  </span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;  </span><br><span class="line">			    <span class="comment">/*这段函数是自己封装的弹框询问*/</span></span><br><span class="line">				<span class="keyword">let</span> res = <span class="keyword">await</span> <span class="keyword">this</span>.$api.showModal(&#123;</span><br><span class="line">					title: <span class="string">'是否开启推送权限'</span>,</span><br><span class="line">					content: <span class="string">'您还未开启推送权限，是否开启？不开启推送权限部分功能将不完善。'</span></span><br><span class="line">				&#125;)</span><br><span class="line">				 <span class="comment">/*这段函数是自己封装的弹框询问*/</span></span><br><span class="line">				</span><br><span class="line">				<span class="keyword">if</span>(res)&#123;</span><br><span class="line">					<span class="keyword">let</span> Intent = plus.android.importClass(<span class="string">'android.content.Intent'</span>);</span><br><span class="line">					<span class="keyword">let</span> intent = neIntent(<span class="string">'android.settings.APP_NOTIFICATION_SETTINGS'</span>);<span class="comment">//可设置表中所有Action字段  </span></span><br><span class="line">					intent.putExtra(<span class="string">'android.provider.extra.APP_PACKAGE'</span>, pkName);  </span><br><span class="line">					main.startActivity(intent);  </span><br><span class="line">				&#125; </span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(phoneType===<span class="string">'ios'</span>)&#123;<span class="comment">//如果是ios</span></span><br><span class="line">			<span class="keyword">let</span> UIApplication = plus.ios.import(<span class="string">"UIApplication"</span>);  </span><br><span class="line">			<span class="keyword">let</span> app = UIApplication.sharedApplication();  </span><br><span class="line">			<span class="keyword">let</span> enabledTypes  = <span class="number">0</span>;  </span><br><span class="line">			<span class="keyword">if</span> (app.currentUserNotificationSettings) &#123;  </span><br><span class="line">					  <span class="keyword">let</span> settings = app.currentUserNotificationSettings();  </span><br><span class="line">					  enabledTypes = settings.plusGetAttribute(<span class="string">"types"</span>);  </span><br><span class="line">			&#125; <span class="keyword">else</span> &#123;  </span><br><span class="line">					  <span class="comment">//针对低版本ios系统  </span></span><br><span class="line">					  enabledTypes = app.enabledRemoteNotificationTypes();  </span><br><span class="line">			&#125;  </span><br><span class="line">			plus.ios.deleteObject(app);  </span><br><span class="line">			<span class="keyword">if</span> ( <span class="number">0</span> == enabledTypes ) &#123;  </span><br><span class="line">			     <span class="comment">/*这段函数是自己封装的弹框询问*/</span></span><br><span class="line">				<span class="keyword">let</span> res = <span class="keyword">await</span> <span class="keyword">this</span>.$api.showModal(&#123;</span><br><span class="line">					title: <span class="string">'是否开启推送权限'</span>,</span><br><span class="line">					content: <span class="string">'您还未开启推送权限，是否开启？不开启推送权限部分功能将不完善。'</span></span><br><span class="line">				&#125;)</span><br><span class="line">				 <span class="comment">/*这段函数是自己封装的弹框询问*/</span></span><br><span class="line">				 </span><br><span class="line">				 </span><br><span class="line">				<span class="keyword">if</span>(res)&#123;</span><br><span class="line">					<span class="keyword">let</span> UIApplication = plus.ios.import(<span class="string">"UIApplication"</span>);</span><br><span class="line">					<span class="keyword">let</span> NSURL = plus.ios.import(<span class="string">"NSURL"</span>);  </span><br><span class="line">					<span class="keyword">let</span> setting = NSURL.URLWithString(<span class="string">"app-settings:"</span>);  </span><br><span class="line">					<span class="keyword">let</span> application = UIApplication.sharedApplication();  </span><br><span class="line">					application.openURL(setting);  </span><br><span class="line">					plus.ios.deleteObject(setting);  </span><br><span class="line">					plus.ios.deleteObject(application);  </span><br><span class="line">				&#125; </span><br><span class="line">			&#125;  </span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>反正做不做权限检查也看各位的需求<br>最后一步就是监听推送信息了，在这里我就不放我的代码了，给大家提供一个文章，这个文章里面详细的撰写了怎么去监听推送等。</p>
+<blockquote>
+<p><a href="https://ask.dcloud.net.cn/article/35622" target="_blank" rel="noopener">ask.dcloud.net.cn/article/366…</a><br>前端这块只需要看他的【8】 里面 对接收不同信息做了详细代码演示。</p>
+</blockquote>
+<p>具体发透传信息还是通知栏信息，接到后怎么处理等，就看各位和后端怎么协商了。</p>
+<h3 id="语音播报"><a href="#语音播报" class="headerlink" title="语音播报"></a>语音播报</h3><p>这个就很简单了。</p>
+<blockquote>
+<p><a href="https://ext.dcloud.net.cn/plugin?id=182" target="_blank" rel="noopener">ext.dcloud.net.cn/plugin?id=1…</a></p>
+</blockquote>
+<p>就用这个插件，该配置的一配置 对着文档写一下 啥都出来了</p>
+<h3 id="直播"><a href="#直播" class="headerlink" title="直播"></a>直播</h3><p>直播的话 我觉得大概分成两个方面<br>第一就是自己的后端自己的搭建推送服务器</p>
+<p>1，app的推送：</p>
+<p>可以看这位掘金朋友的文章，我当时是请教他了，给我讲了很,但是最后我们没有做自己的直播服务器用的第三方的方案</p>
+<blockquote>
+<p><a href="https://juejin.cn/post/6844904056234704910" target="_blank" rel="noopener">juejin.im/post/684490…</a></p>
+</blockquote>
+<p>2,小程序的直播：</p>
+<p>我只是看了下文档，后面没有做，他的拉流组件与app用的不是同一个</p>
+<blockquote>
+<p><a href="https://uniapp.dcloud.io/component/live-player?id=live-player" target="_blank" rel="noopener"> uniapp.dcloud.io/component/l…</a></p>
+</blockquote>
+<p><strong>第二是用现成的直播插件与服务，主要是腾讯云</strong></p>
+<p>1，app的直播方案:<br>我们是花钱买的原生插件，这位作者售后很好，有问必答，而且也是永久维护。</p>
+<p>第一款上手比较快，但不算是真正意义的直播，是实时音视，不能做到录屏等功能。但是单纯的播放画面和接收声音是完全没有问题的，连麦，美颜，闭麦静音等都可以。具体的逻辑可以根据自己的业务来做，我们的业务主要是讲课软件，不仅要直播，也需要连麦的功能，这个就很符合我们的需求。</p>
+<blockquote>
+<p><a href="https://ext.dcloud.net.cn/plugin?id=824" target="_blank" rel="noopener">ext.dcloud.net.cn/plugin?id=8…</a></p>
+</blockquote>
+<p>第二个款组件我没有用过，但是也放出来大家可以参考一下。</p>
+<blockquote>
+<p><a href="https://ext.dcloud.net.cn/plugin?id=1008" target="_blank" rel="noopener">ext.dcloud.net.cn/plugin?id=1…</a></p>
+</blockquote>
+<p>2，小程序的直播<br>目前我们没打算在小程序做直播，因为资格不够，但是我在看直播插件的时候，看了个很好的例子，放出来大家也可以看看做做参考。</p>
+<p>ext.dcloud.net.cn/plugin?id=1…</p>
+<p>他是把腾讯视频云小程序的功能做成了uniapp版本的，大家可以参考着来做。</p>
+<blockquote>
+<p>说一点感受，就是uniapp对针对三方SDK的集成支持度不是很好，或者说第三方的sdk针对uniapp的sdk集成不是很好？</p>
+</blockquote>
+<h3 id="App权限"><a href="#App权限" class="headerlink" title="App权限"></a>App权限</h3><p>昨日在打包的时候，发现我的摄像头权限从来没有被询问过是否使用，直接就给我反应说未授权，我琢磨是哪里没配置，我才去配置项里面找到并配置了，但是这些配置项很多也不太熟悉，索性在论坛里面搜索了很多相关的文章看了看。就发现一个好东西，是关于权限的判断和提示的。</p>
+<p>上面推送的内容中，我写到了app推送权限的判断。我觉得还不如人家这个写得好，所以干脆我都改成了这个。</p>
+<blockquote>
+<p><a href="https://ext.dcloud.net.cn/plugin?id=594" target="_blank" rel="noopener">ext.dcloud.net.cn/plugin?id=5…</a></p>
+</blockquote>
+<p>这里面不仅把权限名称都放出来了，就算自己配置打包，也可以拿来做参考，并且也封装成了模块，调用查询用户的功能权限非常的方便！</p>
+<h3 id="插件市场里面我看过or用过比较好的组件"><a href="#插件市场里面我看过or用过比较好的组件" class="headerlink" title="插件市场里面我看过or用过比较好的组件"></a>插件市场里面我看过or用过比较好的组件</h3><p>先后推荐不分排名顺序</p>
+<p>colorUI  我们四个项目，都是以colorUI做的基础样式，他不是一个组件库，是个css样式库，唯一的缺点就是没有太详细的文档，不过源码都在，过一遍基本上也都熟悉了。</p>
+<blockquote>
+<p><a href="https://ext.dcloud.net.cn/plugin?id=239" target="_blank" rel="noopener">ext.dcloud.net.cn/plugin?id=2…</a></p>
+</blockquote>
+<p>===================================<br>uCharts 高性能跨全端图表,基本上所有类型的图表都包含了，而且文档也比较清楚，demo也全面 源码也可以根据自己的需求做改动，我自己在开发的时候也改动过源码，用起来很顺手。</p>
+<blockquote>
+<p><a href="https://ext.dcloud.net.cn/plugin?id=239" target="_blank" rel="noopener">ext.dcloud.net.cn/plugin?id=2…</a></p>
+</blockquote>
+<p>===================================<br>手写签名组件，方便易操作。</p>
+<blockquote>
+<p><a href="https://ext.dcloud.net.cn/plugin?id=331" target="_blank" rel="noopener">ext.dcloud.net.cn/plugin?id=3…</a></p>
+</blockquote>
+<p>===================================<br>答题模版，这个答题模板是基于colorUI做的，我当时自己懒得写了，就直接搬来用。</p>
+<blockquote>
+<p><a href="https://ext.dcloud.net.cn/plugin?id=451" target="_blank" rel="noopener"> ext.dcloud.net.cn/plugin?id=4…</a></p>
+</blockquote>
+<p>===================================<br>ThorUI组件库 这个库是个正儿八经的组件库，里面包含了常规的各种组件，我们也买了graceUI，其实对比一下，大体上不相上下的，有不同的需求也可以直接改源码啥的。</p>
+<blockquote>
+<p><a href="https://ext.dcloud.net.cn/plugin?id=556" target="_blank" rel="noopener">ext.dcloud.net.cn/plugin?id=5…</a></p>
+</blockquote>
+<p>===================================<br>侧边导航 不过侧边导航也实现起来也比较简单，这个是我看到的一个组件，看了下源码，如果是拿来练手实现的话，是个比较好的参照对象。</p>
+<blockquote>
+<p><a href="https://ext.dcloud.net.cn/plugin?id=72" target="_blank" rel="noopener">ext.dcloud.net.cn/plugin?id=7…</a></p>
+</blockquote>
+<p>===================================<br>O2O本地生活模版 这个模板用来快速开发电商项目很好，作者组件封装的很完善，有需求的只要自己改一下就可以用了。</p>
+<blockquote>
+<p><a href="https://ext.dcloud.net.cn/plugin?id=1022" target="_blank" rel="noopener">ext.dcloud.net.cn/plugin?id=1…</a></p>
+</blockquote>
+<p>===================================<br>mescroll的uni版本, 是在 uni-app 运行的下拉刷新和上拉加载的组件 第一个项目用到了他 不过后来我自己封装了一个就没用了。</p>
+<blockquote>
+<p><a href="http://www.mescroll.com/uni.html" target="_blank" rel="noopener">www.mescroll.com/uni.html</a></p>
+</blockquote>
+<p>===================================<br>基于flyio接口封装</p>
+<blockquote>
+<p><a href="https://ext.dcloud.net.cn/plugin?id=561" target="_blank" rel="noopener">ext.dcloud.net.cn/plugin?id=5…</a></p>
+</blockquote>
+<p>===================================<br>腾讯云小程序音视频通讯Uniapp版</p>
+<blockquote>
+<p><a href="https://ext.dcloud.net.cn/plugin?id=1286" target="_blank" rel="noopener">ext.dcloud.net.cn/plugin?id=1…</a></p>
+</blockquote>
+<h2 id="最后还是一句话"><a href="#最后还是一句话" class="headerlink" title="最后还是一句话"></a>最后还是一句话</h2><p>注意各端的差异性，很多东西，h5对着的，上真机就错了,真机好着的，换小程序就错了，不同小程序之间还有差异，总之就是考虑好不同的情况，重点是仔细阅读文档。</p>
+<p>虽然可能一些原生可以实现的功能uniapp实现不了，不过整体开发下来还是比较愉快，很多的坑还是因为多端不兼容，除了写起来麻烦一点，基本上都还是有可以解决的策略。</p>
+<p>也希望uniapp越做越好，各方面越来越完善，为我这种搬砖码农增加一份生存的筹码。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Buy me a cup of coffee,thanks!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="andy Wong 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="andy Wong 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/wxmini/" rel="tag"><i class="fa fa-tag"></i> wxmini</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/07/21/react/react开发34个技巧/" rel="next" title="react开发34个技巧">
+                <i class="fa fa-chevron-left"></i> react开发34个技巧
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/07/21/wxmini/wx页面跳转数据传递/" rel="prev" title="wx页面跳转数据传递">
+                wx页面跳转数据传递 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/doggy.jpg"
+                alt="andy Wong" />
+            
+              <p class="site-author-name" itemprop="name">andy Wong</p>
+              <p class="site-description motion-element" itemprop="description">前端渣渣辉</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/chongdee" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://juejin.cn/" title="掘金" target="_blank">掘金</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://segmentfault.com/" title="segmentfault" target="_blank">segmentfault</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.alloyteam.com/nav/" title="Web前端导航" target="_blank">Web前端导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://docschina.org/" title="印记中文" target="_blank">印记中文</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://es6.ruanyifeng.com/" title="阮一峰ES6书籍" target="_blank">阮一峰ES6书籍</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div> 
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#我认为的坑？"><span class="nav-number">1.</span> <span class="nav-text"><a href="#&#x6211;&#x8BA4;&#x4E3A;&#x7684;&#x5751;&#xFF1F;" class="headerlink" title="&#x6211;&#x8BA4;&#x4E3A;&#x7684;&#x5751;&#xFF1F;"></a>&#x6211;&#x8BA4;&#x4E3A;&#x7684;&#x5751;&#xFF1F;</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#踩坑之旅"><span class="nav-number">2.</span> <span class="nav-text"><a href="#&#x8E29;&#x5751;&#x4E4B;&#x65C5;" class="headerlink" title="&#x8E29;&#x5751;&#x4E4B;&#x65C5;"></a>&#x8E29;&#x5751;&#x4E4B;&#x65C5;</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#像素单位"><span class="nav-number">2.1.</span> <span class="nav-text"><a href="#&#x50CF;&#x7D20;&#x5355;&#x4F4D;" class="headerlink" title="&#x50CF;&#x7D20;&#x5355;&#x4F4D;"></a>&#x50CF;&#x7D20;&#x5355;&#x4F4D;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由"><span class="nav-number">2.2.</span> <span class="nav-text"><a href="#&#x8DEF;&#x7531;" class="headerlink" title="&#x8DEF;&#x7531;"></a>&#x8DEF;&#x7531;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM操作"><span class="nav-number">2.3.</span> <span class="nav-text"><a href="#DOM&#x64CD;&#x4F5C;" class="headerlink" title="DOM&#x64CD;&#x4F5C;"></a>DOM&#x64CD;&#x4F5C;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于请求"><span class="nav-number">2.4.</span> <span class="nav-text"><a href="#&#x5173;&#x4E8E;&#x8BF7;&#x6C42;" class="headerlink" title="&#x5173;&#x4E8E;&#x8BF7;&#x6C42;"></a>&#x5173;&#x4E8E;&#x8BF7;&#x6C42;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导航栏"><span class="nav-number">2.5.</span> <span class="nav-text"><a href="#&#x5BFC;&#x822A;&#x680F;" class="headerlink" title="&#x5BFC;&#x822A;&#x680F;"></a>&#x5BFC;&#x822A;&#x680F;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态的class-style"><span class="nav-number">2.6.</span> <span class="nav-text"><a href="#&#x52A8;&#x6001;&#x7684;class-style" class="headerlink" title="&#x52A8;&#x6001;&#x7684;class style"></a>&#x52A8;&#x6001;&#x7684;class style</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#打开第三方的网址或app"><span class="nav-number">2.7.</span> <span class="nav-text"><a href="#&#x6253;&#x5F00;&#x7B2C;&#x4E09;&#x65B9;&#x7684;&#x7F51;&#x5740;&#x6216;app" class="headerlink" title="&#x6253;&#x5F00;&#x7B2C;&#x4E09;&#x65B9;&#x7684;&#x7F51;&#x5740;&#x6216;app"></a>&#x6253;&#x5F00;&#x7B2C;&#x4E09;&#x65B9;&#x7684;&#x7F51;&#x5740;&#x6216;app</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三方登录"><span class="nav-number">2.8.</span> <span class="nav-text"><a href="#&#x4E09;&#x65B9;&#x767B;&#x5F55;" class="headerlink" title="&#x4E09;&#x65B9;&#x767B;&#x5F55;"></a>&#x4E09;&#x65B9;&#x767B;&#x5F55;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#canvas"><span class="nav-number">2.9.</span> <span class="nav-text"><a href="#canvas" class="headerlink" title="canvas"></a>canvas</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意权限模块与sdk的配置"><span class="nav-number">2.10.</span> <span class="nav-text"><a href="#&#x6CE8;&#x610F;&#x6743;&#x9650;&#x6A21;&#x5757;&#x4E0E;sdk&#x7684;&#x914D;&#x7F6E;" class="headerlink" title="&#x6CE8;&#x610F;&#x6743;&#x9650;&#x6A21;&#x5757;&#x4E0E;sdk&#x7684;&#x914D;&#x7F6E;"></a>&#x6CE8;&#x610F;&#x6743;&#x9650;&#x6A21;&#x5757;&#x4E0E;sdk&#x7684;&#x914D;&#x7F6E;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nvue"><span class="nav-number">2.11.</span> <span class="nav-text"><a href="#nvue" class="headerlink" title="nvue"></a>nvue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#开屏引导"><span class="nav-number">2.12.</span> <span class="nav-text"><a href="#&#x5F00;&#x5C4F;&#x5F15;&#x5BFC;" class="headerlink" title="&#x5F00;&#x5C4F;&#x5F15;&#x5BFC;"></a>&#x5F00;&#x5C4F;&#x5F15;&#x5BFC;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路径别名"><span class="nav-number">2.13.</span> <span class="nav-text"><a href="#&#x8DEF;&#x5F84;&#x522B;&#x540D;" class="headerlink" title="&#x8DEF;&#x5F84;&#x522B;&#x540D;"></a>&#x8DEF;&#x5F84;&#x522B;&#x540D;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件市场和生态"><span class="nav-number">2.14.</span> <span class="nav-text"><a href="#&#x63D2;&#x4EF6;&#x5E02;&#x573A;&#x548C;&#x751F;&#x6001;" class="headerlink" title="&#x63D2;&#x4EF6;&#x5E02;&#x573A;&#x548C;&#x751F;&#x6001;"></a>&#x63D2;&#x4EF6;&#x5E02;&#x573A;&#x548C;&#x751F;&#x6001;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#压缩图片"><span class="nav-number">2.15.</span> <span class="nav-text"><a href="#&#x538B;&#x7F29;&#x56FE;&#x7247;" class="headerlink" title="&#x538B;&#x7F29;&#x56FE;&#x7247;"></a>&#x538B;&#x7F29;&#x56FE;&#x7247;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#app推送"><span class="nav-number">2.16.</span> <span class="nav-text"><a href="#app&#x63A8;&#x9001;" class="headerlink" title="app&#x63A8;&#x9001;"></a>app&#x63A8;&#x9001;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语音播报"><span class="nav-number">2.17.</span> <span class="nav-text"><a href="#&#x8BED;&#x97F3;&#x64AD;&#x62A5;" class="headerlink" title="&#x8BED;&#x97F3;&#x64AD;&#x62A5;"></a>&#x8BED;&#x97F3;&#x64AD;&#x62A5;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直播"><span class="nav-number">2.18.</span> <span class="nav-text"><a href="#&#x76F4;&#x64AD;" class="headerlink" title="&#x76F4;&#x64AD;"></a>&#x76F4;&#x64AD;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#App权限"><span class="nav-number">2.19.</span> <span class="nav-text"><a href="#App&#x6743;&#x9650;" class="headerlink" title="App&#x6743;&#x9650;"></a>App&#x6743;&#x9650;</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插件市场里面我看过or用过比较好的组件"><span class="nav-number">2.20.</span> <span class="nav-text"><a href="#&#x63D2;&#x4EF6;&#x5E02;&#x573A;&#x91CC;&#x9762;&#x6211;&#x770B;&#x8FC7;or&#x7528;&#x8FC7;&#x6BD4;&#x8F83;&#x597D;&#x7684;&#x7EC4;&#x4EF6;" class="headerlink" title="&#x63D2;&#x4EF6;&#x5E02;&#x573A;&#x91CC;&#x9762;&#x6211;&#x770B;&#x8FC7;or&#x7528;&#x8FC7;&#x6BD4;&#x8F83;&#x597D;&#x7684;&#x7EC4;&#x4EF6;"></a>&#x63D2;&#x4EF6;&#x5E02;&#x573A;&#x91CC;&#x9762;&#x6211;&#x770B;&#x8FC7;or&#x7528;&#x8FC7;&#x6BD4;&#x8F83;&#x597D;&#x7684;&#x7EC4;&#x4EF6;</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后还是一句话"><span class="nav-number">3.</span> <span class="nav-text"><a href="#&#x6700;&#x540E;&#x8FD8;&#x662F;&#x4E00;&#x53E5;&#x8BDD;" class="headerlink" title="&#x6700;&#x540E;&#x8FD8;&#x662F;&#x4E00;&#x53E5;&#x8BDD;"></a>&#x6700;&#x540E;&#x8FD8;&#x662F;&#x4E00;&#x53E5;&#x8BDD;</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">Copyright &copy; 2015 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span>Powered By -</span>
+  <span class="author" itemprop="copyrightHolder">andy Wong</span>
+
+  
+</div>
+
+
+  <div>Theme by &copy;next</div>
+
+
+<div>Hosted by <strong><a href="https://github.com/">Github Pages</a></strong></div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.3"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":true,"debug":false,"model":{"jsonPath":"/live2dw/assets/hibiki.model.json"},"display":{"position":"left","width":145,"height":315},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.8},"log":false});</script>
+</body>
+</html>
